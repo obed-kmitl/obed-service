@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS teachers CASCADE;
+-- DROP TABLE IF EXISTS teachers CASCADE;
 DROP TYPE IF EXISTS prefix_enum;
 DROP TYPE IF EXISTS role_enum;
 
 CREATE TYPE prefix_enum AS ENUM ('Professor','Assistant');
-CREATE TYPE role_enum AS ENUM ('Admin','Teacher');
+CREATE TYPE role_enum AS ENUM ('admin','teacher');
 CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
   email VARCHAR(50) UNIQUE NOT NULL,
@@ -19,14 +19,14 @@ CREATE TABLE users(
 	created_date TIMESTAMP
 );
 
-CREATE TABLE teachers(
-	section_id SERIAL PRIMARY KEY,
-	teacher_id INT,
-  CONSTRAINT fk_user
-   FOREIGN KEY(teacher_id) 
-      REFERENCES users(user_id)
-			ON DELETE CASCADE
-);
+-- CREATE TABLE teachers(
+-- 	section_id SERIAL PRIMARY KEY,
+-- 	teacher_id INT,
+--   CONSTRAINT fk_user
+--    FOREIGN KEY(teacher_id) 
+--       REFERENCES users(user_id)
+-- 			ON DELETE CASCADE
+-- );
 
 INSERT INTO users (
   email,
@@ -46,4 +46,5 @@ INSERT INTO users (
 	'Teacher'
 );
 
-INSERT INTO teachers(teacher_id) VALUES (1);
+-- INSERT INTO teachers(teacher_id) VALUES (1);
+

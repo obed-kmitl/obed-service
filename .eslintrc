@@ -17,6 +17,6 @@
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "import/extensions": "off",
     "import/no-unresolved": "off",
-    "files": ["src/**/*.ts"]
+    "import/prefer-default-export": "off"
   }
 }
