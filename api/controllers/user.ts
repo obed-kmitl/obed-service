@@ -1,7 +1,7 @@
 import express from 'express';
-import asyncWrapper from '_/middleware/async-wrapper';
+// import asyncWrapper from '_/middleware/async-wrapper';
 
-const { router } = express;
+const router = express.Router();
 
 // router.post('/signup',
 // 	asyncWrapper(async (req, res) => {

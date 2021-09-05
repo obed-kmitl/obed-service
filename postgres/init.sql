@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS users CASCADE;
--- DROP TABLE IF EXISTS teachers CASCADE;
 DROP TYPE IF EXISTS prefix_enum;
 DROP TYPE IF EXISTS role_enum;
 
@@ -16,7 +15,8 @@ CREATE TABLE users(
 	g_auth_code VARCHAR(50),
 	verified BOOLEAN DEFAULT FALSE,
 	role role_enum,
-	created_date TIMESTAMP
+	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- CREATE TABLE teachers(
@@ -43,7 +43,7 @@ INSERT INTO users (
 	'Professor',
 	'TeacherTestFN',
 	'TeacherTestLN',
-	'Teacher'
+	'teacher'
 );
 
 -- INSERT INTO teachers(teacher_id) VALUES (1);

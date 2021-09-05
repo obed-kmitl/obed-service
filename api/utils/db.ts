@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import dbConfig from '_/config/database';
+import dbConfig from '_/config/db';
 import logger from '_/middleware/logger';
 
 /**

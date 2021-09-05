@@ -1,28 +1,24 @@
 import db from '_/utils/db';
-import logger from '_/middleware/logger';
+import { UserInfoDTO, UserInfoArrayDTO } from '_/dtos/user';
+import { QueryResult } from 'pg';
 
-const createUser = async () => {
-	const cols = [
-		'teacher2@teacher.com',
-		'teacher2',
-		'password',
-		'Professor',
-		'TeacherTestFN',
-		'TeacherTestLN',
-		'Teacher',
+const register = async (userInfo: UserInfoDTO): Promise<QueryResult> => {
+	const userInfoValues: UserInfoArrayDTO = [
+		userInfo.email,
+		userInfo.username,
+		userInfo.password,
+		userInfo.prefix,
+		userInfo.firstname,
+		userInfo.lastname,
+		userInfo.role,
 	];
 
-	await db.query('INSERT INTO users (email,username,password,prefix,firstname,lastname,role) VALUES ($1, $2, $3, $4, $5, $6, $7)', cols)
-		.catch((err) => logger.info(err));
-};
-
-const findAllTeachers = async () => {
-	// const res = await db
-	// .query('SELECT * FROM teachers INNER JOIN users ON user_id = teacher_id', []);
-	// console.log(res.rows);
+	return db.query('INSERT INTO users (email,username,password,prefix,firstname,lastname,role) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+		userInfoValues)
+		.then((res: QueryResult) => res.rows[0])
+		.catch((err: Error) => { throw err; });
 };
 
 export default {
-	createUser,
-	findAllTeachers,
+	register,
 };

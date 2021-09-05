@@ -34,3 +34,8 @@
 2021-08-14 20:26:06:266 error: logger created!
 2021-08-14 20:26:13:2613 error: logger created!
 2021-08-14 20:26:17:2617 error: logger created!
+2021-09-05 08:22:14:2214 error: Query values must be an array
+2021-09-05 08:28:07:287 error: duplicate key value violates unique constraint "users_username_key"
+2021-09-05 09:06:18:618 error: duplicate key value violates unique constraint "users_email_key"
+2021-09-05 13:16:46:1646 error: duplicate key value violates unique constraint "users_email_key"
+2021-09-05 15:22:14:2214 error: duplicate key value violates unique constraint "users_email_key"

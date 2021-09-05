@@ -105,3 +105,117 @@
   "duration": 23,
   "rows": 1
 }
+2021-09-05 07:57:54:5754 info: winston logger created!
+2021-09-05 07:57:54:5754 info: Server is listening 3001 port.
+2021-09-05 08:06:16:616 info: winston logger created!
+2021-09-05 08:06:16:616 info: Server is listening 3001 port.
+2021-09-05 08:09:16:916 info: winston logger created!
+2021-09-05 08:09:16:916 info: Server is listening 3001 port.
+2021-09-05 08:09:27:927 info: winston logger created!
+2021-09-05 08:09:27:927 info: Server is listening 3001 port.
+2021-09-05 08:10:00:100 info: winston logger created!
+2021-09-05 08:10:00:100 info: Server is listening 3001 port.
+2021-09-05 08:10:44:1044 info: winston logger created!
+2021-09-05 08:10:44:1044 info: Server is listening 3001 port.
+2021-09-05 08:10:52:1052 info: Query values must be an array
+2021-09-05 08:20:40:2040 info: winston logger created!
+2021-09-05 08:20:40:2040 info: Server is listening 3001 port.
+2021-09-05 08:20:45:2045 info: Query values must be an array
+2021-09-05 08:20:59:2059 info: winston logger created!
+2021-09-05 08:20:59:2059 info: Server is listening 3001 port.
+2021-09-05 08:22:10:2210 info: winston logger created!
+2021-09-05 08:22:10:2210 info: Server is listening 3001 port.
+2021-09-05 08:22:14:2214 error: Query values must be an array
+2021-09-05 08:24:37:2437 info: winston logger created!
+2021-09-05 08:24:37:2437 info: Server is listening 3001 port.
+2021-09-05 08:24:39:2439 info: executed query
+2021-09-05 08:28:01:281 info: winston logger created!
+2021-09-05 08:28:01:281 info: Server is listening 3001 port.
+2021-09-05 08:28:07:287 error: duplicate key value violates unique constraint "users_username_key"
+2021-09-05 08:28:13:2813 info: executed query
+2021-09-05 08:28:52:2852 info: winston logger created!
+2021-09-05 08:28:52:2852 info: Server is listening 3001 port.
+2021-09-05 08:28:56:2856 info: executed query
+2021-09-05 08:44:29:4429 info: winston logger created!
+2021-09-05 08:44:29:4429 info: Server is listening 3001 port.
+2021-09-05 08:45:57:4557 info: winston logger created!
+2021-09-05 08:45:57:4557 info: Server is listening 3001 port.
+2021-09-05 08:46:21:4621 info: winston logger created!
+2021-09-05 08:46:21:4621 info: Server is listening 3001 port.
+2021-09-05 08:46:27:4627 info: winston logger created!
+2021-09-05 08:46:27:4627 info: Server is listening 3001 port.
+2021-09-05 08:47:18:4718 info: winston logger created!
+2021-09-05 08:47:18:4718 info: Server is listening 3001 port.
+2021-09-05 08:52:39:5239 info: executed query
+2021-09-05 09:06:18:618 error: duplicate key value violates unique constraint "users_email_key"
+2021-09-05 09:06:24:624 info: executed query
+2021-09-05 13:16:42:1642 info: winston logger created!
+2021-09-05 13:16:42:1642 info: Server is listening 3001 port.
+2021-09-05 13:16:46:1646 error: duplicate key value violates unique constraint "users_email_key"
+2021-09-05 13:16:50:1650 info: executed query
+2021-09-05 13:17:05:175 info: winston logger created!
+2021-09-05 13:17:05:175 info: Server is listening 3001 port.
+2021-09-05 13:19:48:1948 info: winston logger created!
+2021-09-05 13:19:48:1948 info: Server is listening 3001 port.
+2021-09-05 13:19:57:1957 info: executed query
+2021-09-05 13:20:49:2049 info: winston logger created!
+2021-09-05 13:20:49:2049 info: Server is listening 3001 port.
+2021-09-05 13:20:54:2054 info: executed query
+2021-09-05 13:21:48:2148 info: winston logger created!
+2021-09-05 13:21:48:2148 info: Server is listening 3001 port.
+2021-09-05 13:21:56:2156 info: executed query
+2021-09-05 13:22:40:2240 info: winston logger created!
+2021-09-05 13:22:40:2240 info: Server is listening 3001 port.
+2021-09-05 13:22:44:2244 info: executed query
+2021-09-05 13:22:56:2256 info: winston logger created!
+2021-09-05 13:22:56:2256 info: Server is listening 3001 port.
+2021-09-05 13:23:07:237 info: winston logger created!
+2021-09-05 13:23:07:237 info: Server is listening 3001 port.
+2021-09-05 13:23:12:2312 info: executed query
+2021-09-05 13:24:25:2425 info: winston logger created!
+2021-09-05 13:24:26:2426 info: Server is listening 3001 port.
+2021-09-05 13:24:30:2430 info: winston logger created!
+2021-09-05 13:24:30:2430 info: Server is listening 3001 port.
+2021-09-05 13:24:37:2437 info: winston logger created!
+2021-09-05 13:24:37:2437 info: Server is listening 3001 port.
+2021-09-05 13:24:50:2450 info: executed query
+2021-09-05 15:22:11:2211 info: winston logger created!
+2021-09-05 15:22:11:2211 info: Server is listening 3001 port.
+2021-09-05 15:22:14:2214 error: duplicate key value violates unique constraint "users_email_key"
+2021-09-05 15:22:19:2219 info: executed query
+2021-09-05 15:23:46:2346 info: winston logger created!
+2021-09-05 15:23:46:2346 info: Server is listening 3001 port.
+2021-09-05 15:24:02:242 info: winston logger created!
+2021-09-05 15:24:02:242 info: Server is listening 3001 port.
+2021-09-05 15:24:17:2417 info: winston logger created!
+2021-09-05 15:24:17:2417 info: Server is listening 3001 port.
+2021-09-05 15:24:56:2456 info: winston logger created!
+2021-09-05 15:24:56:2456 info: Server is listening 3001 port.
+2021-09-05 15:25:24:2524 info: winston logger created!
+2021-09-05 15:25:24:2524 info: Server is listening 3001 port.
+2021-09-05 15:27:16:2716 info: winston logger created!
+2021-09-05 15:27:16:2716 info: Server is listening 3001 port.
+2021-09-05 15:27:44:2744 info: winston logger created!
+2021-09-05 15:27:45:2745 info: Server is listening 3001 port.
+2021-09-05 15:27:50:2750 info: winston logger created!
+2021-09-05 15:27:50:2750 info: Server is listening 3001 port.
+2021-09-05 15:28:05:285 info: winston logger created!
+2021-09-05 15:28:05:285 info: Server is listening 3001 port.
+2021-09-05 15:28:14:2814 info: winston logger created!
+2021-09-05 15:28:14:2814 info: Server is listening 3001 port.
+2021-09-05 15:28:58:2858 info: winston logger created!
+2021-09-05 15:28:58:2858 info: Server is listening 3001 port.
+2021-09-05 15:29:10:2910 info: winston logger created!
+2021-09-05 15:29:10:2910 info: Server is listening 3001 port.
+2021-09-05 15:29:12:2912 info: winston logger created!
+2021-09-05 15:29:12:2912 info: Server is listening 3001 port.
+2021-09-05 15:29:19:2919 info: winston logger created!
+2021-09-05 15:29:19:2919 info: Server is listening 3001 port.
+2021-09-05 15:29:59:2959 info: winston logger created!
+2021-09-05 15:29:59:2959 info: Server is listening 3001 port.
+2021-09-05 15:32:52:3252 info: winston logger created!
+2021-09-05 15:32:52:3252 info: Server is listening 3001 port.
+2021-09-05 15:35:45:3545 info: winston logger created!
+2021-09-05 15:35:45:3545 info: Server is listening 3001 port.
+2021-09-05 17:59:13:5913 info: winston logger created!
+2021-09-05 17:59:13:5913 info: Server is listening 3001 port.

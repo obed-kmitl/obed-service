@@ -1,5 +1,6 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import logger from '_/middleware/logger';
+import controllers from '_/controllers';
 import { userRepository } from './repositories';
 
 const server = express(); // init the application
@@ -14,13 +15,13 @@ userRepository.findAllTeachers();
  */
 server.set('port', process.env.PORT || 3001);
 
+// middileware
+server.use(express.json());
+
 /**
  * Method to configure the routes
  */
-server.get('/', (req: Request, res: Response) => {
-	res.send('Hello world!');
-});
-// server.use('/obed/api', controllers);
+server.use('/obed/api', controllers);
 
 /**
  * Used to start the server
