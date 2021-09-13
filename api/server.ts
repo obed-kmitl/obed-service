@@ -1,5 +1,5 @@
 import express from 'express';
-import logger from '_/middleware/logger';
+import logger from '_/utils/logger';
 import routes from '_/routes';
 
 const server = express(); // init the application

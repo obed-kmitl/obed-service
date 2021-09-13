@@ -27,6 +27,22 @@ const create = async (userInfo: UserInputDTO): Promise<QueryResultRow> => {
 	return resultRow;
 };
 
+const findOne = async (
+	userId: number,
+): Promise<QueryResultRow> => {
+	const userIdArray = [userId];
+
+	const result: QueryResult = await db.query(`
+		SELECT *, role::text[]
+		FROM users 
+		WHERE user_id = $1
+	`, userIdArray);
+
+	const resultRow: QueryResultRow = result.rows[0];
+
+	return resultRow;
+};
+
 const findOneByUsername = async (
 	username: string,
 ): Promise<QueryResultRow> => {
@@ -46,4 +62,5 @@ const findOneByUsername = async (
 export default {
 	create,
 	findOneByUsername,
+	findOne,
 };

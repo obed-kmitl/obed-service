@@ -514,3 +514,68 @@
 2021-09-12 18:19:49:1949 info: redis client connected
 2021-09-13 14:48:07:487 info: winston logger created!
 2021-09-13 14:48:07:487 info: Server is listening 3001 port.
+2021-09-13 14:54:16:5416 info: winston logger created!
+2021-09-13 14:54:16:5416 info: Server is listening 3001 port.
+2021-09-13 14:54:37:5437 info: winston logger created!
+2021-09-13 14:54:38:5438 info: Server is listening 3001 port.
+2021-09-13 14:54:38:5438 info: redis client connected
+2021-09-13 14:55:35:5535 info: winston logger created!
+2021-09-13 14:55:35:5535 info: 
+2021-09-13 14:55:35:5535 info: Server is listening 3001 port.
+2021-09-13 14:55:35:5535 info: redis client connected
+2021-09-13 14:56:00:560 info: winston logger created!
+2021-09-13 14:56:00:560 info: Database connected
+2021-09-13 14:56:00:560 info: Server is listening 3001 port.
+2021-09-13 14:56:00:560 info: redis client connected
+2021-09-13 14:56:14:5614 info: winston logger created!
+2021-09-13 14:56:14:5614 info: Postgres Database connected
+2021-09-13 14:56:14:5614 info: Server is listening 3001 port.
+2021-09-13 14:56:14:5614 info: redis client connected
+2021-09-13 14:56:24:5624 info: winston logger created!
+2021-09-13 14:56:24:5624 info: Postgres Database connected
+2021-09-13 14:56:24:5624 info: Server is listening 3001 port.
+2021-09-13 14:56:24:5624 info: redis client connected
+2021-09-13 14:56:36:5636 info: winston logger created!
+2021-09-13 14:56:36:5636 info: Postgres Database connected
+2021-09-13 14:56:37:5637 info: Server is listening 3001 port.
+2021-09-13 14:56:37:5637 info: Redis client connected
+2021-09-13 14:56:42:5642 info: winston logger created!
+2021-09-13 14:56:42:5642 info: Postgres Database connected
+2021-09-13 14:56:42:5642 info: Server is listening 3001 port.
+2021-09-13 14:56:42:5642 info: Redis Client connected
+2021-09-13 14:56:54:5654 info: Winston Logger Created!
+2021-09-13 14:56:54:5654 info: Postgres Database connected
+2021-09-13 14:56:55:5655 info: Server is listening 3001 port.
+2021-09-13 14:56:55:5655 info: Redis Client connected
+2021-09-13 14:57:09:579 info: Winston Logger Created!
+2021-09-13 14:57:09:579 info: Postgres Database connected
+2021-09-13 14:57:09:579 info: Server is listening 3001 port.
+2021-09-13 14:57:09:579 info: Redis Client connected
+2021-09-13 14:59:39:5939 info: Winston Logger Created!
+2021-09-13 14:59:39:5939 info: Postgres Database connected
+2021-09-13 14:59:39:5939 info: Server is listening 3001 port.
+2021-09-13 14:59:39:5939 info: Redis Client connected
+2021-09-13 15:06:36:636 info: Winston Logger Created!
+2021-09-13 15:06:36:636 info: Postgres Database connected
+2021-09-13 15:06:36:636 info: Server is listening 3001 port.
+2021-09-13 15:06:36:636 info: Redis Client connected
+2021-09-13 15:12:10:1210 info: Winston Logger Created!
+2021-09-13 15:12:10:1210 info: Postgres Database connected
+2021-09-13 15:12:10:1210 info: Server is listening 3001 port.
+2021-09-13 15:12:10:1210 info: Redis Client connected
+2021-09-13 15:13:25:1325 info: Winston Logger Created!
+2021-09-13 15:13:25:1325 info: Postgres Database connected
+2021-09-13 15:13:26:1326 info: Server is listening 3001 port.
+2021-09-13 15:13:26:1326 info: Redis Client connected
+2021-09-13 15:41:14:4114 info: Winston Logger Created!
+2021-09-13 15:41:14:4114 info: Postgres Database connected
+2021-09-13 15:41:14:4114 info: Server is listening 3001 port.
+2021-09-13 15:41:14:4114 info: Redis Client connected
+2021-09-13 15:41:19:4119 info: Winston Logger Created!
+2021-09-13 15:41:19:4119 info: Postgres Database connected
+2021-09-13 15:41:19:4119 info: Server is listening 3001 port.
+2021-09-13 15:41:19:4119 info: Redis Client connected
+2021-09-13 15:45:52:4552 info: Winston Logger Created!
+2021-09-13 15:45:52:4552 info: Postgres Database connected
+2021-09-13 15:45:53:4553 info: Server is listening 3001 port.
+2021-09-13 15:45:53:4553 info: Redis Client connected

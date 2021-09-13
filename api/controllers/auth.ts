@@ -103,13 +103,13 @@ const login = async (req: Request, res: Response): Promise<Response> => {
  */
 const logout = async (req: Request, res: Response) => {
 	const { userId } = req.body;
-	const { authorization } = req.headers;
+	const accessToken = req.headers['x-access-token'];
 
 	// remove the refresh token
 	await redisClient.del(userId.toString());
 
 	// blacklist current access token
-	await redisClient.setAsync(`BL_${userId.toString()}`, authorization.split(' ')[1]);
+	await redisClient.setAsync(`BL_${userId.toString()}`, accessToken.split(' ')[1]);
 
 	return res.json({ success: true, message: 'Logout Success.' });
 };
