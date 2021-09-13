@@ -1,12 +1,8 @@
 import express from 'express';
 import logger from '_/middleware/logger';
-import controllers from '_/controllers';
-import { userRepository } from './repositories';
+import routes from '_/routes';
 
 const server = express(); // init the application
-
-// userRepository.createUser();
-userRepository.findAllTeachers();
 
 /**
  * Method to configure the server,
@@ -21,7 +17,7 @@ server.use(express.json());
 /**
  * Method to configure the routes
  */
-server.use('/obed/api', controllers);
+server.use('/obed/api', routes);
 
 /**
  * Used to start the server
