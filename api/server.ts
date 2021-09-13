@@ -1,11 +1,8 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import logger from '_/middleware/logger';
-import { userRepository } from './repositories';
+import routes from '_/routes';
 
 const server = express(); // init the application
-
-// userRepository.createUser();
-userRepository.findAllTeachers();
 
 /**
  * Method to configure the server,
@@ -14,13 +11,13 @@ userRepository.findAllTeachers();
  */
 server.set('port', process.env.PORT || 3001);
 
+// middileware
+server.use(express.json());
+
 /**
  * Method to configure the routes
  */
-server.get('/', (req: Request, res: Response) => {
-	res.send('Hello world!');
-});
-// server.use('/obed/api', controllers);
+server.use('/obed/api', routes);
 
 /**
  * Used to start the server

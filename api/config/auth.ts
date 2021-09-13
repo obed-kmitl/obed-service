@@ -7,6 +7,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 
 const authConfig = {
 	development: {
+		salt: Number(env.AUTH_SALT),
 		secret: env.AUTH_SECRET,
 		// jwtExpiration: 3600,         // 1 hour
 		// jwtRefreshExpiration: 86400, // 24 hours

@@ -17,6 +17,9 @@
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "import/extensions": "off",
     "import/no-unresolved": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "no-unused-vars": "warn",
+    "camelcase": "warn",
+    "max-classes-per-file": "off"
   }
 }

@@ -1,28 +1,49 @@
 import db from '_/utils/db';
-import logger from '_/middleware/logger';
+import {
+	UserInputDTO,
+} from '_/dtos/user';
 
-const createUser = async () => {
-	const cols = [
-		'teacher2@teacher.com',
-		'teacher2',
-		'password',
-		'Professor',
-		'TeacherTestFN',
-		'TeacherTestLN',
-		'Teacher',
+import { QueryResult, QueryResultRow } from 'pg';
+
+const create = async (userInfo: UserInputDTO): Promise<QueryResultRow> => {
+	const userInfoArray = [
+		userInfo.email,
+		userInfo.username,
+		userInfo.password,
+		userInfo.prefix,
+		userInfo.firstname,
+		userInfo.lastname,
+		userInfo.role,
 	];
 
-	await db.query('INSERT INTO users (email,username,password,prefix,firstname,lastname,role) VALUES ($1, $2, $3, $4, $5, $6, $7)', cols)
-		.catch((err) => logger.info(err));
+	const result: QueryResult = await db.query(`
+		INSERT INTO users (email,username,password,prefix,firstname,lastname,role) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
+		RETURNING email,username,prefix,firstname,lastname,role::text[]
+		`, userInfoArray);
+
+	const resultRow : QueryResultRow = result.rows[0];
+
+	return resultRow;
 };
 
-const findAllTeachers = async () => {
-	// const res = await db
-	// .query('SELECT * FROM teachers INNER JOIN users ON user_id = teacher_id', []);
-	// console.log(res.rows);
+const findOneByUsername = async (
+	username: string,
+): Promise<QueryResultRow> => {
+	const usernameArray = [username];
+
+	const result: QueryResult = await db.query(`
+		SELECT *, role::text[]
+		FROM users 
+		WHERE username = $1
+	`, usernameArray);
+
+	const resultRow: QueryResultRow = result.rows[0];
+
+	return resultRow;
 };
 
 export default {
-	createUser,
-	findAllTeachers,
+	create,
+	findOneByUsername,
 };
