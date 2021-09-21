@@ -3,6 +3,7 @@ import userRepository from '_/repositories/user';
 import {
 	UserDTO,
 } from '_/dtos/user';
+import { extractToken } from '_/utils/extractToken';
 
 import jwt from 'jsonwebtoken';
 import { Response } from 'express';
@@ -19,7 +20,7 @@ const catchError = (err, res) => {
 };
 
 const verifyToken = (req, res, next) : Response => {
-	const accessToken = req.headers['x-access-token'];
+	const accessToken = extractToken(req);
 
 	if (!accessToken) {
 		return res.status(403).send({ message: 'No token provided!' });
@@ -37,7 +38,7 @@ const verifyToken = (req, res, next) : Response => {
 const permit = (...permittedRoles) => async (req, res, next) => {
 	const { userId } = req;
 
-	const result: QueryResultRow = await userRepository.findOne(userId);
+	const result: QueryResultRow = await userRepository.find(userId);
 
 	const user = new UserDTO(
 		result.user_id,
@@ -57,10 +58,12 @@ const permit = (...permittedRoles) => async (req, res, next) => {
 		return res.status(404).send({ message: 'User Not found.' });
 	}
 
-	if (permittedRoles.includes(user.role)) {
+	const hasPermission:boolean = permittedRoles.every((val) => user.role.includes(val));
+
+	if (hasPermission) {
 		next(); // role is allowed, so continue on the next middleware
 	} else {
-		res.status(403).json({ message: 'Forbidden' }); // user is forbidden
+		res.status(403).json({ message: 'No permission!' }); // user is forbidden
 	}
 };
 

@@ -12,7 +12,7 @@ const pool = new Pool(dbConfig);
 logger.info('Postgres Database connected');
 
 export default {
-	async query(text, params) {
+	async query(text, params?) {
 		const start = Date.now();
 		const res = await pool.query(text, params);
 		const duration = Date.now() - start;
