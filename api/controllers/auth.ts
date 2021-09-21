@@ -7,6 +7,7 @@ import {
 import authConfig from '_/config/auth';
 import authToken from '_/utils/token';
 import redisClient from '_/utils/redis';
+import { extractToken } from '_/utils/extractToken';
 
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
@@ -30,7 +31,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
 		['TEACHER'],
 	);
 
-	const result = await userRepository.create(userInfoInput);
+	const result = await userRepository.createUser(userInfoInput);
 
 	const user = new UserOutputDTO(
 		result.user_id,
@@ -39,7 +40,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
 		result.prefix,
 		result.firstname,
 		result.lastname,
-		result.g_auth_co,
+		result.g_auth_code,
 		result.role,
 		result.created_at,
 		result.updated_at,
@@ -49,7 +50,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
- * Login and verify TEACHER role from middleware
+ * Login with TEACHER role
  * @param {Request} req HTTP request
  * @param {Response} res HTTP response
  * @returns {Response} HTTP response
@@ -57,7 +58,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
 const login = async (req: Request, res: Response): Promise<Response> => {
 	const usernameInput: string = req.body.username;
 
-	const result: QueryResultRow = await userRepository.findOneByUsername(usernameInput);
+	const result: QueryResultRow = await userRepository.findByUsername(usernameInput);
 
 	const user = new UserDTO(
 		result.user_id,
@@ -67,7 +68,7 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 		result.prefix,
 		result.firstname,
 		result.lastname,
-		result.g_auth_co,
+		result.g_auth_code,
 		result.role,
 		result.created_at,
 		result.updated_at,
@@ -75,6 +76,12 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 
 	if (!user) {
 		return res.status(404).send({ message: 'User Not found.' });
+	}
+
+	if (!user.role.includes('TEACHER')) {
+		return res.status(401).send({
+			message: 'No permission!',
+		});
 	}
 
 	const passwordIsValid = bcrypt.compareSync(
@@ -96,6 +103,58 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
+ * Login with ADMIN role
+ * @param {Request} req HTTP request
+ * @param {Response} res HTTP response
+ * @returns {Response} HTTP response
+ */
+const adminLogin = async (req: Request, res: Response): Promise<Response> => {
+	const usernameInput: string = req.body.username;
+
+	const result: QueryResultRow = await userRepository.findByUsername(usernameInput);
+
+	const user = new UserDTO(
+		result.user_id,
+		result.email,
+		result.username,
+		result.password,
+		result.prefix,
+		result.firstname,
+		result.lastname,
+		result.g_auth_code,
+		result.role,
+		result.created_at,
+		result.updated_at,
+	);
+
+	if (!user) {
+		return res.status(404).send({ message: 'User Not found.' });
+	}
+
+	if (!user.role.includes('ADMIN')) {
+		return res.status(401).send({
+			message: 'No permission!',
+		});
+	}
+
+	const passwordIsValid = bcrypt.compareSync(
+		req.body.password,
+		user.password,
+	);
+
+	if (!passwordIsValid) {
+		return res.status(401).send({
+			message: 'Invalid Password!',
+		});
+	}
+
+	const accessToken = await authToken.GenerateAccessToken(user.user_id);
+	const refreshToken = await authToken.GenerateRefreshToken(user.user_id);
+
+	return res.status(200).json({ success: true, message: 'Login Success', data: { accessToken, refreshToken } });
+};
+
+/**
  * Logout with any role
  * @param {Request} req HTTP request
  * @param {Response} res HTTP response
@@ -103,13 +162,13 @@ const login = async (req: Request, res: Response): Promise<Response> => {
  */
 const logout = async (req: Request, res: Response) => {
 	const { userId } = req.body;
-	const { authorization } = req.headers;
+	const accessToken = extractToken(req);
 
 	// remove the refresh token
 	await redisClient.del(userId.toString());
 
 	// blacklist current access token
-	await redisClient.setAsync(`BL_${userId.toString()}`, authorization.split(' ')[1]);
+	await redisClient.setAsync(`BL_${userId.toString()}`, accessToken);
 
 	return res.json({ success: true, message: 'Logout Success.' });
 };
@@ -149,9 +208,59 @@ const getAccessToken = async (req: Request, res: Response) => {
 	});
 };
 
+const updatePassword = async (req: Request, res: Response): Promise<Response> => {
+	const { userId } = req;
+	const { oldPassword, newPassword } = req.body;
+
+	const result : QueryResultRow = await userRepository.findWithPassword(userId);
+
+	const user = new UserDTO(
+		result.user_id,
+		result.email,
+		result.username,
+		result.password,
+		result.prefix,
+		result.firstname,
+		result.lastname,
+		result.g_auth_co,
+		result.role,
+		result.created_at,
+		result.updated_at,
+	);
+
+	if (!user) {
+		return res.status(404).send({ message: 'User Not found.' });
+	}
+
+	if (oldPassword === newPassword) {
+		return res.status(401).send({
+			message: 'Duplicated Password!',
+		});
+	}
+
+	const passwordIsValid = bcrypt.compareSync(
+		oldPassword,
+		user.password,
+	);
+
+	if (!passwordIsValid) {
+		return res.status(401).send({
+			message: 'Invalid Password!',
+		});
+	}
+
+	const newPasswordHash = bcrypt.hashSync(newPassword, authConfig.salt);
+
+	await userRepository.updatePassword(userId, newPasswordHash);
+
+	return res.status(200).json({ success: true, message: 'Update password success!' });
+};
+
 export default {
 	register,
 	login,
+	adminLogin,
 	logout,
 	getAccessToken,
+	updatePassword,
 };

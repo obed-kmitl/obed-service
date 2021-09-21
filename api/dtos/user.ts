@@ -108,3 +108,12 @@ export class UserOutputDTO extends User {
 		this.updated_at = updated_at;
 	}
 }
+
+export class UserArrayOutputDTO extends User {
+	userArray :UserOutputDTO[]
+
+	constructor(userArray :UserOutputDTO[]) {
+		super();
+		this.userArray = userArray;
+	}
+}

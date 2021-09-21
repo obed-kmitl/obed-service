@@ -90,7 +90,7 @@ const createLogger = () => {
 		),
 	});
 
-	logger.info('winston logger created!');
+	logger.info('Winston Logger Created!');
 
 	return logger;
 };
