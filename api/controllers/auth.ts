@@ -24,7 +24,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
 	const userInfoInput = new UserInputDTO(
 		req.body.email,
 		req.body.username,
-		bcrypt.hashSync(req.body.password, authConfig.salt),
+		bcrypt.hashSync('password', authConfig.salt),
 		req.body.prefix,
 		req.body.firstname,
 		req.body.lastname,
@@ -161,7 +161,7 @@ const adminLogin = async (req: Request, res: Response): Promise<Response> => {
  * @returns {Response} HTTP response
  */
 const logout = async (req: Request, res: Response) => {
-	const { userId } = req.body;
+	const { userId } = req;
 	const accessToken = extractToken(req);
 
 	// remove the refresh token
@@ -180,7 +180,10 @@ const logout = async (req: Request, res: Response) => {
  * @returns {Response} HTTP response
  */
 const getAccessToken = async (req: Request, res: Response) => {
-	const { user_id: userId, refreshToken: requestToken } = req.body;
+	console.log(req);
+	const { userId } = req.params;
+
+	const { refreshToken: requestToken } = req.body;
 
 	if (requestToken == null) {
 		return res.status(403).json({ message: 'Refresh Token is required!' });

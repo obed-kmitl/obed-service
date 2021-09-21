@@ -7,8 +7,8 @@ const router = express.Router();
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/adminLogin', authController.adminLogin);
-router.get('/logout', authController.logout);
-router.get('/getAccessToken', authController.getAccessToken);
+router.get('/logout', [authMiddleware.verifyToken], authController.logout);
+router.get('/getAccessToken/:userId', authController.getAccessToken);
 router.put('/updatePassword', [authMiddleware.verifyToken, authMiddleware.permit('ADMIN', 'TEACHER')], authController.updatePassword);
 
 export default router;
