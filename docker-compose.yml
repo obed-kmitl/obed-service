@@ -16,5 +16,6 @@ services:
   redis:
     image: redis:latest
     container_name: obed-cache
+    restart: always # every time start-up will restart
     ports:
       - "6379:6379"

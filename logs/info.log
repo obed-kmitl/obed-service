@@ -1043,3 +1043,6 @@
 2021-09-21 15:36:11:3611 info: Postgres Database connected
 2021-09-21 15:36:12:3612 info: Server is listening 3001 port.
 2021-09-21 15:36:12:3612 info: Redis Client connected
+2021-09-21 16:16:12:1612 info: Winston Logger Created!
+2021-09-21 16:16:13:1613 info: Postgres Database connected
+2021-09-21 16:16:13:1613 info: Server is listening 3001 port.
