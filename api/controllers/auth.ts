@@ -1,92 +1,67 @@
 import userRepository from '_/repositories/user';
-import {
-	UserInputDTO,
-	UserOutputDTO,
-	UserDTO,
-} from '_/dtos/user';
+import { UserInputDTO } from '_/dtos/user';
 import authConfig from '_/config/auth';
 import authToken from '_/utils/token';
 import redisClient from '_/utils/redis';
 import { extractToken } from '_/utils/extractToken';
+import { customValidationError } from '_/utils/error';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import { QueryResultRow } from 'pg';
 import jwt from 'jsonwebtoken';
+import { validate } from 'class-validator';
 
 /**
  * Register as TEACHER role
- * @param {Request} req HTTP request
- * @param {Response} res HTTP response
- * @returns {Response} HTTP response
  */
-const register = async (req: Request, res: Response): Promise<Response> => {
-	const userInfoInput = new UserInputDTO(
-		req.body.email,
-		req.body.username,
-		bcrypt.hashSync('password', authConfig.salt),
-		req.body.prefix,
-		req.body.firstname,
-		req.body.lastname,
-		['TEACHER'],
-	);
+const register = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+	try {
+		const user = new UserInputDTO({
+			email:	req.body.email,
+			username:	req.body.username,
+			password:	bcrypt.hashSync('password', authConfig.salt),
+			prefix:	req.body.prefix,
+			firstname:	req.body.firstname,
+			lastname:	req.body.lastname,
+			role: ['TEACHER'],
+		});
 
-	const result = await userRepository.createUser(userInfoInput);
+		validate(user).then((errors) => {
+			if (errors.length > 0) {
+				next(customValidationError(errors[0]));
+			}
+		});
 
-	const user = new UserOutputDTO(
-		result.user_id,
-		result.email,
-		result.username,
-		result.prefix,
-		result.firstname,
-		result.lastname,
-		result.g_auth_code,
-		result.role,
-		result.created_at,
-		result.updated_at,
-	);
-
-	return res.status(200).json({ success: true, message: 'Register Success', data: user });
+		// const result = await userRepository.createUser(user);
+		// return res.status(200).json({ data: result.rows[0] });
+	} catch (error) {
+		return next(customValidationError(error));
+	}
 };
 
 /**
  * Login with TEACHER role
- * @param {Request} req HTTP request
- * @param {Response} res HTTP response
- * @returns {Response} HTTP response
  */
 const login = async (req: Request, res: Response): Promise<Response> => {
-	const usernameInput: string = req.body.username;
+	const { username, password } = req.body;
 
-	const result: QueryResultRow = await userRepository.findByUsername(usernameInput);
+	const result = await userRepository.findByUsername(username);
+	const userResult = result.rows[0];
 
-	const user = new UserDTO(
-		result.user_id,
-		result.email,
-		result.username,
-		result.password,
-		result.prefix,
-		result.firstname,
-		result.lastname,
-		result.g_auth_code,
-		result.role,
-		result.created_at,
-		result.updated_at,
-	);
-
-	if (!user) {
+	if (!userResult) {
 		return res.status(404).send({ message: 'User Not found.' });
 	}
 
-	if (!user.role.includes('TEACHER')) {
+	if (!userResult.role.includes('TEACHER')) {
 		return res.status(401).send({
 			message: 'No permission!',
 		});
 	}
 
 	const passwordIsValid = bcrypt.compareSync(
-		req.body.password,
-		user.password,
+		password,
+		userResult.password,
 	);
 
 	if (!passwordIsValid) {
@@ -96,50 +71,33 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 		});
 	}
 
-	const accessToken = await authToken.GenerateAccessToken(user.user_id);
-	const refreshToken = await authToken.GenerateRefreshToken(user.user_id);
+	const accessToken = await authToken.GenerateAccessToken(userResult.user_id);
+	const refreshToken = await authToken.GenerateRefreshToken(userResult.user_id);
 
-	return res.status(200).json({ success: true, message: 'Login Success', data: { accessToken, refreshToken } });
+	return res.status(200).json({ data: { accessToken, refreshToken } });
 };
 
 /**
  * Login with ADMIN role
- * @param {Request} req HTTP request
- * @param {Response} res HTTP response
- * @returns {Response} HTTP response
  */
 const adminLogin = async (req: Request, res: Response): Promise<Response> => {
-	const usernameInput: string = req.body.username;
+	const { username, password } = req.body;
 
-	const result: QueryResultRow = await userRepository.findByUsername(usernameInput);
+	const result: QueryResultRow = await userRepository.findByUsername(username);
 
-	const user = new UserDTO(
-		result.user_id,
-		result.email,
-		result.username,
-		result.password,
-		result.prefix,
-		result.firstname,
-		result.lastname,
-		result.g_auth_code,
-		result.role,
-		result.created_at,
-		result.updated_at,
-	);
-
-	if (!user) {
+	if (!result) {
 		return res.status(404).send({ message: 'User Not found.' });
 	}
 
-	if (!user.role.includes('ADMIN')) {
+	if (!result.role.includes('ADMIN')) {
 		return res.status(401).send({
 			message: 'No permission!',
 		});
 	}
 
 	const passwordIsValid = bcrypt.compareSync(
-		req.body.password,
-		user.password,
+		password,
+		result.password,
 	);
 
 	if (!passwordIsValid) {
@@ -148,17 +106,14 @@ const adminLogin = async (req: Request, res: Response): Promise<Response> => {
 		});
 	}
 
-	const accessToken = await authToken.GenerateAccessToken(user.user_id);
-	const refreshToken = await authToken.GenerateRefreshToken(user.user_id);
+	const accessToken = await authToken.GenerateAccessToken(result.user_id);
+	const refreshToken = await authToken.GenerateRefreshToken(result.user_id);
 
-	return res.status(200).json({ success: true, message: 'Login Success', data: { accessToken, refreshToken } });
+	return res.status(200).json({ data: { accessToken, refreshToken } });
 };
 
 /**
  * Logout with any role
- * @param {Request} req HTTP request
- * @param {Response} res HTTP response
- * @returns {Response} HTTP response
  */
 const logout = async (req: Request, res: Response) => {
 	const { userId } = req;
@@ -170,17 +125,13 @@ const logout = async (req: Request, res: Response) => {
 	// blacklist current access token
 	await redisClient.setAsync(`BL_${userId.toString()}`, accessToken);
 
-	return res.json({ success: true, message: 'Logout Success.' });
+	return res.status(200).json({ message: 'Logout Success' });
 };
 
 /**
  * Get new accessToken using refreshToken
- * @param {Request} req HTTP request
- * @param {Response} res HTTP response
- * @returns {Response} HTTP response
  */
 const getAccessToken = async (req: Request, res: Response) => {
-	console.log(req);
 	const { userId } = req.params;
 
 	const { refreshToken: requestToken } = req.body;
@@ -206,32 +157,24 @@ const getAccessToken = async (req: Request, res: Response) => {
 	const newAccessToken = await authToken.GenerateAccessToken(userId);
 
 	return res.status(200).json({
-		accessToken: newAccessToken,
-		refreshToken: requestToken,
+		data: {
+			accessToken: newAccessToken,
+			refreshToken: requestToken,
+		},
 	});
 };
 
+/**
+ * Update user password
+ */
 const updatePassword = async (req: Request, res: Response): Promise<Response> => {
 	const { userId } = req;
 	const { oldPassword, newPassword } = req.body;
 
-	const result : QueryResultRow = await userRepository.findWithPassword(userId);
+	const result = await userRepository.findWithPassword(userId);
+	const userResult = result.rows[0];
 
-	const user = new UserDTO(
-		result.user_id,
-		result.email,
-		result.username,
-		result.password,
-		result.prefix,
-		result.firstname,
-		result.lastname,
-		result.g_auth_co,
-		result.role,
-		result.created_at,
-		result.updated_at,
-	);
-
-	if (!user) {
+	if (!userResult) {
 		return res.status(404).send({ message: 'User Not found.' });
 	}
 
@@ -243,7 +186,7 @@ const updatePassword = async (req: Request, res: Response): Promise<Response> =>
 
 	const passwordIsValid = bcrypt.compareSync(
 		oldPassword,
-		user.password,
+		userResult.password,
 	);
 
 	if (!passwordIsValid) {
@@ -254,9 +197,14 @@ const updatePassword = async (req: Request, res: Response): Promise<Response> =>
 
 	const newPasswordHash = bcrypt.hashSync(newPassword, authConfig.salt);
 
-	await userRepository.updatePassword(userId, newPasswordHash);
+	const userProfile = new UserInputDTO({
+		user_id: userId,
+		password: newPasswordHash,
+	});
 
-	return res.status(200).json({ success: true, message: 'Update password success!' });
+	await userRepository.updateUser(userProfile);
+
+	return res.status(200).json({ message: 'Update password success' });
 };
 
 export default {

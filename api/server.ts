@@ -2,6 +2,8 @@ import express from 'express';
 import logger from '_/utils/logger';
 import routes from '_/routes';
 
+import { errorHandler } from '_/middleware/errorHandler';
+
 const server = express(); // init the application
 
 /**
@@ -18,6 +20,8 @@ server.use(express.json());
  * Method to configure the routes
  */
 server.use('/obed/api', routes);
+
+server.use(errorHandler);
 
 /**
  * Used to start the server

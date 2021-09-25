@@ -1,62 +1,49 @@
 import userRepository from '_/repositories/user';
-import {
-	UserOutputDTO,
-	UserArrayOutputDTO,
-	UserDTO,
-} from '_/dtos/user';
-
+import { UserInputDTO } from '_/dtos/user';
 import { Request, Response } from 'express';
-import { QueryResultRow } from 'pg';
 
+/**
+ * Get User profile
+ */
 const getProfile = async (req: Request, res: Response): Promise<Response> => {
 	const { userId } = req;
 
-	const result : QueryResultRow = await userRepository.find(userId);
+	const result = await userRepository.find(userId);
 
-	const user = new UserOutputDTO(
-		result.user_id,
-		result.email,
-		result.username,
-		result.prefix,
-		result.firstname,
-		result.lastname,
-		result.g_auth_co,
-		result.role,
-		result.created_at,
-		result.updated_at,
-	);
-
-	return res.status(200).json({ success: true, data: user });
+	return res.status(200).json({ data: result.rows[0] });
 };
 
+/**
+ * Get all users
+ */
 const getAllUsers = async (req: Request, res: Response): Promise<Response> => {
-	const result : QueryResultRow = await userRepository.findAll();
+	const result = await userRepository.findAll();
 
-	const users = new UserArrayOutputDTO(result as UserOutputDTO[]);
-
-	return res.status(200).json({ success: true, data: users });
+	return res.status(200).json({ data: result.rows });
 };
 
+/**
+ * Update user profile
+ */
 const updateProfile = async (req: Request, res: Response): Promise<Response> => {
 	const { userId } = req;
 
-	const userProfile = new UserDTO(
-		userId,
-		req.body.email || null,
-		req.body.username || null,
-		req.body.password || null,
-		req.body.prefix || null,
-		req.body.firstname || null,
-		req.body.lastname || null,
-		req.body.g_auth_code || null,
-		req.body.role || null,
-		req.body.created_at || null,
-		req.body.updated_at || null,
-	);
+	const userProfile = new UserInputDTO({
+		user_id: userId,
+		email: req.body.email,
+		username: req.body.username,
+		prefix: req.body.prefix,
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		g_auth_code: req.body.g_auth_code,
+		role: req.body.role,
+		created_at: req.body.created_at,
+		updated_at: req.body.updated_at,
+	});
 
-	await userRepository.updateUser(userProfile);
+	const result = await userRepository.updateUser(userProfile);
 
-	return res.status(200).json({ success: true, message: 'Update profile success!' });
+	return res.status(200).json({ data: result.rows[0] });
 };
 
 export default {

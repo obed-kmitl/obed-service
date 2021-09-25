@@ -1,13 +1,9 @@
 import authConfig from '_/config/auth';
 import userRepository from '_/repositories/user';
-import {
-	UserDTO,
-} from '_/dtos/user';
 import { extractToken } from '_/utils/extractToken';
 
 import jwt from 'jsonwebtoken';
 import { Response } from 'express';
-import { QueryResultRow } from 'pg';
 
 const { TokenExpiredError } = jwt;
 
@@ -38,32 +34,19 @@ const verifyToken = (req, res, next) : Response => {
 const permit = (...permittedRoles) => async (req, res, next) => {
 	const { userId } = req;
 
-	const result: QueryResultRow = await userRepository.find(userId);
+	const result = await userRepository.find(userId);
+	const userResult = result.rows[0];
 
-	const user = new UserDTO(
-		result.user_id,
-		result.email,
-		result.username,
-		result.password,
-		result.prefix,
-		result.firstname,
-		result.lastname,
-		result.g_auth_co,
-		result.role,
-		result.created_at,
-		result.updated_at,
-	);
-
-	if (!user) {
+	if (!userResult) {
 		return res.status(404).send({ message: 'User Not found.' });
 	}
 
-	const hasPermission:boolean = permittedRoles.every((val) => user.role.includes(val));
+	const hasPermission:boolean = permittedRoles.every((val) => userResult.role.includes(val));
 
 	if (hasPermission) {
 		next(); // role is allowed, so continue on the next middleware
 	} else {
-		res.status(403).json({ message: 'No permission!' }); // user is forbidden
+		return res.status(403).json({ message: 'No permission!' }); // user is forbidden
 	}
 };
 

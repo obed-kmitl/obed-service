@@ -1,0 +1,38 @@
+2021-09-25 01:15:10:1510 error: "ApplicationError: email must be a string\n    at Object.customValidationError (C:\\Users\\TOMMY\\Desktop\\Project1\\obed-service\\api\\utils\\error\\validationErrorFactory.ts:20:10)\n    at C:\\Users\\TOMMY\\Desktop\\Project1\\obed-service\\api\\controllers\\auth.ts:32:10\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)"
+2021-09-25 01:15:34:1534 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 01:16:38:1638 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 01:58:04:584 error: [object Object]
+2021-09-25 01:58:47:5847 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 03:03:17:317 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 03:05:26:526 info: Winston Logger Created!
+2021-09-25 03:05:26:526 info: Postgres Database connected
+2021-09-25 03:05:27:527 info: Server is listening 3001 port.
+2021-09-25 03:05:27:527 info: Redis Client connected
+2021-09-25 03:05:29:529 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 03:06:02:62 info: Winston Logger Created!
+2021-09-25 03:06:02:62 info: Postgres Database connected
+2021-09-25 03:06:02:62 info: Server is listening 3001 port.
+2021-09-25 03:06:02:62 info: Redis Client connected
+2021-09-25 03:06:05:65 info: Winston Logger Created!
+2021-09-25 03:06:05:65 info: Postgres Database connected
+2021-09-25 03:06:06:66 info: Server is listening 3001 port.
+2021-09-25 03:06:06:66 info: Redis Client connected
+2021-09-25 03:06:12:612 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
