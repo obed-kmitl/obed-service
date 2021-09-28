@@ -3138,3 +3138,59 @@
     at readableAddChunk (_stream_readable.js:271:9)
     at Socket.Readable.push (_stream_readable.js:212:10)
     at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-28 17:10:10:1010 info: Winston Logger Created!
+2021-09-28 17:10:10:1010 info: Postgres Database connected
+2021-09-28 17:10:10:1010 info: Server is listening 3001 port.
+2021-09-28 17:10:10:1010 info: Redis Client connected
+2021-09-28 17:10:26:1026 error: ApplicationError: email should not be empty
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+2021-09-28 17:10:29:1029 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:33:1033 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:33:1033 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:34:1034 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:34:1034 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:35:1035 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:35:1035 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
