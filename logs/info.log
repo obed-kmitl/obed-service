@@ -3194,3 +3194,462 @@
     at Generator.throw (<anonymous>)
     at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
     at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 18:02:17:217 info: Winston Logger Created!
+2021-09-28 18:02:17:217 info: Postgres Database connected
+2021-09-28 18:02:18:218 info: Server is listening 3001 port.
+2021-09-28 18:02:18:218 info: Redis Client connected
+2021-09-28 22:02:33:233 info: Winston Logger Created!
+2021-09-28 22:02:34:234 info: Postgres Database connected
+2021-09-28 22:02:34:234 info: Server is listening 3001 port.
+2021-09-28 22:02:34:234 info: Redis Client connected
+2021-09-28 22:02:37:237 error: TypeError: Cannot read property 'includes' of undefined
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:93:24
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:03:28:328 error: TypeError: Cannot read property 'includes' of undefined
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:93:24
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:03:42:342 info: Winston Logger Created!
+2021-09-28 22:03:42:342 info: Postgres Database connected
+2021-09-28 22:03:42:342 info: Server is listening 3001 port.
+2021-09-28 22:03:42:342 info: Redis Client connected
+2021-09-28 22:03:44:344 error: TypeError: Cannot read property 'includes' of undefined
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:24
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:04:09:49 info: Winston Logger Created!
+2021-09-28 22:04:09:49 info: Postgres Database connected
+2021-09-28 22:04:10:410 info: Server is listening 3001 port.
+2021-09-28 22:04:10:410 info: Redis Client connected
+2021-09-28 22:04:10:410 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:04:12:412 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:04:12:412 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:04:41:441 info: Winston Logger Created!
+2021-09-28 22:04:41:441 info: Postgres Database connected
+2021-09-28 22:04:41:441 info: Server is listening 3001 port.
+2021-09-28 22:04:41:441 info: Redis Client connected
+2021-09-28 22:04:41:441 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:97:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:04:43:443 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:97:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 22:04:53:453 info: Winston Logger Created!
+2021-09-28 22:04:53:453 info: Postgres Database connected
+2021-09-28 22:04:54:454 info: Server is listening 3001 port.
+2021-09-28 22:04:54:454 info: Redis Client connected
+2021-09-28 22:09:48:948 info: Winston Logger Created!
+2021-09-28 22:09:48:948 info: Postgres Database connected
+2021-09-28 22:09:48:948 info: Server is listening 3001 port.
+2021-09-28 22:09:48:948 info: Redis Client connected
+2021-09-29 00:38:03:383 info: Winston Logger Created!
+2021-09-29 00:38:03:383 info: Postgres Database connected
+2021-09-29 00:38:04:384 info: Server is listening 3001 port.
+2021-09-29 00:38:04:384 info: Redis Client connected
+2021-09-29 00:38:20:3820 info: Winston Logger Created!
+2021-09-29 00:38:20:3820 info: Postgres Database connected
+2021-09-29 00:38:21:3821 info: Server is listening 3001 port.
+2021-09-29 00:38:21:3821 info: Redis Client connected
+2021-09-29 00:39:02:392 error: ApplicationError: Unauthorized Access Token was expired
+    at verifyToken (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:27:16)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+2021-09-29 00:39:05:395 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:60:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 00:39:11:3911 error: error: relation "curriculums" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 00:39:44:3944 info: Winston Logger Created!
+2021-09-29 00:39:44:3944 info: Postgres Database connected
+2021-09-29 00:39:45:3945 info: Server is listening 3001 port.
+2021-09-29 00:39:45:3945 info: Redis Client connected
+2021-09-29 00:39:48:3948 error: error: relation "users" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 00:45:14:4514 info: Winston Logger Created!
+2021-09-29 00:45:14:4514 info: Postgres Database connected
+2021-09-29 00:45:14:4514 info: Server is listening 3001 port.
+2021-09-29 00:45:14:4514 info: Redis Client connected
+2021-09-29 00:46:37:4637 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 00:48:08:488 error: error: null value in column "title" of relation "curriculums" violates not-null constraint
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 00:48:48:4848 info: Winston Logger Created!
+2021-09-29 00:48:48:4848 info: Postgres Database connected
+2021-09-29 00:48:49:4849 info: Server is listening 3001 port.
+2021-09-29 00:48:49:4849 info: Redis Client connected
+2021-09-29 00:48:59:4859 info: Winston Logger Created!
+2021-09-29 00:48:59:4859 info: Postgres Database connected
+2021-09-29 00:48:59:4859 info: Server is listening 3001 port.
+2021-09-29 00:48:59:4859 info: Redis Client connected
+2021-09-29 00:56:45:5645 error: ApplicationError: title should not be empty
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:51:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 00:57:50:5750 info: Winston Logger Created!
+2021-09-29 00:57:51:5751 info: Postgres Database connected
+2021-09-29 00:57:51:5751 info: Server is listening 3001 port.
+2021-09-29 00:57:51:5751 info: Redis Client connected
+2021-09-29 00:59:01:591 info: Winston Logger Created!
+2021-09-29 00:59:02:592 info: Postgres Database connected
+2021-09-29 00:59:02:592 info: Server is listening 3001 port.
+2021-09-29 00:59:02:592 info: Redis Client connected
+2021-09-29 00:59:21:5921 info: Winston Logger Created!
+2021-09-29 00:59:21:5921 info: Postgres Database connected
+2021-09-29 00:59:21:5921 info: Server is listening 3001 port.
+2021-09-29 00:59:21:5921 info: Redis Client connected
+2021-09-29 00:59:54:5954 info: Winston Logger Created!
+2021-09-29 00:59:55:5955 info: Postgres Database connected
+2021-09-29 00:59:55:5955 info: Server is listening 3001 port.
+2021-09-29 00:59:55:5955 info: Redis Client connected
+2021-09-29 01:14:56:1456 info: Winston Logger Created!
+2021-09-29 01:14:56:1456 info: Postgres Database connected
+2021-09-29 01:14:56:1456 info: Server is listening 3001 port.
+2021-09-29 01:14:56:1456 info: Redis Client connected
+2021-09-29 01:15:10:1510 info: Winston Logger Created!
+2021-09-29 01:15:10:1510 info: Postgres Database connected
+2021-09-29 01:15:10:1510 info: Server is listening 3001 port.
+2021-09-29 01:15:10:1510 info: Redis Client connected
+2021-09-29 01:20:57:2057 info: Winston Logger Created!
+2021-09-29 01:20:57:2057 info: Postgres Database connected
+2021-09-29 01:20:58:2058 info: Server is listening 3001 port.
+2021-09-29 01:20:58:2058 info: Redis Client connected
+2021-09-29 01:21:02:212 info: Winston Logger Created!
+2021-09-29 01:21:02:212 info: Postgres Database connected
+2021-09-29 01:21:03:213 info: Server is listening 3001 port.
+2021-09-29 01:21:03:213 info: Redis Client connected
+2021-09-29 01:21:10:2110 info: Winston Logger Created!
+2021-09-29 01:21:10:2110 info: Postgres Database connected
+2021-09-29 01:21:10:2110 info: Server is listening 3001 port.
+2021-09-29 01:21:10:2110 info: Redis Client connected
+2021-09-29 01:21:23:2123 info: Winston Logger Created!
+2021-09-29 01:21:23:2123 info: Postgres Database connected
+2021-09-29 01:21:24:2124 info: Server is listening 3001 port.
+2021-09-29 01:21:24:2124 info: Redis Client connected
+2021-09-29 01:21:37:2137 info: Winston Logger Created!
+2021-09-29 01:21:37:2137 info: Postgres Database connected
+2021-09-29 01:21:37:2137 info: Server is listening 3001 port.
+2021-09-29 01:21:37:2137 info: Redis Client connected
+2021-09-29 01:21:38:2138 info: Winston Logger Created!
+2021-09-29 01:21:38:2138 info: Postgres Database connected
+2021-09-29 01:21:39:2139 info: Server is listening 3001 port.
+2021-09-29 01:21:39:2139 info: Redis Client connected
+2021-09-29 01:22:02:222 info: Winston Logger Created!
+2021-09-29 01:22:02:222 info: Postgres Database connected
+2021-09-29 01:22:03:223 info: Server is listening 3001 port.
+2021-09-29 01:22:03:223 info: Redis Client connected
+2021-09-29 01:22:36:2236 info: Winston Logger Created!
+2021-09-29 01:22:36:2236 info: Postgres Database connected
+2021-09-29 01:22:36:2236 info: Server is listening 3001 port.
+2021-09-29 01:22:36:2236 info: Redis Client connected
+2021-09-29 01:25:18:2518 info: Winston Logger Created!
+2021-09-29 01:25:18:2518 info: Postgres Database connected
+2021-09-29 01:25:18:2518 info: Server is listening 3001 port.
+2021-09-29 01:25:18:2518 info: Redis Client connected
+2021-09-29 01:25:21:2521 info: Winston Logger Created!
+2021-09-29 01:25:21:2521 info: Postgres Database connected
+2021-09-29 01:25:22:2522 info: Server is listening 3001 port.
+2021-09-29 01:25:22:2522 info: Redis Client connected
+2021-09-29 01:25:56:2556 info: Winston Logger Created!
+2021-09-29 01:25:56:2556 info: Postgres Database connected
+2021-09-29 01:25:56:2556 info: Server is listening 3001 port.
+2021-09-29 01:25:56:2556 info: Redis Client connected
+2021-09-29 01:26:16:2616 info: Winston Logger Created!
+2021-09-29 01:26:16:2616 info: Postgres Database connected
+2021-09-29 01:26:17:2617 info: Server is listening 3001 port.
+2021-09-29 01:26:17:2617 info: Redis Client connected
+2021-09-29 01:30:45:3045 info: Winston Logger Created!
+2021-09-29 01:30:45:3045 info: Postgres Database connected
+2021-09-29 01:30:46:3046 info: Server is listening 3001 port.
+2021-09-29 01:30:46:3046 info: Redis Client connected
+2021-09-29 01:31:28:3128 error: TypeError: Class constructor CreateCurriculumRequestDTO cannot be invoked without 'new'
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:51:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 01:31:52:3152 info: Winston Logger Created!
+2021-09-29 01:31:52:3152 info: Postgres Database connected
+2021-09-29 01:31:52:3152 info: Server is listening 3001 port.
+2021-09-29 01:31:52:3152 info: Redis Client connected
+2021-09-29 01:33:21:3321 error: error: invalid input syntax for type integer: "{{curriculumId}}"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:34:10:3410 error: error: invalid input syntax for type integer: "{{curriculumId}}"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:35:10:3510 error: error: syntax error at or near "WHERE"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:35:29:3529 info: Winston Logger Created!
+2021-09-29 01:35:29:3529 info: Postgres Database connected
+2021-09-29 01:35:29:3529 info: Server is listening 3001 port.
+2021-09-29 01:35:29:3529 info: Redis Client connected
+2021-09-29 01:35:37:3537 error: error: syntax error at or near "curriculums"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:42:23:4223 info: Winston Logger Created!
+2021-09-29 01:42:23:4223 info: Postgres Database connected
+2021-09-29 01:42:23:4223 info: Server is listening 3001 port.
+2021-09-29 01:42:23:4223 info: Redis Client connected
+2021-09-29 01:42:26:4226 error: error: syntax error at or near "curriculums"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:42:40:4240 info: Winston Logger Created!
+2021-09-29 01:42:40:4240 info: Postgres Database connected
+2021-09-29 01:42:40:4240 info: Server is listening 3001 port.
+2021-09-29 01:42:40:4240 info: Redis Client connected
+2021-09-29 01:42:42:4242 error: error: syntax error at or near "curriculums"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:43:20:4320 info: Winston Logger Created!
+2021-09-29 01:43:20:4320 info: Postgres Database connected
+2021-09-29 01:43:21:4321 info: Server is listening 3001 port.
+2021-09-29 01:43:21:4321 info: Redis Client connected
+2021-09-29 01:43:45:4345 info: Winston Logger Created!
+2021-09-29 01:43:45:4345 info: Postgres Database connected
+2021-09-29 01:43:45:4345 info: Server is listening 3001 port.
+2021-09-29 01:43:45:4345 info: Redis Client connected
+2021-09-29 01:43:46:4346 info: Winston Logger Created!
+2021-09-29 01:43:46:4346 info: Postgres Database connected
+2021-09-29 01:43:47:4347 info: Server is listening 3001 port.
+2021-09-29 01:43:47:4347 info: Redis Client connected
+2021-09-29 01:44:55:4455 info: Winston Logger Created!
+2021-09-29 01:44:55:4455 info: Postgres Database connected
+2021-09-29 01:44:55:4455 info: Server is listening 3001 port.
+2021-09-29 01:44:55:4455 info: Redis Client connected
+2021-09-29 01:46:04:464 info: Winston Logger Created!
+2021-09-29 01:46:04:464 info: Postgres Database connected
+2021-09-29 01:46:05:465 info: Server is listening 3001 port.
+2021-09-29 01:46:05:465 info: Redis Client connected
+2021-09-29 01:49:13:4913 info: Winston Logger Created!
+2021-09-29 01:49:13:4913 info: Postgres Database connected
+2021-09-29 01:49:13:4913 info: Server is listening 3001 port.
+2021-09-29 01:49:13:4913 info: Redis Client connected
+2021-09-29 01:50:37:5037 info: Winston Logger Created!
+2021-09-29 01:50:37:5037 info: Postgres Database connected
+2021-09-29 01:50:38:5038 info: Server is listening 3001 port.
+2021-09-29 01:50:38:5038 info: Redis Client connected
+2021-09-29 01:52:42:5242 info: Winston Logger Created!
+2021-09-29 01:52:42:5242 info: Postgres Database connected
+2021-09-29 01:52:43:5243 info: Server is listening 3001 port.
+2021-09-29 01:52:43:5243 info: Redis Client connected
+2021-09-29 01:52:50:5250 info: Winston Logger Created!
+2021-09-29 01:52:50:5250 info: Postgres Database connected
+2021-09-29 01:52:50:5250 info: Server is listening 3001 port.
+2021-09-29 01:52:50:5250 info: Redis Client connected
+2021-09-29 01:52:52:5252 error: error: invalid input syntax for type integer: "{{userId}}"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:53:03:533 error: error: invalid input syntax for type integer: "{{userId}}"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:53:37:5337 error: error: invalid input syntax for type integer: "{{userId}}"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-29 01:55:26:5526 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:60:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 01:56:15:5615 info: Winston Logger Created!
+2021-09-29 01:56:15:5615 info: Postgres Database connected
+2021-09-29 01:56:16:5616 info: Server is listening 3001 port.
+2021-09-29 01:56:16:5616 info: Redis Client connected
+2021-09-29 01:56:46:5646 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 01:57:02:572 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 01:57:04:574 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 01:57:05:575 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 01:57:06:576 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 01:57:46:5746 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-29 02:00:47:047 error: ApplicationError: email should not be empty
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+2021-09-29 02:02:02:22 info: Winston Logger Created!
+2021-09-29 02:02:02:22 info: Postgres Database connected
+2021-09-29 02:02:03:23 info: Server is listening 3001 port.
+2021-09-29 02:02:03:23 info: Redis Client connected
+2021-09-29 02:03:54:354 info: Winston Logger Created!
+2021-09-29 02:03:54:354 info: Postgres Database connected
+2021-09-29 02:03:54:354 info: Server is listening 3001 port.
+2021-09-29 02:03:54:354 info: Redis Client connected
+2021-09-29 02:05:16:516 info: Winston Logger Created!
+2021-09-29 02:05:16:516 info: Postgres Database connected
+2021-09-29 02:05:17:517 info: Server is listening 3001 port.
+2021-09-29 02:05:17:517 info: Redis Client connected
+2021-09-29 02:05:22:522 info: Winston Logger Created!
+2021-09-29 02:05:23:523 info: Postgres Database connected
+2021-09-29 02:05:23:523 info: Server is listening 3001 port.
+2021-09-29 02:05:23:523 info: Redis Client connected
+2021-09-29 02:09:43:943 info: Winston Logger Created!
+2021-09-29 02:09:43:943 info: Postgres Database connected
+2021-09-29 02:09:43:943 info: Server is listening 3001 port.
+2021-09-29 02:09:43:943 info: Redis Client connected

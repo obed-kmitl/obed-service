@@ -36,7 +36,7 @@ export const permit = (...permittedRoles: String[]) => async (
 ) => {
 	const { userId } = req;
 
-	const result = await userRepository.find(userId);
+	const result = await userRepository.findUser(userId);
 	const userResult = result.rows[0];
 
 	if (!userResult) {

@@ -11,7 +11,7 @@ import { deserialize } from 'json-typescript-mapper';
 const getProfile = async (req: Request, res: Response): Promise<Response> => {
 	const { userId } = req;
 
-	const result = await userRepository.find(userId);
+	const result = await userRepository.findUser(userId);
 
 	sendResponse(res, result.rows[0]);
 };
@@ -19,10 +19,27 @@ const getProfile = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get all users
  */
-const getAllUsers = async (req: Request, res: Response): Promise<Response> => {
-	const result = await userRepository.findAll();
+const getAll = async (req: Request, res: Response): Promise<Response> => {
+	const result = await userRepository.findAllUser();
 
 	sendResponse(res, result.rows);
+};
+
+/**
+ * Update user
+ */
+const update = async (req: Request, res: Response): Promise<Response> => {
+	const { userId } = req.params;
+	const userProfile = req.body;
+
+	const userInfo = deserialize(UserInputDTO, {
+		user_id: userId,
+		...userProfile,
+	});
+
+	const userResult = await userRepository.updateUser(userInfo);
+
+	sendResponse(res, userResult.rows[0]);
 };
 
 /**
@@ -42,8 +59,21 @@ const updateProfile = async (req: Request, res: Response): Promise<Response> => 
 	sendResponse(res, userResult.rows[0]);
 };
 
+/**
+ * Remove User
+ */
+const remove = async (req: Request, res: Response): Promise<Response> => {
+	const { userId } = req.params;
+
+	const result = await userRepository.deleteUser(userId);
+
+	sendResponse(res, result.rows[0]);
+};
+
 export default {
 	getProfile,
-	getAllUsers,
+	getAll,
+	update,
 	updateProfile,
+	remove,
 };

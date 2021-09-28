@@ -49,7 +49,7 @@ const register = async (req: Request, res: Response, next: NextFunction): Promis
 const login = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { username, password } = req.body;
 
-	const result = await userRepository.findByUsername(username);
+	const result = await userRepository.findUserByUsername(username);
 	const userResult = result.rows[0];
 
 	if (!userResult) {
@@ -84,7 +84,8 @@ const login = async (req: Request, res: Response, next: NextFunction): Promise<R
 const adminLogin = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { username, password } = req.body;
 
-	const userResult: QueryResultRow = await userRepository.findByUsername(username);
+	const result: QueryResultRow = await userRepository.findUserByUsername(username);
+	const userResult = result.rows[0];
 
 	if (!userResult) {
 		return next(new ApplicationError(CommonError.UNAUTHORIZED));
@@ -106,7 +107,10 @@ const adminLogin = async (req: Request, res: Response, next: NextFunction): Prom
 	const accessToken = await authToken.GenerateAccessToken(userResult.user_id);
 	const refreshToken = await authToken.GenerateRefreshToken(userResult.user_id);
 
-	sendResponse(res, { accessToken, refreshToken });
+	// Remove unused password from userResult
+	const { password: unusedPassword, ...userProfile } = userResult;
+
+	sendResponse(res, { userProfile, accessToken, refreshToken });
 };
 
 /**
@@ -139,7 +143,7 @@ const getAccessToken = async (req: Request, res: Response, next: NextFunction) =
 	}
 
 	// Check if user exist in database
-	const result = await userRepository.find(userId);
+	const result = await userRepository.findUser(userId);
 	const userResult = result.rows[0];
 
 	if (!userResult) {
@@ -179,7 +183,7 @@ const updatePassword = async (
 		return next(new ApplicationError(AuthError.PASSWORD_SHOULD_DIFFERENT));
 	}
 
-	const result = await userRepository.findWithPassword(userId);
+	const result = await userRepository.findUserWithPassword(userId);
 	const userResult = result.rows[0];
 
 	const passwordIsValid = bcrypt.compareSync(

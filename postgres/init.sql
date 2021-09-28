@@ -1,7 +1,6 @@
-DROP TABLE IF EXISTS users CASCADE;
-DROP TYPE IF EXISTS prefix_enum;
-DROP TYPE IF EXISTS role_enum;
 
+
+DROP TYPE IF EXISTS prefix_enum;
 CREATE TYPE prefix_enum AS ENUM (
 	'PROF_DR', 
 	'PROF',
@@ -13,7 +12,10 @@ CREATE TYPE prefix_enum AS ENUM (
 	'INSTRUCTOR'
 );
 
+DROP TYPE IF EXISTS role_enum;
 CREATE TYPE role_enum AS ENUM ('ADMIN','TEACHER');
+
+DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
   email VARCHAR(50) UNIQUE NOT NULL,
@@ -28,30 +30,18 @@ CREATE TABLE users(
 	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- CREATE TABLE teachers(
--- 	section_id SERIAL PRIMARY KEY,
--- 	teacher_id INT,
---   CONSTRAINT fk_user
---    FOREIGN KEY(teacher_id) 
---       REFERENCES users(user_id)
--- 			ON DELETE CASCADE
--- );
+DROP TABLE IF EXISTS standards CASCADE;
+CREATE TABLE standards(
+	standard_id SERIAL PRIMARY KEY,
+	title VARCHAR(50) NOT NULL
+);
 
--- INSERT INTO users (
---   email,
---   username,
---   password,
--- 	firstname,
--- 	lastname,
--- 	roles
--- 	) VALUES (
--- 	'teacher@teacher.com', 
--- 	'teacher',
--- 	'password',
--- 	'TeacherTestFN',
--- 	'TeacherTestLN',
--- 	'{"ADMIN","TEACHER"}'
--- );
-
--- INSERT INTO teachers(teacher_id) VALUES (1);
+DROP TABLE IF EXISTS curriculums CASCADE;
+CREATE TABLE curriculums(
+  curriculum_id SERIAL PRIMARY KEY,
+	main_standard_id INT REFERENCES standards(standard_id) ON DELETE CASCADE,
+	relative_standard_id INT REFERENCES standards(standard_id) ON DELETE CASCADE,
+	title VARCHAR(50) NOT NULL,
+	year VARCHAR(50) NOT NULL
+);
 
