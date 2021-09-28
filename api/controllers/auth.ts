@@ -1,62 +1,63 @@
 import userRepository from '_/repositories/user';
-import { UserInputDTO } from '_/dtos/user';
 import authConfig from '_/config/auth';
 import authToken from '_/utils/token';
 import redisClient from '_/utils/redis';
 import { extractToken } from '_/utils/extractToken';
-import { customValidationError } from '_/utils/error';
+import { ApplicationError } from '_/errors/applicationError';
+import { sendResponse } from '_/utils/response';
+import { UserInputDTO } from '_/dtos/user';
+import { CommonError } from '_/errors/common';
+import { AuthError } from '_/errors/auth';
 
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
-import { QueryResultRow } from 'pg';
+import { QueryResultRow, DatabaseError } from 'pg';
 import jwt from 'jsonwebtoken';
-import { validate } from 'class-validator';
+import { deserialize } from 'json-typescript-mapper';
 
 /**
  * Register as TEACHER role
  */
 const register = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	try {
-		const user = new UserInputDTO({
-			email:	req.body.email,
-			username:	req.body.username,
-			password:	bcrypt.hashSync('password', authConfig.salt),
-			prefix:	req.body.prefix,
-			firstname:	req.body.firstname,
-			lastname:	req.body.lastname,
-			role: ['TEACHER'],
-		});
+		const user = req.body;
+		// Wait for random password logic
+		user.password = bcrypt.hashSync('password', authConfig.salt);
+		user.roles = ['TEACHER'];
 
-		validate(user).then((errors) => {
-			if (errors.length > 0) {
-				next(customValidationError(errors[0]));
-			}
-		});
-
-		// const result = await userRepository.createUser(user);
-		// return res.status(200).json({ data: result.rows[0] });
+		const result = await userRepository.createUser(user);
+		sendResponse(res, result.rows[0]);
 	} catch (error) {
-		return next(customValidationError(error));
+		if (error instanceof DatabaseError) {
+			// Check if PostgreSQL Error Codes is unique_violation (23505). See more info https://www.postgresql.org/docs/12/errcodes-appendix.html
+			if (error.code === '23505') {
+				if (error.constraint === 'users_email_key') {
+					return next(new ApplicationError(AuthError.EMAIL_ALREADY_TAKEN));
+				}
+				if (error.constraint === 'users_username_key') {
+					return next(new ApplicationError(AuthError.USERNAME_ALREADY_TAKEN));
+				}
+			}
+		}
+		return next(error);
 	}
 };
 
 /**
  * Login with TEACHER role
  */
-const login = async (req: Request, res: Response): Promise<Response> => {
+const login = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { username, password } = req.body;
 
 	const result = await userRepository.findByUsername(username);
 	const userResult = result.rows[0];
 
 	if (!userResult) {
-		return res.status(404).send({ message: 'User Not found.' });
+		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
-	if (!userResult.role.includes('TEACHER')) {
-		return res.status(401).send({
-			message: 'No permission!',
-		});
+	if (!userResult.roles.includes('TEACHER')) {
+		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
 	const passwordIsValid = bcrypt.compareSync(
@@ -65,51 +66,47 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 	);
 
 	if (!passwordIsValid) {
-		return res.status(401).send({
-			accessToken: null,
-			message: 'Invalid Password!',
-		});
+		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
 	const accessToken = await authToken.GenerateAccessToken(userResult.user_id);
 	const refreshToken = await authToken.GenerateRefreshToken(userResult.user_id);
 
-	return res.status(200).json({ data: { accessToken, refreshToken } });
+	// Remove unused password from userResult
+	const { password: unusedPassword, ...userProfile } = userResult;
+
+	sendResponse(res, { userProfile, accessToken, refreshToken });
 };
 
 /**
  * Login with ADMIN role
  */
-const adminLogin = async (req: Request, res: Response): Promise<Response> => {
+const adminLogin = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { username, password } = req.body;
 
-	const result: QueryResultRow = await userRepository.findByUsername(username);
+	const userResult: QueryResultRow = await userRepository.findByUsername(username);
 
-	if (!result) {
-		return res.status(404).send({ message: 'User Not found.' });
+	if (!userResult) {
+		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
-	if (!result.role.includes('ADMIN')) {
-		return res.status(401).send({
-			message: 'No permission!',
-		});
+	if (!userResult.roles.includes('ADMIN')) {
+		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
 	const passwordIsValid = bcrypt.compareSync(
 		password,
-		result.password,
+		userResult.password,
 	);
 
 	if (!passwordIsValid) {
-		return res.status(401).send({
-			message: 'Invalid Password!',
-		});
+		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
-	const accessToken = await authToken.GenerateAccessToken(result.user_id);
-	const refreshToken = await authToken.GenerateRefreshToken(result.user_id);
+	const accessToken = await authToken.GenerateAccessToken(userResult.user_id);
+	const refreshToken = await authToken.GenerateRefreshToken(userResult.user_id);
 
-	return res.status(200).json({ data: { accessToken, refreshToken } });
+	sendResponse(res, { accessToken, refreshToken });
 };
 
 /**
@@ -125,64 +122,65 @@ const logout = async (req: Request, res: Response) => {
 	// blacklist current access token
 	await redisClient.setAsync(`BL_${userId.toString()}`, accessToken);
 
-	return res.status(200).json({ message: 'Logout Success' });
+	sendResponse(res, { message: 'Logout success' });
 };
 
 /**
  * Get new accessToken using refreshToken
  */
-const getAccessToken = async (req: Request, res: Response) => {
+const getAccessToken = async (req: Request, res: Response, next: NextFunction) => {
 	const { userId } = req.params;
 
 	const { refreshToken: requestToken } = req.body;
 
+	// Validate requestToken
 	if (requestToken == null) {
-		return res.status(403).json({ message: 'Refresh Token is required!' });
+		return next(new ApplicationError(AuthError.REFRESH_TOKEN_IS_REQUIRED));
+	}
+
+	// Check if user exist in database
+	const result = await userRepository.find(userId);
+	const userResult = result.rows[0];
+
+	if (!userResult) {
+		return next(new ApplicationError(AuthError.USER_NOT_FOUND));
 	}
 
 	const refreshToken = await redisClient.getAsync(userId);
 
 	if (!refreshToken) {
-		return res.status(403).json({ message: 'Refresh token is not in cache!' });
+		return next(new ApplicationError(CommonError.FORBIDDEN));
 	}
 
 	try {
 		await jwt.verify(requestToken, authConfig.secret);
 	} catch (err) {
-		return res.status(403).json({
-			message: 'Refresh token was expired. Please make a new signin request',
-		});
+		return next(new ApplicationError(CommonError.FORBIDDEN));
 	}
 
 	const newAccessToken = await authToken.GenerateAccessToken(userId);
 
-	return res.status(200).json({
-		data: {
-			accessToken: newAccessToken,
-			refreshToken: requestToken,
-		},
+	sendResponse(res, {
+		accessToken: newAccessToken,
+		refreshToken: requestToken,
 	});
 };
 
 /**
  * Update user password
  */
-const updatePassword = async (req: Request, res: Response): Promise<Response> => {
+const updatePassword = async (
+	req: Request, res: Response, next: NextFunction,
+): Promise<Response> => {
 	const { userId } = req;
 	const { oldPassword, newPassword } = req.body;
 
+	if (oldPassword === newPassword) {
+		return next(new ApplicationError(AuthError.PASSWORD_SHOULD_DIFFERENT));
+	}
+
 	const result = await userRepository.findWithPassword(userId);
 	const userResult = result.rows[0];
-
-	if (!userResult) {
-		return res.status(404).send({ message: 'User Not found.' });
-	}
-
-	if (oldPassword === newPassword) {
-		return res.status(401).send({
-			message: 'Duplicated Password!',
-		});
-	}
 
 	const passwordIsValid = bcrypt.compareSync(
 		oldPassword,
@@ -190,21 +188,19 @@ const updatePassword = async (req: Request, res: Response): Promise<Response> =>
 	);
 
 	if (!passwordIsValid) {
-		return res.status(401).send({
-			message: 'Invalid Password!',
-		});
+		return next(new ApplicationError(AuthError.INVALID_PASSWORD));
 	}
 
 	const newPasswordHash = bcrypt.hashSync(newPassword, authConfig.salt);
 
-	const userProfile = new UserInputDTO({
+	const userInfo = deserialize(UserInputDTO, {
 		user_id: userId,
 		password: newPasswordHash,
 	});
 
-	await userRepository.updateUser(userProfile);
+	await userRepository.updateUser(userInfo);
 
-	return res.status(200).json({ message: 'Update password success' });
+	sendResponse(res, { message: 'Update password success' });
 };
 
 export default {

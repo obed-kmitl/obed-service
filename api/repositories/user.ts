@@ -1,14 +1,14 @@
 import db from '_/utils/db';
-import { UserInputDTO } from '_/dtos/user';
+import { RegisterRequestDTO, UserInputDTO } from '_/dtos/user';
 import { QueryResultRow } from 'pg';
 
 /**
  * Create user
  */
-const createUser = async (user:	 UserInputDTO): Promise<QueryResultRow> => db.query(`
-		INSERT INTO users (email,username,password,prefix,firstname,lastname,role) 
+const createUser = async (user:	 RegisterRequestDTO): Promise<QueryResultRow> => db.query(`
+		INSERT INTO users (email,username,password,prefix,firstname,lastname,roles) 
 		VALUES ($1, $2, $3, $4, $5, $6, $7)
-		RETURNING email,username,prefix,firstname,lastname,role::text[]
+		RETURNING user_id, email, username, prefix, firstname, lastname, g_auth_code, roles::text[], created_at, updated_at
 		`, [
 	user.email,
 	user.username,
@@ -16,7 +16,7 @@ const createUser = async (user:	 UserInputDTO): Promise<QueryResultRow> => db.qu
 	user.prefix,
 	user.firstname,
 	user.lastname,
-	user.role,
+	user.roles,
 ]);
 
 /**
@@ -25,7 +25,7 @@ const createUser = async (user:	 UserInputDTO): Promise<QueryResultRow> => db.qu
 const find = async (
 	userId: number,
 ): Promise<QueryResultRow> => db.query(`
-		SELECT user_id, email, username, prefix, firstname, lastname, g_auth_code, role::text[], created_at, updated_at
+		SELECT user_id, email, username, prefix, firstname, lastname, g_auth_code, roles::text[], created_at, updated_at
 		FROM users 
 		WHERE user_id = $1
 	`, [userId]);
@@ -36,7 +36,7 @@ const find = async (
 const findWithPassword = async (
 	userId: number,
 ): Promise<QueryResultRow> => db.query(`
-		SELECT *, role::text[]
+		SELECT *, roles::text[]
 		FROM users 
 		WHERE user_id = $1
 	`, [userId]);
@@ -47,7 +47,7 @@ const findWithPassword = async (
 const findByUsername = async (
 	username: string,
 ): Promise<QueryResultRow> => db.query(`
-		SELECT *, role::text[]
+		SELECT *, roles::text[]
 		FROM users 
 		WHERE username = $1
 	`, [username]);
@@ -56,7 +56,7 @@ const findByUsername = async (
  * Find all users
  */
 const findAll = async (): Promise<QueryResultRow> => db.query(`
-		SELECT user_id, email, username, prefix, firstname, lastname, g_auth_code, role::text[], created_at, updated_at
+		SELECT user_id, email, username, prefix, firstname, lastname, g_auth_code, roles::text[], created_at, updated_at
 		FROM users 
 	`);
 
@@ -72,11 +72,9 @@ const updateUser = async (user: UserInputDTO): Promise<QueryResultRow> => db.que
 				firstname = COALESCE($6,firstname),
 				lastname = COALESCE($7,lastname),
 				g_auth_code = COALESCE($8,g_auth_code),
-				role = COALESCE($9,role),
-				created_at = COALESCE($10,created_at),
-				updated_at = COALESCE($11,updated_at)
+				roles = COALESCE($9,roles)
 		WHERE user_id = $1
-		RETURNING user_id, email, username, prefix, firstname, lastname, g_auth_code, role::text[], created_at, updated_at
+		RETURNING user_id, email, username, prefix, firstname, lastname, g_auth_code, roles::text[], created_at, updated_at
 	`, [
 	user.user_id,
 	user.email,
@@ -86,9 +84,7 @@ const updateUser = async (user: UserInputDTO): Promise<QueryResultRow> => db.que
 	user.firstname,
 	user.lastname,
 	user.g_auth_code,
-	user.role,
-	user.created_at,
-	user.updated_at,
+	user.roles,
 ]);
 
 /**
@@ -97,7 +93,7 @@ const updateUser = async (user: UserInputDTO): Promise<QueryResultRow> => db.que
 const deleteUser = async (userId: number): Promise<QueryResultRow> => db.query(`
 		DELETE users
 		WHERE user_id = $1
-		RETURNING user_id, email, username, prefix, firstname, lastname, g_auth_code, role::text[], created_at, updated_at
+		RETURNING user_id, email, username, prefix, firstname, lastname, g_auth_code, roles::text[], created_at, updated_at
 	`, [userId]);
 
 export default {

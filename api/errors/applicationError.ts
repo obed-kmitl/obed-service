@@ -1,11 +1,11 @@
 export class ApplicationError extends Error {
-	public type: string;
+	public type?: string;
 
-	public code: string;
+	public code?: string;
 
-	public meta: Object;
+	public meta?: Object;
 
-	public statusCode: number;
+	public statusCode?: number;
 
 	static errorType = {
 		APP_OBED_SERVICE: 'APP_OBED_SERVICE',

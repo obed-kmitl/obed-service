@@ -1,75 +1,133 @@
 import {
-	IsDate, IsNumber, IsString, IsOptional,
+	IsNotEmpty, IsString, IsOptional, IsArray, IsEnum, IsDate,
 } from 'class-validator';
-
-type PrefixType = 'PROF_DR'
-									|'PROF'
-									|'ASSOC_PROF_DR'
-									|'ASSOC_PROF'
-									|'ASST_PROF_DR'
-									|'ASST_PROF'
-									|'DR'
-									|'INSTRUCTOR'
-type RoleType = 'ADMIN'|'TEACHER'
+import { RoleEnum, PrefixType } from '_/constant/user';
 
 export class UserInputDTO {
 	@IsOptional()
-	@IsNumber()
-	user_id?: Number
+	@IsString()
+	user_id?: Number = undefined;
 
 	@IsOptional()
 	@IsString()
-	email?: String
+	email?: String = undefined;
 
 	@IsOptional()
 	@IsString()
-	username?: String
+	username?: String= undefined;
 
 	@IsOptional()
 	@IsString()
-	password?: String
+	password?: String= undefined;
 
 	@IsOptional()
 	@IsString()
-	prefix?: PrefixType
+	prefix?: PrefixType= undefined;
 
 	@IsOptional()
 	@IsString()
-	firstname?: String
+	firstname?: String= undefined;
 
 	@IsOptional()
 	@IsString()
-	lastname?: String
+	lastname?: String= undefined;
 
 	@IsOptional()
 	@IsString()
-	g_auth_code?: String
+	g_auth_code?: String= undefined;
 
 	@IsOptional()
-	@IsString()
-	role?: RoleType[]
+	@IsArray()
+	@IsEnum(RoleEnum, { each: true })
+	roles?: RoleEnum[]= undefined;
 
 	@IsOptional()
 	@IsDate()
-	created_at?: Date
+	created_at?: Date= undefined;
 
 	@IsOptional()
 	@IsDate()
-	updated_at?: Date
+	updated_at?: Date= undefined;
+}
 
-	constructor(
-		user: UserInputDTO,
-	) {
-		this.user_id = user.user_id;
-		this.email = user.email;
-		this.username = user.username;
-		this.password = user.password;
-		this.prefix = user.prefix;
-		this.firstname = user.firstname;
-		this.lastname = user.lastname;
-		this.g_auth_code = user.g_auth_code;
-		this.role = user.role;
-		this.created_at = user.created_at;
-		this.updated_at = user.updated_at;
-	}
+export class RegisterRequestDTO {
+	@IsString()
+	@IsNotEmpty()
+	email: String = '';
+
+	@IsString()
+	@IsNotEmpty()
+	username: String= '';
+
+	@IsOptional()
+	@IsString()
+	password?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	prefix?: PrefixType= undefined;
+
+	@IsString()
+	@IsNotEmpty()
+	firstname: String= '';
+
+	@IsString()
+	@IsNotEmpty()
+	lastname: String= '';
+
+	@IsOptional()
+	@IsArray()
+	@IsEnum(RoleEnum, { each: true })
+	roles?: RoleEnum[]= undefined;
+}
+
+export class LoginRequestDTO {
+	@IsString()
+	@IsNotEmpty()
+	username: String= '';
+
+	@IsString()
+	@IsNotEmpty()
+	password: String= '';
+}
+
+export class UpdatePasswordRequestDTO {
+	@IsString()
+	@IsNotEmpty()
+	oldPassword: String= '';
+
+	@IsString()
+	@IsNotEmpty()
+	newPassword: String= '';
+}
+
+export class UpdateUserProfileRequestDTO {
+	@IsOptional()
+	@IsString()
+	email?: String = undefined;
+
+	@IsOptional()
+	@IsString()
+	username?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	prefix?: PrefixType= undefined;
+
+	@IsOptional()
+	@IsString()
+	firstname?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	lastname?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	g_auth_code?: String= undefined;
+
+	@IsOptional()
+	@IsArray()
+	@IsEnum(RoleEnum, { each: true })
+	roles?: RoleEnum[]= undefined;
 }

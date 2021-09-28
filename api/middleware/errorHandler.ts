@@ -1,23 +1,23 @@
 import logger from '_/utils/logger';
-import { customValidationError, ApplicationError, CommonError } from '../utils/error';
-import { sendResponse, formatError } from '../utils/response';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
+import { ApplicationError } from '_/errors/applicationError';
+import { sendResponse, formatError } from '_/utils/response';
 
-export function errorHandler(err, req, res, next) {
-	const { analytics = {} } = err.meta || {};
-
+export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
 	if (err instanceof ApplicationError) {
 		const code = err.statusCode || 500;
 		const formattedError = formatError(err);
-		logger.error(formattedError.error.stack);
-		return res.status(code).json(formatError(err));
+		logger.error(err.stack);
+		return res.status(code).json(formattedError);
 	}
 
 	if (err instanceof Error) {
-		const newError = customValidationError(err);
+		const newError = new ApplicationError(CommonError.INTERNAL_SERVER_ERROR);
 		const code = newError.statusCode || 500;
 		const formattedError = formatError(newError);
-		logger.error(formattedError.error.stack);
-		return res.status(code).json(formatError(newError));
+		logger.error(err.stack);
+		return res.status(code).json(formattedError);
 	}
 
 	const unknownError = new ApplicationError(CommonError.UNKNOWN_ERROR);

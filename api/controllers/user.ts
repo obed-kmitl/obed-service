@@ -1,6 +1,9 @@
 import userRepository from '_/repositories/user';
 import { UserInputDTO } from '_/dtos/user';
+import { sendResponse } from '_/utils/response';
+
 import { Request, Response } from 'express';
+import { deserialize } from 'json-typescript-mapper';
 
 /**
  * Get User profile
@@ -10,7 +13,7 @@ const getProfile = async (req: Request, res: Response): Promise<Response> => {
 
 	const result = await userRepository.find(userId);
 
-	return res.status(200).json({ data: result.rows[0] });
+	sendResponse(res, result.rows[0]);
 };
 
 /**
@@ -19,7 +22,7 @@ const getProfile = async (req: Request, res: Response): Promise<Response> => {
 const getAllUsers = async (req: Request, res: Response): Promise<Response> => {
 	const result = await userRepository.findAll();
 
-	return res.status(200).json({ data: result.rows });
+	sendResponse(res, result.rows);
 };
 
 /**
@@ -27,23 +30,16 @@ const getAllUsers = async (req: Request, res: Response): Promise<Response> => {
  */
 const updateProfile = async (req: Request, res: Response): Promise<Response> => {
 	const { userId } = req;
+	const userProfile = req.body;
 
-	const userProfile = new UserInputDTO({
+	const userInfo = deserialize(UserInputDTO, {
 		user_id: userId,
-		email: req.body.email,
-		username: req.body.username,
-		prefix: req.body.prefix,
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-		g_auth_code: req.body.g_auth_code,
-		role: req.body.role,
-		created_at: req.body.created_at,
-		updated_at: req.body.updated_at,
+		...userProfile,
 	});
 
-	const result = await userRepository.updateUser(userProfile);
+	const userResult = await userRepository.updateUser(userInfo);
 
-	return res.status(200).json({ data: result.rows[0] });
+	sendResponse(res, userResult.rows[0]);
 };
 
 export default {

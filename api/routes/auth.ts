@@ -1,14 +1,27 @@
 import { authController } from '_/controllers';
-import authMiddleware from '_/middleware/auth';
-import express from 'express';
+import { verifyToken, permit } from '_/middleware/authorizationHandler';
+import { validate } from '_/middleware/validationHandler';
+import { RegisterRequestDTO, LoginRequestDTO, UpdatePasswordRequestDTO } from '_/dtos/user';
+import asyncWrapper from '_/middleware/asyncWrapper';
 
-const router = express.Router();
+import { Router } from 'express';
 
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-router.post('/adminLogin', authController.adminLogin);
-router.get('/logout', [authMiddleware.verifyToken], authController.logout);
-router.get('/getAccessToken/:userId', authController.getAccessToken);
-router.put('/updatePassword', [authMiddleware.verifyToken, authMiddleware.permit('ADMIN', 'TEACHER')], authController.updatePassword);
+const router = Router();
+
+router.post('/register', [validate(RegisterRequestDTO)], asyncWrapper(authController.register));
+
+router.post('/login', [validate(LoginRequestDTO)], asyncWrapper(authController.login));
+
+router.post('/adminLogin', [validate(LoginRequestDTO)], asyncWrapper(authController.adminLogin));
+
+router.post('/logout', [verifyToken], asyncWrapper(authController.logout));
+
+router.get('/getAccessToken/:userId', asyncWrapper(authController.getAccessToken));
+
+router.put('/updatePassword', [
+	verifyToken,
+	permit('ADMIN', 'TEACHER'),
+	validate(UpdatePasswordRequestDTO),
+], asyncWrapper(authController.updatePassword));
 
 export default router;

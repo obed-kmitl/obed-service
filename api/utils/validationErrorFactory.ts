@@ -1,5 +1,5 @@
 import { ValidationError } from 'class-validator';
-import { ApplicationError } from './applicationError';
+import { ApplicationError } from '../errors/applicationError';
 
 function mapValidationError(error) {
 	return {
@@ -13,7 +13,7 @@ function mapValidationError(error) {
 	};
 }
 
-export function customValidationError(error, overrides = {}) {
+export function CustomValidationError(error, overrides = {}) {
 	const isValidationError = error instanceof ValidationError;
 	if (isValidationError) {
 		const validationError = mapValidationError(error);

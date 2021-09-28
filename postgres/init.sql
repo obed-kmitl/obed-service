@@ -23,7 +23,7 @@ CREATE TABLE users(
 	firstname VARCHAR(50) NOT NULL,
 	lastname VARCHAR(50) NOT NULL,
 	g_auth_code VARCHAR(50),
-	role role_enum[] DEFAULT '{"TEACHER"}',
+	roles role_enum[] DEFAULT '{"TEACHER"}',
 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -37,21 +37,21 @@ CREATE TABLE users(
 -- 			ON DELETE CASCADE
 -- );
 
-INSERT INTO users (
-  email,
-  username,
-  password,
-	firstname,
-	lastname,
-	role
-	) VALUES (
-	'teacher@teacher.com', 
-	'teacher',
-	'password',
-	'TeacherTestFN',
-	'TeacherTestLN',
-	'{"ADMIN","TEACHER"}'
-);
+-- INSERT INTO users (
+--   email,
+--   username,
+--   password,
+-- 	firstname,
+-- 	lastname,
+-- 	roles
+-- 	) VALUES (
+-- 	'teacher@teacher.com', 
+-- 	'teacher',
+-- 	'password',
+-- 	'TeacherTestFN',
+-- 	'TeacherTestLN',
+-- 	'{"ADMIN","TEACHER"}'
+-- );
 
 -- INSERT INTO teachers(teacher_id) VALUES (1);
 
