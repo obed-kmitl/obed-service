@@ -72,12 +72,6 @@ const createLogger = () => {
 			level: 'info',
 			format: fileFormat,
 		}),
-		// Allow to print all the http level messages inside the http.log file
-		new winston.transports.File({
-			filename: 'logs/http.log',
-			level: 'http',
-			format: fileFormat,
-		}),
 	];
 
 	const logger = winston.createLogger({

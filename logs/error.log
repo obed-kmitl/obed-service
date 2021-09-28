@@ -1,0 +1,428 @@
+2021-09-25 01:15:10:1510 error: "ApplicationError: email must be a string\n    at Object.customValidationError (C:\\Users\\TOMMY\\Desktop\\Project1\\obed-service\\api\\utils\\error\\validationErrorFactory.ts:20:10)\n    at C:\\Users\\TOMMY\\Desktop\\Project1\\obed-service\\api\\controllers\\auth.ts:32:10\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)"
+2021-09-25 01:15:34:1534 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 01:16:38:1638 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 01:58:04:584 error: [object Object]
+2021-09-25 01:58:47:5847 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 03:03:17:317 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 03:05:26:526 info: Winston Logger Created!
+2021-09-25 03:05:26:526 info: Postgres Database connected
+2021-09-25 03:05:27:527 info: Server is listening 3001 port.
+2021-09-25 03:05:27:527 info: Redis Client connected
+2021-09-25 03:05:29:529 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 03:06:02:62 info: Winston Logger Created!
+2021-09-25 03:06:02:62 info: Postgres Database connected
+2021-09-25 03:06:02:62 info: Server is listening 3001 port.
+2021-09-25 03:06:02:62 info: Redis Client connected
+2021-09-25 03:06:05:65 info: Winston Logger Created!
+2021-09-25 03:06:05:65 info: Postgres Database connected
+2021-09-25 03:06:06:66 info: Server is listening 3001 port.
+2021-09-25 03:06:06:66 info: Redis Client connected
+2021-09-25 03:06:12:612 error: ApplicationError: email must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:32:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:14:17:1417 error: ApplicationError: role must be a string
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:30:36:3036 error: ApplicationError: role must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:31:12:3112 error: ApplicationError: role must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:31:21:3121 error: ApplicationError: role must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:32:00:320 error: ApplicationError: role must be a valid enum value
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:32:31:3231 error: ApplicationError: role must be a valid enum value
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:36:48:3648 error: ApplicationError: role must be a valid enum value
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:39:19:3919 error: ApplicationError: role must be a valid enum value
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:53:10:5310 error: ApplicationError: role must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:56:47:5647 error: ApplicationError: roles must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:57:29:5729 error: ApplicationError: roles must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:57:39:5739 error: ApplicationError: roles must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:57:40:5740 error: ApplicationError: roles must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:57:40:5740 error: ApplicationError: roles must be one of the following values: ADMIN, TEACHER
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 14:58:19:5819 error: ApplicationError: roles must be a valid enum value
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 21:57:23:5723 error: ApplicationError: roles must be a valid enum value
+    at Object.customValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:33:10
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 22:32:26:3226 error: error: duplicate key value violates unique constraint "users_email_key"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-25 22:34:16:3416 error: ApplicationError: Something went wrong, Please try again later.
+    at errorHandler (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\errorHandler.ts:16:20)
+    at Layer.handle_error (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:315:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:635:15
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:260:14)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:635:15
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:260:14)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:127:14)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:40:10
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-25 23:21:53:2153 error: undefined
+2021-09-26 03:17:10:1710 error: undefined
+2021-09-26 03:26:40:2640 error: undefined
+2021-09-26 03:26:50:2650 error: undefined
+2021-09-26 03:27:05:275 error: undefined
+2021-09-26 03:28:30:2830 error: undefined
+2021-09-26 03:31:43:3143 error: undefined
+2021-09-26 12:14:26:1426 error: undefined
+2021-09-26 12:14:36:1436 error: undefined
+2021-09-26 12:14:40:1440 error: undefined
+2021-09-27 01:11:53:1153 error: undefined
+2021-09-27 01:12:23:1223 error: undefined
+2021-09-27 01:12:54:1254 error: undefined
+2021-09-27 01:13:05:135 error: undefined
+2021-09-27 01:54:31:5431 error: undefined
+2021-09-27 23:20:22:2022 error: undefined
+2021-09-27 23:20:44:2044 error: undefined
+2021-09-27 23:21:00:210 error: undefined
+2021-09-27 23:21:05:215 error: undefined
+2021-09-27 23:21:13:2113 error: undefined
+2021-09-27 23:21:33:2133 error: undefined
+2021-09-27 23:21:34:2134 error: undefined
+2021-09-27 23:21:35:2135 error: undefined
+2021-09-27 23:21:42:2142 error: undefined
+2021-09-27 23:21:45:2145 error: undefined
+2021-09-27 23:21:49:2149 error: undefined
+2021-09-27 23:22:30:2230 error: undefined
+2021-09-27 23:22:58:2258 error: undefined
+2021-09-27 23:23:18:2318 error: undefined
+2021-09-27 23:23:20:2320 error: undefined
+2021-09-27 23:25:29:2529 error: undefined
+2021-09-27 23:26:04:264 error: undefined
+2021-09-27 23:26:08:268 error: undefined
+2021-09-27 23:26:20:2620 error: undefined
+2021-09-27 23:29:36:2936 error: undefined
+2021-09-27 23:29:39:2939 error: undefined
+2021-09-27 23:29:50:2950 error: undefined
+2021-09-27 23:29:53:2953 error: undefined
+2021-09-27 23:31:15:3115 error: undefined
+2021-09-27 23:31:38:3138 error: undefined
+2021-09-27 23:31:41:3141 error: undefined
+2021-09-27 23:31:41:3141 error: undefined
+2021-09-27 23:31:42:3142 error: undefined
+2021-09-27 23:31:46:3146 error: undefined
+2021-09-27 23:32:43:3243 error: undefined
+2021-09-27 23:32:45:3245 error: undefined
+2021-09-27 23:32:51:3251 error: undefined
+2021-09-27 23:33:00:330 error: undefined
+2021-09-27 23:33:01:331 error: undefined
+2021-09-27 23:33:02:332 error: undefined
+2021-09-27 23:33:07:337 error: undefined
+2021-09-28 00:00:27:027 error: undefined
+2021-09-28 00:00:38:038 error: undefined
+2021-09-28 00:01:38:138 error: undefined
+2021-09-28 00:01:46:146 error: undefined
+2021-09-28 00:01:48:148 error: undefined
+2021-09-28 00:01:49:149 error: undefined
+2021-09-28 00:01:50:150 error: undefined
+2021-09-28 00:01:50:150 error: undefined
+2021-09-28 00:02:22:222 error: [object Object]
+2021-09-28 00:02:42:242 error: ApplicationError: The given email address is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:32:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth\index.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 02:14:15:1415 error: ApplicationError: username should not be empty
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:24:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+2021-09-28 02:14:24:1424 error: ApplicationError: username must be a string
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:24:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+2021-09-28 02:23:55:2355 error: ApplicationError: oldPassword should not be empty
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:24:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:47:3
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 02:24:00:240 error: ApplicationError: oldPassword must be a string
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\error\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:24:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:47:3
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 14:53:25:5325 error: ApplicationError: No Permission
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:51:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 14:54:51:5451 error: ApplicationError: No Permission
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:49:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 14:54:53:5453 error: ApplicationError: No Permission
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:49:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 15:02:31:231 error: ApplicationError: Password should not be the same
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:167:15
+    at Generator.next (<anonymous>)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:4:12)
+    at updatePassword (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:162:24)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:29:4
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:51:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:13:50:1350 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:13:56:1356 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:14:08:148 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:43:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:15:01:151 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:140:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:15:27:1527 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:140:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:16:35:1635 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:140:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:16:44:1644 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:140:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:16:45:1645 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:140:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:17:16:1716 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:142:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:17:38:1738 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:142:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:17:51:1751 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:69:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:17:54:1754 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:69:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:17:55:1755 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:69:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:20:54:2054 error: ApplicationError: Forbidden
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:140:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:24:28:2428 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:143:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:24:36:2436 error: ApplicationError: User not found
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:143:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:25:33:2533 error: ApplicationError: The given email address is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:35:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 16:31:48:3148 error: ApplicationError: The given email address is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:35:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:02:102 error: error: syntax error at or near "WHERE"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-09-28 17:10:26:1026 error: ApplicationError: email should not be empty
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+2021-09-28 17:10:29:1029 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:33:1033 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:33:1033 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:34:1034 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:34:1034 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:35:1035 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-09-28 17:10:35:1035 error: ApplicationError: The given username is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:38:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)

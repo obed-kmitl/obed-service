@@ -1,119 +1,133 @@
-type prefixType = 'PROF_DR'
-									|'PROF'
-									|'ASSOC_PROF_DR'
-									|'ASSOC_PROF'
-									|'ASST_PROF_DR'
-									|'ASST_PROF'
-									|'DR'
-									|'INSTRUCTOR'
-type roleType = 'ADMIN'|'TEACHER'
+import {
+	IsNotEmpty, IsString, IsOptional, IsArray, IsEnum, IsDate,
+} from 'class-validator';
+import { RoleEnum, PrefixType } from '_/constant/user';
 
-export class User {
-	user_id: number
+export class UserInputDTO {
+	@IsOptional()
+	@IsString()
+	user_id?: Number = undefined;
 
-	email: string
+	@IsOptional()
+	@IsString()
+	email?: String = undefined;
 
-	username: string
+	@IsOptional()
+	@IsString()
+	username?: String= undefined;
 
-	password: string
+	@IsOptional()
+	@IsString()
+	password?: String= undefined;
 
-	prefix: prefixType
+	@IsOptional()
+	@IsString()
+	prefix?: PrefixType= undefined;
 
-	firstname: string
+	@IsOptional()
+	@IsString()
+	firstname?: String= undefined;
 
-	lastname: string
+	@IsOptional()
+	@IsString()
+	lastname?: String= undefined;
 
-	g_auth_code: string
+	@IsOptional()
+	@IsString()
+	g_auth_code?: String= undefined;
 
-	role: roleType[]
+	@IsOptional()
+	@IsArray()
+	@IsEnum(RoleEnum, { each: true })
+	roles?: RoleEnum[]= undefined;
 
-	created_at: Date
+	@IsOptional()
+	@IsDate()
+	created_at?: Date= undefined;
 
-	updated_at: Date
+	@IsOptional()
+	@IsDate()
+	updated_at?: Date= undefined;
 }
 
-export class UserDTO extends User {
-	constructor(
-		user_id: number,
-		email: string,
-		username: string,
-		password: string,
-		prefix: prefixType,
-		firstname: string,
-		lastname: string,
-		g_auth_code: string,
-		role: roleType[],
-		created_at: Date,
-		updated_at: Date,
-	) {
-		super();
-		this.user_id = user_id;
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		this.prefix = prefix;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.g_auth_code = g_auth_code;
-		this.role = role;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
+export class RegisterRequestDTO {
+	@IsString()
+	@IsNotEmpty()
+	email: String = '';
+
+	@IsString()
+	@IsNotEmpty()
+	username: String= '';
+
+	@IsOptional()
+	@IsString()
+	password?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	prefix?: PrefixType= undefined;
+
+	@IsString()
+	@IsNotEmpty()
+	firstname: String= '';
+
+	@IsString()
+	@IsNotEmpty()
+	lastname: String= '';
+
+	@IsOptional()
+	@IsArray()
+	@IsEnum(RoleEnum, { each: true })
+	roles?: RoleEnum[]= undefined;
 }
 
-export class UserInputDTO extends User {
-	constructor(
-		email: string,
-		username: string,
-		password: string,
-		prefix: prefixType,
-		firstname: string,
-		lastname: string,
-		role: roleType[],
-	) {
-		super();
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		this.prefix = prefix;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.role = role;
-	}
+export class LoginRequestDTO {
+	@IsString()
+	@IsNotEmpty()
+	username: String= '';
+
+	@IsString()
+	@IsNotEmpty()
+	password: String= '';
 }
 
-export class UserOutputDTO extends User {
-	constructor(
-		user_id: number,
-		email: string,
-		username: string,
-		prefix: prefixType,
-		firstname: string,
-		lastname: string,
-		g_auth_code: string,
-		role: roleType[],
-		created_at: Date,
-		updated_at: Date,
-	) {
-		super();
-		this.user_id = user_id;
-		this.email = email;
-		this.username = username;
-		this.prefix = prefix;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.g_auth_code = g_auth_code;
-		this.role = role;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
+export class UpdatePasswordRequestDTO {
+	@IsString()
+	@IsNotEmpty()
+	oldPassword: String= '';
+
+	@IsString()
+	@IsNotEmpty()
+	newPassword: String= '';
 }
 
-export class UserArrayOutputDTO extends User {
-	userArray :UserOutputDTO[]
+export class UpdateUserProfileRequestDTO {
+	@IsOptional()
+	@IsString()
+	email?: String = undefined;
 
-	constructor(userArray :UserOutputDTO[]) {
-		super();
-		this.userArray = userArray;
-	}
+	@IsOptional()
+	@IsString()
+	username?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	prefix?: PrefixType= undefined;
+
+	@IsOptional()
+	@IsString()
+	firstname?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	lastname?: String= undefined;
+
+	@IsOptional()
+	@IsString()
+	g_auth_code?: String= undefined;
+
+	@IsOptional()
+	@IsArray()
+	@IsEnum(RoleEnum, { each: true })
+	roles?: RoleEnum[]= undefined;
 }
