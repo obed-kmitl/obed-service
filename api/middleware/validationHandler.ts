@@ -15,7 +15,7 @@ type Constructor<T> = {new(): T};
 
 // This function returns a middleware which validates that the
 // request's JSON body conforms to the passed-in type.
-export function validate<T extends object>(type: Constructor<T>): RequestHandler {
+export function validateRequest<T extends object>(type: Constructor<T>): RequestHandler {
 	const validator = new Validator();
 
 	return (req: Request, res: Response, next: NextFunction) => {
@@ -32,5 +32,5 @@ export function validate<T extends object>(type: Constructor<T>): RequestHandler
 }
 
 export default {
-	validate,
+	validateRequest,
 };
