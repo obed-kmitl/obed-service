@@ -1,5 +1,5 @@
 import {
-	IsNotEmpty, IsString, IsOptional, IsArray, IsEnum, IsDate,
+	IsNotEmpty, IsString, IsOptional, IsArray, IsEnum, IsDate, Length,
 } from 'class-validator';
 import { RoleEnum, PrefixType } from '_/constant/user';
 
@@ -97,6 +97,7 @@ export class UpdatePasswordRequestDTO {
 	oldPassword: String= '';
 
 	@IsString()
+	@Length(8, 100)
 	@IsNotEmpty()
 	newPassword: String= '';
 }

@@ -4,13 +4,15 @@ import { extractToken } from '_/utils/extractToken';
 import { AuthError } from '_/errors/auth';
 import { ApplicationError } from '_/errors/applicationError';
 import { CommonError } from '_/errors/common';
+import redisClient from '_/utils/redis';
 
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
+import { access } from 'fs';
 
 const { TokenExpiredError } = jwt;
 
-export const verifyToken = (req:Request, res:Response, next:NextFunction) : Response => {
+export const verifyToken = async (req:Request, res:Response, next:NextFunction) : Response => {
 	const accessToken = extractToken(req);
 
 	if (!accessToken) {
@@ -20,6 +22,12 @@ export const verifyToken = (req:Request, res:Response, next:NextFunction) : Resp
 	try {
 		const decoded = jwt.verify(accessToken, authConfig.secret);
 		req.userId = decoded.id;
+
+		// Check if accessToken is in blacklist cache should return an error
+		const accessTokenBL = await redisClient.getAsync(`BL_${decoded.id.toString()}`);
+		if (accessTokenBL === accessToken) {
+			return next(new ApplicationError(CommonError.UNAUTHORIZED));
+		}
 
 		next();
 	} catch (err) {

@@ -16,7 +16,7 @@ router.post('/adminLogin', [validateRequest(LoginRequestDTO)], asyncWrapper(auth
 
 router.post('/logout', [verifyToken], asyncWrapper(authController.logout));
 
-router.get('/getAccessToken/:userId', asyncWrapper(authController.getAccessToken));
+router.post('/getAccessToken/:userId', asyncWrapper(authController.getAccessToken));
 
 router.put('/updatePassword', [
 	verifyToken,
