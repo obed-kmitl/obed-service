@@ -1,9 +1,10 @@
-import express from 'express';
 import logger from '_/utils/logger';
 import routes from '_/routes';
-import cors from 'cors';
-
 import { errorHandler } from '_/middleware/errorHandler';
+
+import express from 'express';
+import cors from 'cors';
+import { version } from '../package.json';
 
 const server = express(); // init the application
 
@@ -19,6 +20,13 @@ server.use(express.json());
 
 // Allow cors policy
 server.use(cors());
+
+/**
+ * API health check
+ */
+server.use('/health-check', (req, res) => {
+	res.send(`I'm up and running on v${version}.`);
+});
 
 /**
  * Method to configure the routes

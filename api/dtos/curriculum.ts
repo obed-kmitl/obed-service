@@ -6,10 +6,6 @@ export class CreateCurriculumRequestDTO {
 		@IsString()
 		@IsNotEmpty()
 		title : string= '';
-
-		@IsString()
-		@IsNotEmpty()
-		year: string= '';
 }
 
 export class UpdateCurriculumRequestDTO {
@@ -24,10 +20,6 @@ export class UpdateCurriculumRequestDTO {
 	@IsOptional()
 	@IsString()
 	title? : string= undefined;
-
-	@IsOptional()
-	@IsString()
-	year?: string= undefined;
 }
 
 export class CurriculumInputDTO {
@@ -46,8 +38,4 @@ export class CurriculumInputDTO {
 	@IsOptional()
 	@IsString()
 	title? : string= undefined;
-
-	@IsOptional()
-	@IsString()
-	year?: string= undefined;
 }

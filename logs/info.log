@@ -4088,3 +4088,153 @@
 2021-10-12 17:40:24:4024 info: Postgres Database connected
 2021-10-12 17:40:25:4025 info: Server is listening 3001 port.
 2021-10-12 17:40:25:4025 info: Redis Client connected
+2021-10-13 00:15:48:1548 info: Winston Logger Created!
+2021-10-13 00:15:48:1548 info: Postgres Database connected
+2021-10-13 00:15:48:1548 info: Server is listening 3001 port.
+2021-10-13 00:15:48:1548 info: Redis Client connected
+2021-10-13 00:17:11:1711 info: Winston Logger Created!
+2021-10-13 00:17:12:1712 info: Postgres Database connected
+2021-10-13 00:17:12:1712 info: Server is listening 3001 port.
+2021-10-13 00:17:12:1712 info: Redis Client connected
+2021-10-13 00:17:15:1715 error: ApplicationError: Unauthorized Access Token was expired
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:35:16
+    at Generator.next (<anonymous>)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:4:12)
+    at verifyToken (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:15:94)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+2021-10-13 00:17:25:1725 error: error: insert or update on table "courses" violates foreign key constraint "courses_curriculum_id_fkey"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-13 00:21:00:210 info: Winston Logger Created!
+2021-10-13 00:21:00:210 info: Postgres Database connected
+2021-10-13 00:21:00:210 info: Server is listening 3001 port.
+2021-10-13 00:21:00:210 info: Redis Client connected
+2021-10-13 00:21:14:2114 info: Winston Logger Created!
+2021-10-13 00:21:14:2114 info: Postgres Database connected
+2021-10-13 00:21:14:2114 info: Server is listening 3001 port.
+2021-10-13 00:21:14:2114 info: Redis Client connected
+2021-10-13 00:21:17:2117 info: Winston Logger Created!
+2021-10-13 00:21:17:2117 info: Postgres Database connected
+2021-10-13 00:21:18:2118 info: Server is listening 3001 port.
+2021-10-13 00:21:18:2118 info: Redis Client connected
+2021-10-13 00:22:03:223 error: error: null value in column "year" of relation "curriculums" violates not-null constraint
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-13 00:22:33:2233 error: error: column "year" of relation "curriculums" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-13 00:23:06:236 info: Winston Logger Created!
+2021-10-13 00:23:06:236 info: Postgres Database connected
+2021-10-13 00:23:06:236 info: Server is listening 3001 port.
+2021-10-13 00:23:06:236 info: Redis Client connected
+2021-10-13 00:23:17:2317 info: Winston Logger Created!
+2021-10-13 00:23:17:2317 info: Postgres Database connected
+2021-10-13 00:23:18:2318 info: Server is listening 3001 port.
+2021-10-13 00:23:18:2318 info: Redis Client connected
+2021-10-13 00:29:02:292 info: Winston Logger Created!
+2021-10-13 00:29:02:292 info: Postgres Database connected
+2021-10-13 00:29:03:293 info: Server is listening 3001 port.
+2021-10-13 00:29:03:293 info: Redis Client connected
+2021-10-13 00:29:12:2912 info: Winston Logger Created!
+2021-10-13 00:29:12:2912 info: Postgres Database connected
+2021-10-13 00:29:12:2912 info: Server is listening 3001 port.
+2021-10-13 00:29:12:2912 info: Redis Client connected
+2021-10-13 00:46:12:4612 info: Winston Logger Created!
+2021-10-13 00:46:12:4612 info: Postgres Database connected
+2021-10-13 00:46:13:4613 info: Server is listening 3001 port.
+2021-10-13 00:46:13:4613 info: Redis Client connected
+2021-10-13 00:47:40:4740 info: Winston Logger Created!
+2021-10-13 00:47:40:4740 info: Postgres Database connected
+2021-10-13 00:47:40:4740 info: Server is listening 3001 port.
+2021-10-13 00:47:40:4740 info: Redis Client connected
+2021-10-13 01:16:36:1636 info: Winston Logger Created!
+2021-10-13 01:16:37:1637 info: Postgres Database connected
+2021-10-13 01:16:37:1637 info: Server is listening 3001 port.
+2021-10-13 01:16:37:1637 info: Redis Client connected
+2021-10-13 01:17:28:1728 info: Winston Logger Created!
+2021-10-13 01:17:28:1728 info: Postgres Database connected
+2021-10-13 01:17:28:1728 info: Server is listening 3001 port.
+2021-10-13 01:17:28:1728 info: Redis Client connected
+2021-10-13 01:17:29:1729 info: Winston Logger Created!
+2021-10-13 01:17:29:1729 info: Postgres Database connected
+2021-10-13 01:17:30:1730 info: Server is listening 3001 port.
+2021-10-13 01:17:30:1730 info: Redis Client connected
+2021-10-13 01:17:33:1733 error: ApplicationError: Unauthorized Access Token was expired
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:35:16
+    at Generator.next (<anonymous>)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:4:12)
+    at verifyToken (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:15:94)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at param (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:354:14)
+    at param (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:365:14)
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:410:3)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+2021-10-13 01:30:42:3042 info: Winston Logger Created!
+2021-10-13 01:30:42:3042 info: Postgres Database connected
+2021-10-13 01:30:43:3043 info: Server is listening 3001 port.
+2021-10-13 01:30:43:3043 info: Redis Client connected
+2021-10-13 01:42:02:422 info: Winston Logger Created!
+2021-10-13 01:42:03:423 info: Postgres Database connected
+2021-10-13 01:42:03:423 info: Server is listening 3001 port.
+2021-10-13 01:42:03:423 info: Redis Client connected
+2021-10-13 01:42:16:4216 error: error: insert or update on table "courses" violates foreign key constraint "courses_curriculum_id_fkey"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-13 01:46:15:4615 info: Winston Logger Created!
+2021-10-13 01:46:15:4615 info: Postgres Database connected
+2021-10-13 01:46:16:4616 info: Server is listening 3001 port.
+2021-10-13 01:46:16:4616 info: Redis Client connected
+2021-10-13 01:52:53:5253 info: Winston Logger Created!
+2021-10-13 01:52:53:5253 info: Postgres Database connected
+2021-10-13 01:52:54:5254 info: Server is listening 3001 port.
+2021-10-13 01:52:54:5254 info: Redis Client connected
+2021-10-13 01:53:01:531 info: Winston Logger Created!
+2021-10-13 01:53:01:531 info: Postgres Database connected
+2021-10-13 01:53:01:531 info: Server is listening 3001 port.
+2021-10-13 01:53:01:531 info: Redis Client connected

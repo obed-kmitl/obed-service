@@ -6,12 +6,11 @@ import { QueryResultRow } from 'pg';
  * Create currriculum
  */
 const createCurriculum = async (curriculumInfo:	 CreateCurriculumRequestDTO): Promise<QueryResultRow> => db.query(`
-		INSERT INTO curriculums (title, year) 
-		VALUES ($1, $2)
+		INSERT INTO curriculums (title) 
+		VALUES ($1)
 		RETURNING *
 		`, [
 	curriculumInfo.title,
-	curriculumInfo.year,
 ]);
 
 /**
@@ -38,8 +37,7 @@ const updateCurriculum = async (curriculumInfo: CurriculumInputDTO): Promise<Que
  UPDATE curriculums
  SET main_standard_id = COALESCE($2,main_standard_id),
  		 relative_standard_id = COALESCE($3,relative_standard_id),
-		 title = COALESCE($4,title),
-		 year = COALESCE($5,year)
+		 title = COALESCE($4,title)
  WHERE curriculum_id = $1
  RETURNING *
 `, [
@@ -47,7 +45,6 @@ const updateCurriculum = async (curriculumInfo: CurriculumInputDTO): Promise<Que
 	curriculumInfo.main_standard_id,
 	curriculumInfo.relative_standard_id,
 	curriculumInfo.title,
-	curriculumInfo.year,
 ]);
 
 /**
