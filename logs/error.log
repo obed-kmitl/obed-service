@@ -717,3 +717,159 @@
     at Generator.next (<anonymous>)
     at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
     at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-05 21:23:56:2356 error: error: column "roles" of relation "users" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-05 21:29:01:291 error: error: column "roles" of relation "users" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-05 21:30:53:3053 error: error: column "updated_at" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-05 21:32:09:329 error: error: null value in column "role" of relation "users" violates not-null constraint
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-05 21:34:56:3456 error: error: null value in column "role" of relation "users" violates not-null constraint
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-07 02:34:03:343 error: error: column "role" of relation "users" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-07 02:36:22:3622 error: error: insert or update on table "users" violates foreign key constraint "users_prefix_fkey"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-12 17:06:49:649 error: ApplicationError: prefix must be an array
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+2021-10-12 17:10:43:1043 error: ApplicationError: each value in prefix must be a valid enum value
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
+    at router (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+2021-10-12 17:17:37:1737 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:58:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-12 17:17:47:1747 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:93:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-12 17:18:14:1814 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-12 17:18:15:1815 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:95:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-12 17:22:49:2249 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:62:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-12 17:29:33:2933 error: ApplicationError: Password should not be the same
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:185:15
+    at Generator.next (<anonymous>)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:4:12)
+    at updatePassword (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:180:24)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\asyncWrapper.ts:4:18
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:29:4
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:61:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-12 17:29:53:2953 error: ApplicationError: Unauthorized
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:62:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-12 17:38:46:3846 error: ApplicationError: No Permission
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:59:15
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)

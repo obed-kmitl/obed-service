@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import authConfig from '_/config/auth';
+import authConfig from '_/configs/auth';
 import redisClient from '_/utils/redis';
 
 export const GenerateRefreshToken = async (userId: number) => {

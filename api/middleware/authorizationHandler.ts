@@ -1,14 +1,14 @@
-import authConfig from '_/config/auth';
+import authConfig from '_/configs/auth';
 import userRepository from '_/repositories/user';
 import { extractToken } from '_/utils/extractToken';
 import { AuthError } from '_/errors/auth';
 import { ApplicationError } from '_/errors/applicationError';
 import { CommonError } from '_/errors/common';
 import redisClient from '_/utils/redis';
+import { isPermitRole } from '_/constants/user';
 
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { access } from 'fs';
 
 const { TokenExpiredError } = jwt;
 
@@ -51,7 +51,9 @@ export const permit = (...permittedRoles: String[]) => async (
 		return next(new ApplicationError(AuthError.USER_NOT_FOUND));
 	}
 
-	const hasPermission = permittedRoles.find((val) => userResult.roles.includes(val));
+	const hasPermission = permittedRoles.find(
+		(permitRole) => isPermitRole(userResult.role, permitRole),
+	);
 
 	if (!hasPermission) {
 		return next(new ApplicationError(AuthError.NO_PERMISSION));

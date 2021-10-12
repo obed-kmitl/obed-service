@@ -1,7 +1,7 @@
 import {
-	IsNotEmpty, IsString, IsOptional, IsArray, IsEnum, IsDate, Length,
+	IsNotEmpty, IsString, IsOptional, IsEnum, IsDate, Length,
 } from 'class-validator';
-import { RoleEnum, PrefixType } from '_/constant/user';
+import { RoleEnum, PrefixEnum } from '_/constants/user';
 
 export class UserInputDTO {
 	@IsOptional()
@@ -21,8 +21,8 @@ export class UserInputDTO {
 	password?: String= undefined;
 
 	@IsOptional()
-	@IsString()
-	prefix?: PrefixType= undefined;
+	@IsEnum(PrefixEnum, { each: true })
+	prefix?: String= undefined;
 
 	@IsOptional()
 	@IsString()
@@ -37,9 +37,8 @@ export class UserInputDTO {
 	g_auth_code?: String= undefined;
 
 	@IsOptional()
-	@IsArray()
 	@IsEnum(RoleEnum, { each: true })
-	roles?: RoleEnum[]= undefined;
+	role?: String= undefined;
 
 	@IsOptional()
 	@IsDate()
@@ -64,8 +63,8 @@ export class RegisterRequestDTO {
 	password?: String= undefined;
 
 	@IsOptional()
-	@IsString()
-	prefix?: PrefixType= undefined;
+	@IsEnum(PrefixEnum, { each: true })
+	prefix?: String= undefined;
 
 	@IsString()
 	@IsNotEmpty()
@@ -76,9 +75,8 @@ export class RegisterRequestDTO {
 	lastname: String= '';
 
 	@IsOptional()
-	@IsArray()
 	@IsEnum(RoleEnum, { each: true })
-	roles?: RoleEnum[]= undefined;
+	role?: String= undefined;
 }
 
 export class LoginRequestDTO {
@@ -112,8 +110,8 @@ export class UpdateUserProfileRequestDTO {
 	username?: String= undefined;
 
 	@IsOptional()
-	@IsString()
-	prefix?: PrefixType= undefined;
+	@IsEnum(PrefixEnum, { each: true })
+	prefix?: String= undefined;
 
 	@IsOptional()
 	@IsString()
@@ -125,10 +123,5 @@ export class UpdateUserProfileRequestDTO {
 
 	@IsOptional()
 	@IsString()
-	g_auth_code?: String= undefined;
-
-	@IsOptional()
-	@IsArray()
-	@IsEnum(RoleEnum, { each: true })
-	roles?: RoleEnum[]= undefined;
+	g_auth_code?: String= undefined
 }

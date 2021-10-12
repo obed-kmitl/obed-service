@@ -48,6 +48,7 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 const updateProfile = async (req: Request, res: Response): Promise<Response> => {
 	const { userId } = req;
 	const userProfile = req.body;
+	console.log(userProfile);
 
 	const userInfo = deserialize(UserInputDTO, {
 		user_id: userId,
