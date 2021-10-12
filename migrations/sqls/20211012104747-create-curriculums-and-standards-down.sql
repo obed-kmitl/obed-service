@@ -1,0 +1,3 @@
+DROP TABLE standards CASCADE;
+
+DROP TABLE curriculums CASCADE;

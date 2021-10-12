@@ -1,5 +1,5 @@
 import userRepository from '_/repositories/user';
-import authConfig from '_/config/auth';
+import authConfig from '_/configs/auth';
 import authToken from '_/utils/token';
 import redisClient from '_/utils/redis';
 import { extractToken } from '_/utils/extractToken';
@@ -8,6 +8,7 @@ import { sendResponse } from '_/utils/response';
 import { UserInputDTO } from '_/dtos/user';
 import { CommonError } from '_/errors/common';
 import { AuthError } from '_/errors/auth';
+import { isTeacher, isAdmin } from '_/constants/user';
 
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
@@ -23,18 +24,19 @@ const register = async (req: Request, res: Response, next: NextFunction): Promis
 		const user = req.body;
 		// Wait for random password logic
 		user.password = bcrypt.hashSync('password', authConfig.salt);
-		user.roles = ['TEACHER'];
+		user.role = 'ADMIN';
 
 		const result = await userRepository.createUser(user);
 		sendResponse(res, result.rows[0]);
 	} catch (error) {
 		if (error instanceof DatabaseError) {
+			const databaseError = error as DatabaseError;
 			// Check if PostgreSQL Error Codes is unique_violation (23505). See more info https://www.postgresql.org/docs/12/errcodes-appendix.html
-			if (error.code === '23505') {
-				if (error.constraint === 'users_email_key') {
+			if (databaseError.code === '23505') {
+				if (databaseError.constraint === 'users_email_key') {
 					return next(new ApplicationError(AuthError.EMAIL_ALREADY_TAKEN));
 				}
-				if (error.constraint === 'users_username_key') {
+				if (databaseError.constraint === 'users_username_key') {
 					return next(new ApplicationError(AuthError.USERNAME_ALREADY_TAKEN));
 				}
 			}
@@ -56,7 +58,7 @@ const login = async (req: Request, res: Response, next: NextFunction): Promise<R
 		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
-	if (!userResult.roles.includes('TEACHER')) {
+	if (!isTeacher(userResult.role)) {
 		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
@@ -91,7 +93,7 @@ const adminLogin = async (req: Request, res: Response, next: NextFunction): Prom
 		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 
-	if (!userResult.roles.includes('ADMIN')) {
+	if (!isAdmin(userResult.role)) {
 		return next(new ApplicationError(CommonError.UNAUTHORIZED));
 	}
 

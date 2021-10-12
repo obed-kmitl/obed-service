@@ -1,5 +1,5 @@
 import redis from 'redis';
-import redisConfig from '_/config/redis';
+import redisConfig from '_/configs/redis';
 import logger from '_/utils/logger';
 import bluebird from 'bluebird';
 

@@ -9,8 +9,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: obed-db
-    volumes:
-      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql # mapping to file containing initial SQL commands
     ports:
       - "5432:5432"
   redis:
