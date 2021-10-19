@@ -10,6 +10,8 @@ const router = Router();
 
 router.post('/register', [validateRequest(RegisterRequestDTO)], asyncWrapper(authController.register));
 
+router.post('/adminRegister', [validateRequest(RegisterRequestDTO)], asyncWrapper(authController.adminRegister));
+
 router.post('/login', [validateRequest(LoginRequestDTO)], asyncWrapper(authController.login));
 
 router.post('/adminLogin', [validateRequest(LoginRequestDTO)], asyncWrapper(authController.adminLogin));
