@@ -24,6 +24,37 @@ const register = async (req: Request, res: Response, next: NextFunction): Promis
 		const user = req.body;
 		// Wait for random password logic
 		user.password = bcrypt.hashSync('password', authConfig.salt);
+		user.role = 'TEACHER';
+
+		const result = await userRepository.createUser(user);
+		sendResponse(res, result.rows[0]);
+	} catch (error) {
+		if (error instanceof DatabaseError) {
+			const databaseError = error as DatabaseError;
+			// Check if PostgreSQL Error Codes is unique_violation (23505). See more info https://www.postgresql.org/docs/12/errcodes-appendix.html
+			if (databaseError.code === '23505') {
+				if (databaseError.constraint === 'users_email_key') {
+					return next(new ApplicationError(AuthError.EMAIL_ALREADY_TAKEN));
+				}
+				if (databaseError.constraint === 'users_username_key') {
+					return next(new ApplicationError(AuthError.USERNAME_ALREADY_TAKEN));
+				}
+			}
+		}
+		return next(error);
+	}
+};
+
+/**
+ * Register as ADMIN role
+ */
+const adminRegister = async (
+	req: Request, res: Response, next: NextFunction,
+): Promise<Response> => {
+	try {
+		const user = req.body;
+		// Wait for random password logic
+		user.password = bcrypt.hashSync('password', authConfig.salt);
 		user.role = 'ADMIN';
 
 		const result = await userRepository.createUser(user);
@@ -210,6 +241,7 @@ const updatePassword = async (
 };
 
 export default {
+	adminRegister,
 	register,
 	login,
 	adminLogin,

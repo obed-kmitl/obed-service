@@ -7187,3 +7187,58 @@
 2021-10-18 22:56:26:5626 info: Postgres Database connected
 2021-10-18 22:56:26:5626 info: Server is listening 3001 port.
 2021-10-18 22:56:26:5626 info: Redis Client connected
+2021-10-19 10:34:17:3417 info: Winston Logger Created!
+2021-10-19 10:34:17:3417 info: Postgres Database connected
+2021-10-19 10:34:18:3418 info: Server is listening 3001 port.
+2021-10-19 10:34:18:3418 info: Redis Client connected
+2021-10-19 10:34:26:3426 info: Winston Logger Created!
+2021-10-19 10:34:26:3426 info: Postgres Database connected
+2021-10-19 10:34:26:3426 info: Server is listening 3001 port.
+2021-10-19 10:34:26:3426 info: Redis Client connected
+2021-10-19 10:35:08:358 info: Winston Logger Created!
+2021-10-19 10:35:08:358 info: Postgres Database connected
+2021-10-19 10:35:09:359 info: Server is listening 3001 port.
+2021-10-19 10:35:09:359 info: Redis Client connected
+2021-10-19 10:35:44:3544 error: ApplicationError: The given email address is already taken
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:37:18
+    at Generator.throw (<anonymous>)
+    at rejected (C:\Users\TOMMY\Desktop\Project1\obed-service\api\controllers\auth.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-19 10:41:41:4141 info: Winston Logger Created!
+2021-10-19 10:41:41:4141 info: Postgres Database connected
+2021-10-19 10:41:42:4142 info: Server is listening 3001 port.
+2021-10-19 10:41:42:4142 info: Redis Client connected
+2021-10-19 10:42:26:4226 info: Winston Logger Created!
+2021-10-19 10:42:27:4227 info: Postgres Database connected
+2021-10-19 10:42:27:4227 info: Server is listening 3001 port.
+2021-10-19 10:42:27:4227 info: Redis Client connected
+2021-10-19 10:43:22:4322 info: Winston Logger Created!
+2021-10-19 10:43:22:4322 info: Postgres Database connected
+2021-10-19 10:43:23:4323 info: Server is listening 3001 port.
+2021-10-19 10:43:23:4323 info: Redis Client connected
+2021-10-19 10:43:48:4348 info: Winston Logger Created!
+2021-10-19 10:43:48:4348 info: Postgres Database connected
+2021-10-19 10:43:48:4348 info: Server is listening 3001 port.
+2021-10-19 10:43:48:4348 info: Redis Client connected
+2021-10-19 10:43:57:4357 info: Winston Logger Created!
+2021-10-19 10:43:57:4357 info: Postgres Database connected
+2021-10-19 10:43:57:4357 info: Server is listening 3001 port.
+2021-10-19 10:43:57:4357 info: Redis Client connected
+2021-10-19 10:44:20:4420 info: Winston Logger Created!
+2021-10-19 10:44:20:4420 info: Postgres Database connected
+2021-10-19 10:44:21:4421 info: Server is listening 3001 port.
+2021-10-19 10:44:21:4421 info: Redis Client connected
+2021-10-19 10:44:26:4426 info: Winston Logger Created!
+2021-10-19 10:44:26:4426 info: Postgres Database connected
+2021-10-19 10:44:26:4426 info: Server is listening 3001 port.
+2021-10-19 10:44:26:4426 info: Redis Client connected
+2021-10-19 10:45:59:4559 error: error: relation "users" does not exist
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
