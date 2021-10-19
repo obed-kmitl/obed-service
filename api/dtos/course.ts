@@ -26,16 +26,16 @@ export class CreateCourseRequestDTO {
 }
 
 export class UpdateCourseRequestDTO {
-	@IsNotEmpty()
-	@IsString()
+	@IsOptional()
 	@Length(8, 8)
-	pre_course_id?: number= undefined;
+	@IsString()
+	pre_course_id?: string='';
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	course_name_en?: string='';
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	course_name_th?: string='';
 }
@@ -50,11 +50,11 @@ export class CourseInputDTO {
 	@IsNumber()
 	pre_course_id?: number= undefined;
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	course_name_en?: string='';
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	course_name_th?: string='';
 }
