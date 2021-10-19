@@ -30,9 +30,9 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
  */
 const updateCourse = async (courseInfo: CourseInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE courses
- SET pre_course_id = COALESCE($2,pre_course_id),
- 		 course_name_en = COALESCE($3,course_name_en),
-		 course_name_th = COALESCE($4,course_name_th)
+ SET pre_course_id = $2,
+ 		 course_name_en = $3,
+		 course_name_th = $4
  WHERE course_id = $1
  RETURNING *
 `, [
