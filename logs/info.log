@@ -7242,3 +7242,188 @@
     at readableAddChunk (_stream_readable.js:271:9)
     at Socket.Readable.push (_stream_readable.js:212:10)
     at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-19 13:30:22:3022 info: Winston Logger Created!
+2021-10-19 13:30:22:3022 info: Postgres Database connected
+2021-10-19 13:30:22:3022 info: Server is listening 3001 port.
+2021-10-19 13:30:22:3022 info: Redis Client connected
+2021-10-19 13:31:10:3110 info: Winston Logger Created!
+2021-10-19 13:31:11:3111 info: Postgres Database connected
+2021-10-19 13:31:11:3111 info: Server is listening 3001 port.
+2021-10-19 13:31:11:3111 info: Redis Client connected
+2021-10-19 13:33:22:3322 error: SyntaxError: Unexpected token u in JSON at position 21
+    at JSON.parse (<anonymous>)
+    at parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\raw-body\index.js:224:16)
+    at done (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:327:22)
+    at endReadableNT (_stream_readable.js:1220:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+2021-10-19 13:33:43:3343 info: Winston Logger Created!
+2021-10-19 13:33:44:3344 info: Postgres Database connected
+2021-10-19 13:33:44:3344 info: Server is listening 3001 port.
+2021-10-19 13:33:44:3344 info: Redis Client connected
+2021-10-19 13:33:47:3347 error: ApplicationError: pre_course_id must be a number conforming to the specified constraints
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:61:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-19 13:33:57:3357 info: Winston Logger Created!
+2021-10-19 13:33:57:3357 info: Postgres Database connected
+2021-10-19 13:33:57:3357 info: Server is listening 3001 port.
+2021-10-19 13:33:57:3357 info: Redis Client connected
+2021-10-19 13:35:27:3527 info: Winston Logger Created!
+2021-10-19 13:35:28:3528 info: Postgres Database connected
+2021-10-19 13:35:28:3528 info: Server is listening 3001 port.
+2021-10-19 13:35:28:3528 info: Redis Client connected
+2021-10-19 13:35:58:3558 info: Winston Logger Created!
+2021-10-19 13:35:58:3558 info: Postgres Database connected
+2021-10-19 13:35:59:3559 info: Server is listening 3001 port.
+2021-10-19 13:35:59:3559 info: Redis Client connected
+2021-10-19 13:36:02:362 error: ApplicationError: pre_course_id must be a number conforming to the specified constraints
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:61:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-19 13:36:08:368 info: Winston Logger Created!
+2021-10-19 13:36:09:369 info: Postgres Database connected
+2021-10-19 13:36:09:369 info: Server is listening 3001 port.
+2021-10-19 13:36:09:369 info: Redis Client connected
+2021-10-19 13:36:11:3611 error: ApplicationError: pre_course_id must be a number conforming to the specified constraints
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:61:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-19 13:36:42:3642 info: Winston Logger Created!
+2021-10-19 13:36:43:3643 info: Postgres Database connected
+2021-10-19 13:36:43:3643 info: Server is listening 3001 port.
+2021-10-19 13:36:43:3643 info: Redis Client connected
+2021-10-19 13:36:54:3654 info: Winston Logger Created!
+2021-10-19 13:36:54:3654 info: Postgres Database connected
+2021-10-19 13:36:55:3655 info: Server is listening 3001 port.
+2021-10-19 13:36:55:3655 info: Redis Client connected
+2021-10-19 13:37:12:3712 info: Winston Logger Created!
+2021-10-19 13:37:12:3712 info: Postgres Database connected
+2021-10-19 13:37:12:3712 info: Server is listening 3001 port.
+2021-10-19 13:37:12:3712 info: Redis Client connected
+2021-10-19 13:37:14:3714 error: ApplicationError: pre_course_id must be a number conforming to the specified constraints
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:61:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-19 13:37:22:3722 info: Winston Logger Created!
+2021-10-19 13:37:22:3722 info: Postgres Database connected
+2021-10-19 13:37:22:3722 info: Server is listening 3001 port.
+2021-10-19 13:37:22:3722 info: Redis Client connected
+2021-10-19 13:37:23:3723 error: ApplicationError: pre_course_id must be a number conforming to the specified constraints
+    at Object.CustomValidationError (C:\Users\TOMMY\Desktop\Project1\obed-service\api\utils\validationErrorFactory.ts:20:10)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\validationHandler.ts:26:9
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:61:2
+    at Generator.next (<anonymous>)
+    at fulfilled (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+2021-10-19 13:37:34:3734 info: Winston Logger Created!
+2021-10-19 13:37:35:3735 info: Postgres Database connected
+2021-10-19 13:37:35:3735 info: Server is listening 3001 port.
+2021-10-19 13:37:35:3735 info: Redis Client connected
+2021-10-19 13:37:36:3736 info: Winston Logger Created!
+2021-10-19 13:37:36:3736 info: Postgres Database connected
+2021-10-19 13:37:37:3737 info: Server is listening 3001 port.
+2021-10-19 13:37:37:3737 info: Redis Client connected
+2021-10-19 13:37:42:3742 info: Winston Logger Created!
+2021-10-19 13:37:43:3743 info: Postgres Database connected
+2021-10-19 13:37:43:3743 info: Server is listening 3001 port.
+2021-10-19 13:37:43:3743 info: Redis Client connected
+2021-10-19 13:38:03:383 info: Winston Logger Created!
+2021-10-19 13:38:03:383 info: Postgres Database connected
+2021-10-19 13:38:04:384 info: Server is listening 3001 port.
+2021-10-19 13:38:04:384 info: Redis Client connected
+2021-10-19 13:38:15:3815 info: Winston Logger Created!
+2021-10-19 13:38:15:3815 info: Postgres Database connected
+2021-10-19 13:38:15:3815 info: Server is listening 3001 port.
+2021-10-19 13:38:15:3815 info: Redis Client connected
+2021-10-19 13:38:25:3825 info: Winston Logger Created!
+2021-10-19 13:38:25:3825 info: Postgres Database connected
+2021-10-19 13:38:26:3826 info: Server is listening 3001 port.
+2021-10-19 13:38:26:3826 info: Redis Client connected
+2021-10-19 13:39:00:390 info: Winston Logger Created!
+2021-10-19 13:39:00:390 info: Postgres Database connected
+2021-10-19 13:39:01:391 info: Server is listening 3001 port.
+2021-10-19 13:39:01:391 info: Redis Client connected
+2021-10-19 13:39:07:397 error: error: invalid input syntax for type integer: "NULL"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-19 13:39:14:3914 info: Winston Logger Created!
+2021-10-19 13:39:14:3914 info: Postgres Database connected
+2021-10-19 13:39:14:3914 info: Server is listening 3001 port.
+2021-10-19 13:39:14:3914 info: Redis Client connected
+2021-10-19 13:41:39:4139 info: Winston Logger Created!
+2021-10-19 13:41:39:4139 info: Postgres Database connected
+2021-10-19 13:41:39:4139 info: Server is listening 3001 port.
+2021-10-19 13:41:39:4139 info: Redis Client connected
+2021-10-19 13:42:22:4222 info: Winston Logger Created!
+2021-10-19 13:42:22:4222 info: Postgres Database connected
+2021-10-19 13:42:23:4223 info: Server is listening 3001 port.
+2021-10-19 13:42:23:4223 info: Redis Client connected
+2021-10-19 13:42:49:4249 info: Winston Logger Created!
+2021-10-19 13:42:49:4249 info: Postgres Database connected
+2021-10-19 13:42:50:4250 info: Server is listening 3001 port.
+2021-10-19 13:42:50:4250 info: Redis Client connected
+2021-10-19 13:42:58:4258 info: Winston Logger Created!
+2021-10-19 13:42:58:4258 info: Postgres Database connected
+2021-10-19 13:42:58:4258 info: Server is listening 3001 port.
+2021-10-19 13:42:58:4258 info: Redis Client connected
+2021-10-19 13:43:30:4330 info: Winston Logger Created!
+2021-10-19 13:43:31:4331 info: Postgres Database connected
+2021-10-19 13:43:31:4331 info: Server is listening 3001 port.
+2021-10-19 13:43:31:4331 info: Redis Client connected
+2021-10-19 13:43:40:4340 error: error: insert or update on table "courses" violates foreign key constraint "courses_pre_course_id_fkey"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-19 13:43:45:4345 error: error: insert or update on table "courses" violates foreign key constraint "courses_pre_course_id_fkey"
+    at Parser.parseErrorMessage (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:369:69)
+    at Parser.handlePacket (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:188:21)
+    at Parser.parse (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\parser.ts:103:30)
+    at Socket.<anonymous> (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23)
+2021-10-19 13:44:22:4422 info: Winston Logger Created!
+2021-10-19 13:44:22:4422 info: Postgres Database connected
+2021-10-19 13:44:23:4423 info: Server is listening 3001 port.
+2021-10-19 13:44:23:4423 info: Redis Client connected

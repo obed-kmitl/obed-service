@@ -35,7 +35,7 @@ const findAllCurriculum = async (): Promise<QueryResultRow> => db.query(`
  */
 const updateCurriculum = async (curriculumInfo: CurriculumInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE curriculums
- SET title = COALESCE($2,title)
+ SET title = $2
  WHERE curriculum_id = $1
  RETURNING *
 `, [
