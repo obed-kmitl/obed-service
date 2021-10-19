@@ -33,7 +33,7 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 	const course = req.body;
 
 	const courseInfo = deserialize(CourseInputDTO, {
-		course_id: courseId,
+		old_course_id: courseId,
 		...course,
 	});
 

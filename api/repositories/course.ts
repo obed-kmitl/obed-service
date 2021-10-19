@@ -31,12 +31,15 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
  */
 const updateCourse = async (courseInfo: CourseInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE courses
- SET pre_course_id = $2,
- 		 course_name_en = $3,
-		 course_name_th = $4
+ SET 
+		course_id = $2,
+ 		pre_course_id = $3,
+ 		course_name_en = $4,
+		course_name_th = $5
  WHERE course_id = $1
  RETURNING *
 `, [
+	courseInfo.old_course_id,
 	courseInfo.course_id,
 	courseInfo.pre_course_id,
 	courseInfo.course_name_en,
