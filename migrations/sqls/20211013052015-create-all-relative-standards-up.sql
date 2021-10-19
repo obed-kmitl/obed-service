@@ -19,7 +19,7 @@ CREATE TABLE sub_standards(
 );
 
 CREATE TABLE relative_standards(
-	course_id INT REFERENCES courses(course_id) ON DELETE CASCADE,
+	course_id CHAR(8) REFERENCES courses(course_id) ON DELETE CASCADE,
 	sub_std_id SMALLINT REFERENCES group_sub_standards(group_sub_std_id) ON DELETE CASCADE
 );
 
