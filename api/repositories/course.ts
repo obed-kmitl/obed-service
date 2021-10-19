@@ -6,10 +6,11 @@ import { QueryResultRow } from 'pg';
  * Create course
  */
 const createCourse = async (courseInfo:	 CreateCourseRequestDTO): Promise<QueryResultRow> => db.query(`
-		INSERT INTO courses (curriculum_id, pre_course_id, course_name_en, course_name_th) 
-		VALUES ($1, $2, $3, $4)
+		INSERT INTO courses (course_id, curriculum_id, pre_course_id, course_name_en, course_name_th) 
+		VALUES ($1, $2, $3, $4, $5)
 		RETURNING *
 		`, [
+	courseInfo.course_id,
 	courseInfo.curriculum_id,
 	courseInfo.pre_course_id,
 	courseInfo.course_name_en,

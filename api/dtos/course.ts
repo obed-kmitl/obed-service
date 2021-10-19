@@ -1,8 +1,13 @@
 import {
-	IsNotEmpty, IsString, IsOptional, IsNumber,
+	IsNotEmpty, IsString, IsOptional, IsNumber, Length,
 } from 'class-validator';
 
 export class CreateCourseRequestDTO {
+	@IsNotEmpty()
+	@IsString()
+	@Length(8)
+	course_id : string='';
+
 	@IsNotEmpty()
 	@IsNumber()
 	curriculum_id : number=-1;
@@ -21,8 +26,9 @@ export class CreateCourseRequestDTO {
 }
 
 export class UpdateCourseRequestDTO {
-	@IsOptional()
-	@IsNumber()
+	@IsNotEmpty()
+	@IsString()
+	@Length(8, 8)
 	pre_course_id?: number= undefined;
 
 	@IsNotEmpty()
@@ -36,8 +42,9 @@ export class UpdateCourseRequestDTO {
 
 export class CourseInputDTO {
 	@IsNotEmpty()
-	@IsNumber()
-	course_id?: number=-1;
+	@IsString()
+	@Length(8, 8)
+	course_id? : string='';
 
 	@IsOptional()
 	@IsNumber()
