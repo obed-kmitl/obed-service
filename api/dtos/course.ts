@@ -5,7 +5,7 @@ import {
 export class CreateCourseRequestDTO {
 	@IsNotEmpty()
 	@IsString()
-	@Length(8)
+	@Length(8, 8)
 	course_id : string='';
 
 	@IsNotEmpty()
@@ -13,8 +13,8 @@ export class CreateCourseRequestDTO {
 	curriculum_id : number=-1;
 
 	@IsOptional()
-	@Length(8, 8)
 	@IsString()
+	@Length(8, 8)
 	pre_course_id?: string= undefined;
 
 	@IsNotEmpty()
@@ -33,8 +33,8 @@ export class UpdateCourseRequestDTO {
 	course_id? : string= undefined;
 
 	@IsOptional()
-	@Length(8, 8)
 	@IsString()
+	@Length(8, 8)
 	pre_course_id?: string= undefined;
 
 	@IsOptional()
