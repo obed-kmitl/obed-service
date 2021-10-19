@@ -25,7 +25,3 @@ router.put('/update/:courseId', [
 router.delete('/remove/:courseId', [verifyToken, permit('ADMIN')], asyncWrapper(courseController.remove));
 
 export default router;
-
-// + getAllCourses()
-// + updateCourse()
-// + removeCourse()

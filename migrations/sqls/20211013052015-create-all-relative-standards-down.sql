@@ -1,7 +1,9 @@
-DROP TABLE group_sub_standards;
+DROP TABLE standards CASCADE;
 
-DROP TABLE sub_standards;
+DROP TABLE group_sub_standards CASCADE;
 
-DROP TABLE relative_standards;
+DROP TABLE sub_standards CASCADE;
 
-DROP TABLE map_sub_standards;
+DROP TABLE relative_standards CASCADE;
+
+DROP TABLE map_sub_standards CASCADE;

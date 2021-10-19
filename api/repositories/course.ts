@@ -3,7 +3,7 @@ import { CreateCourseRequestDTO, CourseInputDTO } from '_/dtos/course';
 import { QueryResultRow } from 'pg';
 
 /**
- * Create currriculum
+ * Create course
  */
 const createCourse = async (courseInfo:	 CreateCourseRequestDTO): Promise<QueryResultRow> => db.query(`
 		INSERT INTO courses (curriculum_id, pre_course_id, course_name_en, course_name_th) 

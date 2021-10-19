@@ -18,7 +18,7 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-	const filePath = path.join(__dirname, 'sqls', '20211012104747-create-curriculums-and-standards-up.sql');
+	const filePath = path.join(__dirname, 'sqls', '20211012104747-create-curriculums-up.sql');
 	return new Promise((resolve, reject) => {
 		fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
 			if (err) return reject(err);
@@ -31,7 +31,7 @@ exports.up = function (db) {
 };
 
 exports.down = function (db) {
-	const filePath = path.join(__dirname, 'sqls', '20211012104747-create-curriculums-and-standards-down.sql');
+	const filePath = path.join(__dirname, 'sqls', '20211012104747-create-curriculums-down.sql');
 	return new Promise((resolve, reject) => {
 		fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
 			if (err) return reject(err);

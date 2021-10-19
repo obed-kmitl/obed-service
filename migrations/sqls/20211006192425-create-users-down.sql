@@ -1,5 +1,5 @@
-DROP TABLE prefixes;
+DROP TABLE prefixes CASCADE;
 
-DROP TABLE roles;
+DROP TABLE roles CASCADE;
 
-DROP TABLE users;
+DROP TABLE users CASCADE;s
