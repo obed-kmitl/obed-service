@@ -13,7 +13,8 @@ export class CreateCourseRequestDTO {
 	curriculum_id : number=-1;
 
 	@IsOptional()
-	@IsNumber()
+	@Length(8, 8)
+	@IsString()
 	pre_course_id?: string= undefined;
 
 	@IsNotEmpty()
