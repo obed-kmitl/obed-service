@@ -14,7 +14,7 @@ export class CreateCourseRequestDTO {
 
 	@IsOptional()
 	@IsNumber()
-	pre_course_id?: number= undefined;
+	pre_course_id?: string= undefined;
 
 	@IsNotEmpty()
 	@IsString()
