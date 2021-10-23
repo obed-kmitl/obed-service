@@ -56,7 +56,7 @@ const findStandard = async (standardId: number): Promise<QueryResultRow> => db.q
 	SELECT
 			m_std.*,
 			COALESCE(
-					json_agg(gs_std.*) FILTER (
+					json_agg(gs_std.* ORDER BY gs_std.order_number) FILTER (
 							WHERE
 									gs_std.group_sub_std_id IS NOT NULL
 					),
@@ -79,8 +79,6 @@ const findStandard = async (standardId: number): Promise<QueryResultRow> => db.q
 							LEFT JOIN sub_standards s_std ON gss.group_sub_std_id = s_std.group_sub_std_id
 					GROUP BY
 							gss.group_sub_std_id
-					ORDER BY
-							gss.order_number ASC
 			) gs_std ON m_std.standard_id = gs_std.standard_id
 	WHERE
 			m_std.standard_id = $1
@@ -95,7 +93,7 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
 	SELECT
 			m_std.*,
 			COALESCE(
-					json_agg(gs_std.*) FILTER (
+					json_agg(gs_std.* ORDER BY gs_std.order_number) FILTER (
 							WHERE
 									gs_std.group_sub_std_id IS NOT NULL
 					),
@@ -118,8 +116,6 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
 							LEFT JOIN sub_standards s_std ON s_std.group_sub_std_id = gss.group_sub_std_id
 					GROUP BY
 							gss.group_sub_std_id
-					ORDER BY
-							gss.order_number ASC
 			) gs_std ON gs_std.standard_id = m_std.standard_id
 	WHERE
 			curriculum_id = $1
