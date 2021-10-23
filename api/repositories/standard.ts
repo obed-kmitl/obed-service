@@ -132,7 +132,7 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
  */
 const updateStandard = async (standardInfo: StandardInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE standards
- SET title = $2
+ SET title = COALESCE($2, title)
  WHERE standard_id = $1
  RETURNING *
 `, [
@@ -146,8 +146,8 @@ const updateStandard = async (standardInfo: StandardInputDTO): Promise<QueryResu
 const updateGroupSubStandard = async (groupSubStandardInfo: GroupSubStandardInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE group_sub_standards
  SET 
- 		order_number = $2,
- 		title = $3
+ 		order_number = COALESCE($2, order_number),
+ 		title = COALESCE($3, title)
  WHERE group_sub_std_id = $1
  RETURNING *
 `, [
@@ -162,8 +162,8 @@ const updateGroupSubStandard = async (groupSubStandardInfo: GroupSubStandardInpu
 const updateSubStandard = async (SubStandardInfo: SubStandardInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE sub_standards
  SET 
- 		order_number = $2,
- 		title = $3
+ 		order_number = COALESCE($2, order_number),
+ 		title = COALESCE($3, title)
  WHERE sub_std_id = $1
  RETURNING *
 `, [
