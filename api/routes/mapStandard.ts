@@ -12,7 +12,7 @@ router.post('/save', [
 	verifyToken,
 	permit('ADMIN'),
 	validateRequest(CreateMapStandardRequestDTO),
-], asyncWrapper(mapStandardController.create));
+], asyncWrapper(mapStandardController.save));
 
 router.get('/get/:curriculumId', [
 	verifyToken,
