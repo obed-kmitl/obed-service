@@ -65,13 +65,13 @@ const findAllUser = async (): Promise<QueryResultRow> => db.query(`
  */
 const updateUser = async (user: UserInputDTO): Promise<QueryResultRow> => db.query(`
 		UPDATE users
-		SET email = $2,
-				username = $3,
-				password = $4,
-				prefix = $5,
-				firstname = $6,
-				lastname = $7,
-				g_auth_code = $8
+		SET email = COALESCE($2,email),
+				username = COALESCE($3,username),
+				password = COALESCE($4,password),
+				prefix = COALESCE($5,prefix),
+				firstname = COALESCE($6,firstname),
+				lastname = COALESCE($7,lastname),
+				g_auth_code = COALESCE($8, g_auth_code)
 		WHERE user_id = $1
 		RETURNING user_id, email, username, prefix, firstname, lastname, g_auth_code, role, created_at, updated_at
 	`, [

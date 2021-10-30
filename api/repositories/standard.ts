@@ -56,7 +56,7 @@ const findStandard = async (standardId: number): Promise<QueryResultRow> => db.q
 	SELECT
 			m_std.*,
 			COALESCE(
-					json_agg(gs_std.*) FILTER (
+					json_agg(gs_std.* ORDER BY gs_std.order_number) FILTER (
 							WHERE
 									gs_std.group_sub_std_id IS NOT NULL
 					),
@@ -79,8 +79,6 @@ const findStandard = async (standardId: number): Promise<QueryResultRow> => db.q
 							LEFT JOIN sub_standards s_std ON gss.group_sub_std_id = s_std.group_sub_std_id
 					GROUP BY
 							gss.group_sub_std_id
-					ORDER BY
-							gss.order_number ASC
 			) gs_std ON m_std.standard_id = gs_std.standard_id
 	WHERE
 			m_std.standard_id = $1
@@ -95,7 +93,7 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
 	SELECT
 			m_std.*,
 			COALESCE(
-					json_agg(gs_std.*) FILTER (
+					json_agg(gs_std.* ORDER BY gs_std.order_number) FILTER (
 							WHERE
 									gs_std.group_sub_std_id IS NOT NULL
 					),
@@ -118,8 +116,6 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
 							LEFT JOIN sub_standards s_std ON s_std.group_sub_std_id = gss.group_sub_std_id
 					GROUP BY
 							gss.group_sub_std_id
-					ORDER BY
-							gss.order_number ASC
 			) gs_std ON gs_std.standard_id = m_std.standard_id
 	WHERE
 			curriculum_id = $1
@@ -132,7 +128,7 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
  */
 const updateStandard = async (standardInfo: StandardInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE standards
- SET title = $2
+ SET title = COALESCE($2, title)
  WHERE standard_id = $1
  RETURNING *
 `, [
@@ -146,8 +142,8 @@ const updateStandard = async (standardInfo: StandardInputDTO): Promise<QueryResu
 const updateGroupSubStandard = async (groupSubStandardInfo: GroupSubStandardInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE group_sub_standards
  SET 
- 		order_number = $2,
- 		title = $3
+ 		order_number = COALESCE($2, order_number),
+ 		title = COALESCE($3, title)
  WHERE group_sub_std_id = $1
  RETURNING *
 `, [
@@ -162,8 +158,8 @@ const updateGroupSubStandard = async (groupSubStandardInfo: GroupSubStandardInpu
 const updateSubStandard = async (SubStandardInfo: SubStandardInputDTO): Promise<QueryResultRow> => db.query(`
  UPDATE sub_standards
  SET 
- 		order_number = $2,
- 		title = $3
+ 		order_number = COALESCE($2, order_number),
+ 		title = COALESCE($3, title)
  WHERE sub_std_id = $1
  RETURNING *
 `, [

@@ -33,6 +33,7 @@ export class UpdateCourseRequestDTO {
 	course_id? : string= undefined;
 
 	@IsOptional()
+	@Length(0, 8)
 	@IsString()
 	@Length(8, 8)
 	pre_course_id?: string= undefined;

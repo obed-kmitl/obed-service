@@ -60,7 +60,7 @@ router.put('/updateSubStandard/:subStdId', [
 ], asyncWrapper(standardController.updateSubStandard));
 
 router.delete('/remove/:standardId', [verifyToken, permit('ADMIN')], asyncWrapper(standardController.remove));
-router.delete('/remove/:groupSubStdId', [verifyToken, permit('ADMIN')], asyncWrapper(standardController.removeGroupSubStandard));
-router.delete('/remove/:subStdId', [verifyToken, permit('ADMIN')], asyncWrapper(standardController.removeSubStandard));
+router.delete('/removeGroupSubStandard/:groupSubStdId', [verifyToken, permit('ADMIN')], asyncWrapper(standardController.removeGroupSubStandard));
+router.delete('/removeSubStandard/:subStdId', [verifyToken, permit('ADMIN')], asyncWrapper(standardController.removeSubStandard));
 
 export default router;
