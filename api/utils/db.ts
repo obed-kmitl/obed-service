@@ -19,15 +19,12 @@ export default {
 		// logger.info('executed query', { text, duration, rows: res.rowCount });
 		return res;
 	},
-	async transaction(text, params?) {
+	async transaction(fn, callback) {
 		try {
 			await pool.query('BEGIN;');
-			const start = Date.now();
-			const res = await pool.query(text, params);
-			const duration = Date.now() - start;
-			// logger.info('executed query', { text, duration, rows: res.rowCount });
+			await fn();
 			await pool.query('COMMIT;');
-			return res;
+			return callback();
 		} catch (err) {
 			await pool.query('ROLLBACK;');
 			throw err;
