@@ -6,12 +6,36 @@ export class CreateCurriculumRequestDTO {
 	@IsString()
 	@IsNotEmpty()
 	title : string= '';
+
+	@IsOptional()
+	@IsString()
+	university? : string= '';
+
+	@IsOptional()
+	@IsString()
+	department? : string= '';
+
+	@IsOptional()
+	@IsString()
+	faculty? : string= '';
 }
 
 export class UpdateCurriculumRequestDTO {
 	@IsOptional()
 	@IsString()
 	title? : string= undefined;
+
+	@IsOptional()
+	@IsString()
+	university? : string= '';
+
+	@IsOptional()
+	@IsString()
+	department? : string= '';
+
+	@IsOptional()
+	@IsString()
+	faculty? : string= '';
 }
 
 export class CurriculumInputDTO {
@@ -22,4 +46,16 @@ export class CurriculumInputDTO {
 	@IsOptional()
 	@IsString()
 	title? : string= undefined;
+
+	@IsOptional()
+	@IsString()
+	university? : string= '';
+
+	@IsOptional()
+	@IsString()
+	department? : string= '';
+
+	@IsOptional()
+	@IsString()
+	faculty? : string= '';
 }
