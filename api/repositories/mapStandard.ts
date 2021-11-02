@@ -6,22 +6,26 @@ import { MapStandardInputDTO } from '_/dtos/mapStandard';
 /**
  * Create sub standard
  */
-const create = async (mapStandardInfo: MapStandardInputDTO): Promise<QueryResultRow> => db.query(`
-	INSERT INTO
-			map_standards (curriculum_id, main_std_id, relative_std_id)
-	VALUES
-			($1, $2, $3) ON CONFLICT (curriculum_id, main_std_id, relative_std_id) DO
-	UPDATE
-	SET
-			curriculum_id = $1,
-			main_std_id = $2,
-			relative_std_id = $3
-	RETURNING *
-`, [
-	mapStandardInfo.curriculum_id,
-	mapStandardInfo.main_std_id,
-	mapStandardInfo.relative_std_id,
-]);
+const create = async (mapStandardInfo: MapStandardInputDTO):
+Promise<QueryResultRow> => db.transaction(
+	() => db.query(`
+		DELETE FROM
+			map_standards
+		WHERE
+			curriculum_id = ${mapStandardInfo.curriculum_id}
+	`),
+	() => db.query(`
+		INSERT INTO
+				map_standards (curriculum_id, main_std_id, relative_std_id)
+		VALUES
+				($1, $2, $3) 
+		RETURNING * 
+	`, [
+		mapStandardInfo.curriculum_id,
+		mapStandardInfo.main_std_id,
+		mapStandardInfo.relative_std_id,
+	]),
+);
 
 /**
  * Create map sub standard
@@ -29,34 +33,29 @@ const create = async (mapStandardInfo: MapStandardInputDTO): Promise<QueryResult
 const createMapSubStandard = async (
 	mapSubStandardInfo: Array<Array<any>>,
 	curriculumId: Number,
-): Promise<QueryResultRow> => {
-	const deleteExists = `
-		DELETE FROM
-			map_sub_standards
-		WHERE
-			curriculum_id = ${curriculumId}
-	`;
+): Promise<QueryResultRow> => db.transaction(async () => {
+	await db.query(`
+			DELETE FROM
+				map_sub_standards
+			WHERE
+				curriculum_id = ${curriculumId}
+		`);
 
-	const inserts = format(`
-		INSERT INTO 
-			map_sub_standards 
-			(curriculum_id, main_sub_std_id, relative_sub_std_id) 
-		VALUES 
-			%L
-	`, mapSubStandardInfo);
-
-	const selectAll = `
-		SELECT main_sub_std_id, relative_sub_std_id
-		FROM map_sub_standards
-		WHERE curriculum_id = ${curriculumId}
-	`;
-
-	return db.transaction(async () => {
-		await db.query(deleteExists);
-		await db.query(inserts);
-	},
-	() => db.query(selectAll));
-};
+	if (mapSubStandardInfo.length > 0) {
+		await db.query(format(`
+			INSERT INTO 
+				map_sub_standards 
+				(curriculum_id, main_sub_std_id, relative_sub_std_id) 
+			VALUES 
+				%L
+			`, mapSubStandardInfo));
+	}
+},
+() => db.query(`
+				SELECT main_sub_std_id, relative_sub_std_id
+				FROM map_sub_standards
+				WHERE curriculum_id = ${curriculumId}
+			`));
 
 /**
  * Find map standard by currriculumId
