@@ -63,12 +63,20 @@ const createMapSubStandard = async (
 const findMapStandard = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
 	SELECT
 			m_std.*,
-			json_agg(
-				json_build_object('main_sub_std_id',main_sub_std_id,'relative_sub_std_id', relative_sub_std_id)
+			COALESCE(
+				json_agg(
+					json_build_object('main_sub_std_id', main_sub_std_id, 'relative_sub_std_id', relative_sub_std_id)
+				) FILTER (
+					WHERE
+						relative_sub_std_id IS NOT NULL
+						AND
+						main_sub_std_id IS NOT NULL
+				),
+				'[]'
 			) AS map_sub_standards
 	FROM
 			map_standards m_std
-	LEFT JOIN 
+	LEFT JOIN
 			map_sub_standards ms_std ON ms_std.curriculum_id = $1
 	WHERE
 			m_std.curriculum_id = $1
