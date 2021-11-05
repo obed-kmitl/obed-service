@@ -1,7 +1,7 @@
 import { semesterController } from '_/controllers';
 import { verifyToken, permit } from '_/middleware/authorizationHandler';
 import asyncWrapper from '_/middleware/asyncWrapper';
-import { CreateSemesterRequestDTO } from '_/dtos/semester';
+import { CreateSemesterRequestDTO, CreateGroupSectionsRequestDTO } from '_/dtos/semester';
 
 import express from 'express';
 import { validateRequest } from '_/middleware/validationHandler';
@@ -13,5 +13,11 @@ router.post('/create', [
 	permit('ADMIN'),
 	validateRequest(CreateSemesterRequestDTO),
 ], asyncWrapper(semesterController.create));
+
+router.post('/createGroupSections/:semesterId', [
+	verifyToken,
+	permit('ADMIN'),
+	validateRequest(CreateGroupSectionsRequestDTO),
+], asyncWrapper(semesterController.createGroupSections));
 
 export default router;

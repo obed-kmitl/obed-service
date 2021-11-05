@@ -1,32 +1,17 @@
 import {
-	IsNotEmpty, IsString, IsOptional, IsNumber, Length, IsArray,
+	IsArray,
+	IsNotEmpty, IsNumber,
 } from 'class-validator';
 
 export class CreateSemesterRequestDTO {
 	@IsNotEmpty()
-	@IsString()
-	@Length(8, 8)
-	course_id : string='';
-
-	@IsNotEmpty()
 	@IsNumber()
-	curriculum_id : number=-1;
+	year_number : number=-1;
+}
 
-	@IsOptional()
-	@IsString()
-	@Length(8, 8)
-	pre_course_id?: string= undefined;
-
+export class CreateGroupSectionsRequestDTO {
 	@IsNotEmpty()
-	@IsString()
-	course_name_en : string='';
-
-	@IsNotEmpty()
-	@IsString()
-	course_name_th: string='';
-
-	@IsNotEmpty()
-	@IsArray()
 	@IsNumber({}, { each: true })
-	relative_standards: Number[]= [];
+	@IsArray()
+	couse_id_list: number[]= [];
 }

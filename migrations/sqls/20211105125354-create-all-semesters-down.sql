@@ -1,7 +1,7 @@
-DROP TABLE semesters;
+DROP TABLE semesters CASCADE;
 
-DROP TABLE group_sections;
+DROP TABLE group_sections CASCADE;
 
-DROP TABLE sections;
+DROP TABLE sections CASCADE;
 
-DROP TABLE teachers;
+DROP TABLE teachers CASCADE;
