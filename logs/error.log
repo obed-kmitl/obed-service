@@ -4212,3 +4212,20 @@
     at readableAddChunk (node:internal/streams/readable:289:9)
     at Socket.Readable.push (node:internal/streams/readable:228:10)
     at TCP.onStreamRead (node:internal/stream_base_commons:199:23)
+2021-11-05 21:42:29:4229 error: ApplicationError: Unauthorized Access Token was expired
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:35:16
+    at Generator.next (<anonymous>)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:4:12)
+    at verifyToken (C:\Users\TOMMY\Desktop\Project1\obed-service\api\middleware\authorizationHandler.ts:15:94)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:281:22
+    at param (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:354:14)
+    at param (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:365:14)
+    at Function.process_params (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:410:3)
+    at next (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:275:10)
+    at Function.handle (C:\Users\TOMMY\Desktop\Project1\obed-service\node_modules\express\lib\router\index.js:174:3)
