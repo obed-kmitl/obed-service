@@ -4,7 +4,6 @@ import { CourseInputDTO, CreateCourseInputDTO } from '_/dtos/course';
 
 import { Request, Response } from 'express';
 import { deserialize } from 'json-typescript-mapper';
-import curriculum from '_/repositories/curriculum';
 
 /**
  * Create Course
