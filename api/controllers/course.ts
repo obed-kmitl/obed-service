@@ -1,6 +1,6 @@
 import courseRepository from '_/repositories/course';
 import { sendResponse } from '_/utils/response';
-import { CourseInputDTO, CreateCourseInputDTO } from '_/dtos/course';
+import { CourseInputDTO } from '_/dtos/course';
 
 import { Request, Response } from 'express';
 import { deserialize } from 'json-typescript-mapper';
@@ -9,16 +9,18 @@ import { deserialize } from 'json-typescript-mapper';
  * Create Course
  */
 const create = async (req: Request, res: Response): Promise<Response> => {
-	const courseInput : CreateCourseInputDTO = {
-		...req.body,
-		relative_standards: req.body.relative_standards.map((rs_Id) => ([
-			req.body.course_id,
-			req.body.curriculum_id,
-			rs_Id,
-		])),
-	};
+	const { relative_standards, ...courseInput } = req.body;
 
-	const result = await courseRepository.createCourse(courseInput);
+	const resultCourse = await courseRepository.createCourse(courseInput);
+	const { course_id, curriculum_id } = resultCourse.rows[0];
+
+	const relativeStandardInfo = relative_standards.map((rs_Id) => ([
+		course_id,
+		rs_Id,
+		curriculum_id,
+	]));
+
+	const result = await courseRepository.createCourseSubStandards(course_id, relativeStandardInfo);
 
 	sendResponse(res, result.rows[0]);
 };
@@ -38,19 +40,22 @@ const getAllByCurriculum = async (req: Request, res: Response): Promise<Response
  * Update Courses
  */
 const update = async (req: Request, res: Response): Promise<Response> => {
-	const { courseId, curriculumId } = req.params;
-	const course = req.body;
+	const { courseId } = req.params;
 
-	const courseInfo = deserialize(CourseInputDTO, {
-		...course,
-		relative_standards: course.relative_standards.map((rs_Id) => ([
-			courseId,
-			curriculumId,
-			rs_Id,
-		])),
-	});
+	const { relative_standards, ...courseInput } = req.body;
 
-	const result = await courseRepository.updateCourse(courseInfo, courseId, curriculumId);
+	console.log(relative_standards, courseInput);
+
+	const resultCourse = await courseRepository.updateCourse(courseInput, courseId);
+	const { course_id, curriculum_id } = resultCourse.rows[0];
+
+	const relativeStandardInfo = relative_standards.map((rs_Id) => ([
+		course_id,
+		rs_Id,
+		curriculum_id,
+	]));
+
+	const result = await courseRepository.createCourseSubStandards(course_id, relativeStandardInfo);
 
 	sendResponse(res, result.rows[0]);
 };
@@ -59,9 +64,9 @@ const update = async (req: Request, res: Response): Promise<Response> => {
  * Remove Course
  */
 const remove = async (req: Request, res: Response): Promise<Response> => {
-	const { courseId, curriculumId } = req.params;
+	const { courseId } = req.params;
 
-	const result = await courseRepository.deleteCourse(courseId, curriculumId);
+	const result = await courseRepository.deleteCourse(courseId);
 
 	sendResponse(res, result.rows[0]);
 };

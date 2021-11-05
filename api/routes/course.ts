@@ -16,12 +16,12 @@ router.post('/create', [
 
 router.get('/getAllByCurriculum/:curriculumId', [verifyToken, permit('ADMIN')], asyncWrapper(courseController.getAllByCurriculum));
 
-router.put('/update/:courseId/:curriculumId', [
+router.put('/update/:courseId', [
 	verifyToken,
 	permit('ADMIN'),
 	validateRequest(UpdateCourseRequestDTO),
 ], asyncWrapper(courseController.update));
 
-router.delete('/remove/:courseId/:curriculumId', [verifyToken, permit('ADMIN')], asyncWrapper(courseController.remove));
+router.delete('/remove/:courseId', [verifyToken, permit('ADMIN')], asyncWrapper(courseController.remove));
 
 export default router;

@@ -4,18 +4,17 @@ import {
 
 export class CreateCourseRequestDTO {
 	@IsNotEmpty()
-	@IsString()
-	@Length(8, 8)
-	course_id : string='';
-
-	@IsNotEmpty()
 	@IsNumber()
 	curriculum_id : number=-1;
 
 	@IsOptional()
+	@IsNumber()
+	pre_course_id?: Number= undefined;
+
+	@IsNotEmpty()
 	@IsString()
 	@Length(8, 8)
-	pre_course_id?: string= undefined;
+	course_number : string='';
 
 	@IsNotEmpty()
 	@IsString()
@@ -33,18 +32,21 @@ export class CreateCourseRequestDTO {
 
 export class CreateCourseInputDTO {
 	@IsNotEmpty()
-	@IsString()
-	@Length(8, 8)
-	course_id : string='';
+	@IsNumber()
+	course_id : Number =-1;
 
 	@IsNotEmpty()
 	@IsNumber()
 	curriculum_id : number=-1;
 
 	@IsOptional()
+	@IsNumber()
+	pre_course_id?: Number= undefined;
+
+	@IsNotEmpty()
 	@IsString()
 	@Length(8, 8)
-	pre_course_id?: string= undefined;
+	course_number : string='';
 
 	@IsNotEmpty()
 	@IsString()
@@ -53,18 +55,17 @@ export class CreateCourseInputDTO {
 	@IsNotEmpty()
 	@IsString()
 	course_name_th: string='';
-
-	@IsNotEmpty()
-	@IsArray()
-	relative_standards: Number[][]= [];
 }
 
 export class UpdateCourseRequestDTO {
 	@IsOptional()
-	@Length(0, 8)
+	@IsNumber()
+	pre_course_id?: Number= undefined;
+
+	@IsOptional()
 	@IsString()
 	@Length(8, 8)
-	pre_course_id?: string= undefined;
+	course_number : string='';
 
 	@IsOptional()
 	@IsString()
@@ -83,7 +84,12 @@ export class UpdateCourseRequestDTO {
 export class CourseInputDTO {
 	@IsOptional()
 	@IsNumber()
-	pre_course_id?: number= undefined;
+	pre_course_id?: Number= undefined;
+
+	@IsOptional()
+	@IsString()
+	@Length(8, 8)
+	course_number : string='';
 
 	@IsOptional()
 	@IsString()
