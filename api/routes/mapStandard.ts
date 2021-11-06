@@ -19,4 +19,9 @@ router.get('/get/:curriculumId', [
 	permit('ADMIN'),
 ], asyncWrapper(mapStandardController.get));
 
+router.get('/getRelativeStandard/:curriculumId', [
+	verifyToken,
+	permit('ADMIN'),
+], asyncWrapper(mapStandardController.getAllRelativeStandard));
+
 export default router;

@@ -9,3 +9,5 @@ export { default as courseController } from './course';
 export { default as standardController } from './standard';
 
 export { default as mapStandardController } from './mapStandard';
+
+export { default as semesterController } from './semester';

@@ -50,7 +50,19 @@ const get = async (req: Request, res: Response): Promise<Response> => {
 	sendResponse(res, result.rows[0]);
 };
 
+/**
+ * Get all relative standard
+ */
+const getAllRelativeStandard = async (req: Request, res: Response): Promise<Response> => {
+	const { curriculumId } = req.params;
+
+	const result = await mapStandardRepository.findAllRelativeStandard(curriculumId);
+
+	sendResponse(res, result.rows);
+};
+
 export default {
 	save,
 	get,
+	getAllRelativeStandard,
 };

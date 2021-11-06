@@ -5,6 +5,7 @@ import userRouter from './user';
 import curriculumRouter from './curriculum';
 import courseRouter from './course';
 import mapStandardRouter from './mapStandard';
+import semesterRouter from './semester';
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use('/curriculum', curriculumRouter);
 router.use('/course', courseRouter);
 router.use('/standard', standardRouter);
 router.use('/mapStandard', mapStandardRouter);
+router.use('/semester', semesterRouter);
 
 export default router;
