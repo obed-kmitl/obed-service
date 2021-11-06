@@ -2,9 +2,8 @@ import db from '_/utils/db';
 import { CreateCourseInputDTO, CourseInputDTO } from '_/dtos/course';
 import { QueryResultRow } from 'pg';
 import format from 'pg-format';
-import course from '_/controllers/course';
 
-const findByCoursAndCurriculum = async (courseId: Number): Promise<QueryResultRow> => db.query(`
+const findByCourseAndCurriculum = async (courseId: Number): Promise<QueryResultRow> => db.query(`
 SELECT
 		c.*,
 		COALESCE(
@@ -91,7 +90,7 @@ const createCourseSubStandards = async (
 				%L
 			`, relativeStandardInfo));
 	}
-}, () => findByCoursAndCurriculum(courseId));
+}, () => findByCourseAndCurriculum(courseId));
 
 /**
  * Find course by currriculumId

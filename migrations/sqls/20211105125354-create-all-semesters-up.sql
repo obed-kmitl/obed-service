@@ -12,13 +12,12 @@ CREATE TABLE group_sections(
 
 CREATE TABLE sections(
 	section_id SERIAL PRIMARY KEY,
-	group_sec_id INT NOT NULL REFERENCES semesters(semester_id) ON DELETE CASCADE,
-	section_number INT NOT NULL,
-	course_id INT NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE
+	group_sec_id INT NOT NULL REFERENCES group_sections(group_sec_id) ON DELETE CASCADE,
+	section_number INT NOT NULL
 );
 
 CREATE TABLE teachers(
-	section_id INT REFERENCES semesters(semester_id) ON DELETE CASCADE,
+	section_id INT REFERENCES sections(section_id) ON DELETE CASCADE,
 	user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
 	PRIMARY KEY (section_id, user_id)
 );

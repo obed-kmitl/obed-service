@@ -1,9 +1,7 @@
 import courseRepository from '_/repositories/course';
 import { sendResponse } from '_/utils/response';
-import { CourseInputDTO } from '_/dtos/course';
 
 import { Request, Response } from 'express';
-import { deserialize } from 'json-typescript-mapper';
 
 /**
  * Create Course
