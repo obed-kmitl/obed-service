@@ -65,7 +65,7 @@ const findMapStandard = async (curriculumId: number): Promise<QueryResultRow> =>
 			m_std.*,
 			COALESCE(
 				json_agg(
-					json_build_object('main_sub_std_id', main_sub_std_id, 'relative_sub_std_id', relative_sub_std_id)
+					json_build_object('main_sub_std_id', main_sub_std_id, 'sub_std_id', relative_sub_std_id)
 				) FILTER (
 					WHERE
 						relative_sub_std_id IS NOT NULL
