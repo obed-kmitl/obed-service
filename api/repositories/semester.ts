@@ -1,5 +1,5 @@
 import db from '_/utils/db';
-import { CreateSemesterRequestDTO, SectionInputDTO } from '_/dtos/semester';
+import { CreateSemesterRequestDTO, SectionInputDTO, DuplicateSemesterRequestDTO } from '_/dtos/semester';
 import { QueryResultRow } from 'pg';
 import format from 'pg-format';
 
@@ -14,6 +14,21 @@ const createSemester = async (semesterInfo:	 CreateSemesterRequestDTO): Promise<
 			($1, 3)
 	RETURNING *
  `, [
+	semesterInfo.year_number,
+]);
+
+/**
+ * Duplicate Semester
+ */
+const duplicateSemester = async (semesterInfo: DuplicateSemesterRequestDTO): Promise<QueryResultRow> => db.query(`
+ INSERT INTO 
+    semesters (year_number, semester_number) 
+ VALUES 
+		 ($1, 1),
+		 ($1, 2),
+		 ($1, 3)
+ RETURNING *
+`, [
 	semesterInfo.year_number,
 ]);
 
@@ -227,6 +242,7 @@ const deleteSection = async (sectionId: number): Promise<QueryResultRow> => db.q
 
 export default {
 	createSemester,
+	duplicateSemester,
 	createGroupSections,
 	createSection,
 	saveTeachers,

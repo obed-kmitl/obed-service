@@ -100,14 +100,14 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
 			c.*,
 			COALESCE(
 					json_agg(
-					json_build_object(
-					'sub_std_id', css.relative_sub_std_id,
-					'sub_order_number', css.sub_order_number,
-					'sub_title', css.sub_title,
-					'group_sub_std_id', css.group_sub_std_id,
-					'group_sub_order_number', css.group_sub_order_number,
-					'group_sub_title', css.group_sub_title
-					)
+						json_build_object(
+						'sub_std_id', css.relative_sub_std_id,
+						'sub_order_number', css.sub_order_number,
+						'sub_title', css.sub_title,
+						'group_sub_std_id', css.group_sub_std_id,
+						'group_sub_order_number', css.group_sub_order_number,
+						'group_sub_title', css.group_sub_title
+						)
 					) FILTER (
 							WHERE
 									css.course_id IS NOT NULL

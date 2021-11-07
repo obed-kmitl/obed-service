@@ -13,6 +13,15 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
+ * Duplicate Semester
+ */
+const duplicate = async (req: Request, res: Response): Promise<Response> => {
+	const result = await semesterRepository.duplicateSemester(req.body);
+
+	sendResponse(res, result.rows);
+};
+
+/**
  * Create multiple group sections
  */
 const createGroupSections = async (req: Request, res: Response): Promise<Response> => {
@@ -104,4 +113,5 @@ export default {
 	updateSection,
 	removeGroupSection,
 	removeSection,
+	duplicate,
 };

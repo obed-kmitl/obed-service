@@ -9,6 +9,8 @@ export class CreateSemesterRequestDTO {
 	year_number : Number=-1;
 }
 
+export class DuplicateSemesterRequestDTO extends CreateSemesterRequestDTO {}
+
 export class CreateGroupSectionsRequestDTO {
 	@IsNotEmpty()
 	@IsNumber({}, { each: true })
