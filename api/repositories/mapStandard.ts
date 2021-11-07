@@ -88,38 +88,37 @@ const findMapStandard = async (curriculumId: number): Promise<QueryResultRow> =>
  * Find all reletive standard by currriculumId
  */
 const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
-SELECT
-	ms_std.relative_sub_std_id AS sub_std_id,
-	s_std.group_sub_std_id,
-    s_std.order_number as sub_order_number,
-    s_std.group_sub_order_number,
-    s_std.title as sub_title,
-    s_std.group_sub_title
-FROM
-    map_sub_standards ms_std
-    LEFT JOIN (
-        SELECT
-            s_stdx.*,
-            gs_std.order_number as group_sub_order_number,
-            gs_std.title as group_sub_title
-        FROM
-            sub_standards s_stdx
-            LEFT JOIN group_sub_standards gs_std ON gs_std.group_sub_std_id = s_stdx.group_sub_std_id
-        GROUP BY
-            gs_std.group_sub_std_id,
-            s_stdx.sub_std_id
-    ) s_std ON s_std.sub_std_id = ms_std.relative_sub_std_id
-WHERE
-    ms_std.curriculum_id = $1
-GROUP BY
-    ms_std.relative_sub_std_id,
-    s_std.sub_std_id,
-    s_std.group_sub_std_id,
-    s_std.order_number,
-    s_std.title,
-    s_std.group_sub_order_number,
-    s_std.group_sub_title
-
+	SELECT
+		ms_std.relative_sub_std_id AS sub_std_id,
+		s_std.group_sub_std_id,
+			s_std.order_number as sub_order_number,
+			s_std.group_sub_order_number,
+			s_std.title as sub_title,
+			s_std.group_sub_title
+	FROM
+			map_sub_standards ms_std
+			LEFT JOIN (
+					SELECT
+							s_stdx.*,
+							gs_std.order_number as group_sub_order_number,
+							gs_std.title as group_sub_title
+					FROM
+							sub_standards s_stdx
+							LEFT JOIN group_sub_standards gs_std ON gs_std.group_sub_std_id = s_stdx.group_sub_std_id
+					GROUP BY
+							gs_std.group_sub_std_id,
+							s_stdx.sub_std_id
+			) s_std ON s_std.sub_std_id = ms_std.relative_sub_std_id
+	WHERE
+			ms_std.curriculum_id = $1
+	GROUP BY
+			ms_std.relative_sub_std_id,
+			s_std.sub_std_id,
+			s_std.group_sub_std_id,
+			s_std.order_number,
+			s_std.title,
+			s_std.group_sub_order_number,
+			s_std.group_sub_title
 `, [curriculumId]);
 
 export default {

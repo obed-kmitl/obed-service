@@ -10,12 +10,11 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 	const { relative_standards, ...courseInput } = req.body;
 
 	const resultCourse = await courseRepository.createCourse(courseInput);
-	const { course_id, curriculum_id } = resultCourse.rows[0];
+	const { course_id } = resultCourse.rows[0];
 
 	const relativeStandardInfo = relative_standards.map((rs_Id) => ([
 		course_id,
 		rs_Id,
-		curriculum_id,
 	]));
 
 	const result = await courseRepository.createCourseSubStandards(course_id, relativeStandardInfo);
