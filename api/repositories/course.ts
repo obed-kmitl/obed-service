@@ -3,54 +3,66 @@ import { CreateCourseInputDTO, CourseInputDTO } from '_/dtos/course';
 import { QueryResultRow } from 'pg';
 import format from 'pg-format';
 
-const findByCourseAndCurriculum = async (courseId: Number): Promise<QueryResultRow> => db.query(`
-SELECT
-		c.*,
-		COALESCE(
-				json_agg(
-				json_build_object(
-				'sub_std_id', css.relative_sub_std_id,
-				'sub_order_number', css.sub_order_number,
-				'sub_title', css.sub_title,
-				'group_sub_std_id', css.group_sub_std_id,
-				'group_sub_order_number', css.group_sub_order_number,
-				'group_sub_title', css.group_sub_title
-				)
-				) FILTER (
-						WHERE
-								css.course_id IS NOT NULL
-								AND css.curriculum_id IS NOT NULL
-								AND css.relative_sub_std_id IS NOT NULL
-				),
-				'[]'
-		) AS relative_standards
-FROM
-		courses c
-		LEFT JOIN (
-				SELECT
-						cssx.*,
-						s_std.order_number as sub_order_number,
-						s_std.title as sub_title,
-						s_std.group_sub_std_id,
-						s_std.group_sub_order_number,
-						group_sub_title
-				FROM
-						course_sub_standards cssx
-						LEFT JOIN (
-								SELECT
-										s_stdx.*,
-										gs_std.group_sub_std_id as gss_id,
-										gs_std.order_number as group_sub_order_number,
-										gs_std.title as group_sub_title
-								FROM
-										sub_standards s_stdx
-										LEFT JOIN group_sub_standards gs_std ON s_stdx.group_sub_std_id = gs_std.group_sub_std_id
-						) s_std ON cssx.relative_sub_std_id = s_std.sub_std_id
-		) css ON css.course_id = $1
-WHERE
-		c.course_id = $1
-GROUP BY
-		c.course_id
+const findByCourse = async (courseId: Number): Promise<QueryResultRow> => db.query(`
+	SELECT
+			c.*,
+			COALESCE(
+					json_agg(
+							json_build_object(
+									'map_sub_std_id',
+									css.map_sub_std_id,
+									'sub_std_id',
+									css.sub_std_id,
+									'sub_order_number',
+									css.sub_order_number,
+									'sub_title',
+									css.sub_title,
+									'group_sub_std_id',
+									css.group_sub_std_id,
+									'group_sub_order_number',
+									css.group_sub_order_number,
+									'group_sub_title',
+									css.group_sub_title
+							)
+					) FILTER (
+							WHERE
+									css.map_sub_std_id IS NOT NULL
+					),
+					'[]'
+			) AS relative_standards
+	FROM
+			courses c
+			LEFT JOIN (
+					SELECT
+							cssx.map_sub_std_id AS dup_map_sub_std_id,
+							cssx.course_id,
+							ms_std.*
+					FROM
+							course_sub_standards cssx
+							LEFT JOIN (
+									SELECT
+											ms_stdx.*,
+											ss.*
+									FROM
+											map_sub_standards ms_stdx
+											LEFT JOIN (
+													SELECT
+															ssx.sub_std_id,
+															ssx.order_number AS sub_order_number,
+															ssx.title AS sub_title,
+															gss.group_sub_std_id,
+															gss.order_number AS group_sub_order_number,
+															gss.title AS group_sub_title
+													FROM
+															sub_standards ssx
+															LEFT JOIN group_sub_standards gss ON gss.group_sub_std_id = ssx.group_sub_std_id
+											) ss ON ss.sub_std_id = ms_stdx.relative_sub_std_id
+							) ms_std ON cssx.map_sub_std_id = ms_std.map_sub_std_id
+			) css ON css.course_id = $1
+	WHERE
+			c.course_id = $1
+	GROUP BY
+			c.course_id
 `, [courseId]);
 
 /**
@@ -85,12 +97,12 @@ const createCourseSubStandards = async (
 		await db.query(format(`
 			INSERT INTO
 				course_sub_standards
-				(course_id, relative_sub_std_id, curriculum_id)
+				(course_id, map_sub_std_id)
 			VALUES
 				%L
 			`, relativeStandardInfo));
 	}
-}, () => findByCourseAndCurriculum(courseId));
+}, () => findByCourse(courseId));
 
 /**
  * Find course by currriculumId
@@ -100,19 +112,25 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
 			c.*,
 			COALESCE(
 					json_agg(
-					json_build_object(
-					'sub_std_id', css.relative_sub_std_id,
-					'sub_order_number', css.sub_order_number,
-					'sub_title', css.sub_title,
-					'group_sub_std_id', css.group_sub_std_id,
-					'group_sub_order_number', css.group_sub_order_number,
-					'group_sub_title', css.group_sub_title
-					)
+							json_build_object(
+									'map_sub_std_id',
+									css.map_sub_std_id,
+									'sub_std_id',
+									css.sub_std_id,
+									'sub_order_number',
+									css.sub_order_number,
+									'sub_title',
+									css.sub_title,
+									'group_sub_std_id',
+									css.group_sub_std_id,
+									'group_sub_order_number',
+									css.group_sub_order_number,
+									'group_sub_title',
+									css.group_sub_title
+							)
 					) FILTER (
 							WHERE
-									css.course_id IS NOT NULL
-									AND css.curriculum_id IS NOT NULL
-									AND css.relative_sub_std_id IS NOT NULL
+									css.map_sub_std_id IS NOT NULL
 					),
 					'[]'
 			) AS relative_standards
@@ -120,24 +138,30 @@ const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow
 			courses c
 			LEFT JOIN (
 					SELECT
-							cssx.*,
-							s_std.order_number as sub_order_number,
-							s_std.title as sub_title,
-							s_std.group_sub_std_id,
-							s_std.group_sub_order_number,
-							group_sub_title
+							cssx.map_sub_std_id AS dup_map_sub_std_id,
+							cssx.course_id,
+							ms_std.*
 					FROM
 							course_sub_standards cssx
 							LEFT JOIN (
 									SELECT
-											s_stdx.*,
-											gs_std.group_sub_std_id as gss_id,
-											gs_std.order_number as group_sub_order_number,
-											gs_std.title as group_sub_title
+											ms_stdx.*,
+											ss.*
 									FROM
-											sub_standards s_stdx
-											LEFT JOIN group_sub_standards gs_std ON s_stdx.group_sub_std_id = gs_std.group_sub_std_id
-							) s_std ON cssx.relative_sub_std_id = s_std.sub_std_id
+											map_sub_standards ms_stdx
+											LEFT JOIN (
+													SELECT
+															ssx.sub_std_id,
+															ssx.order_number AS sub_order_number,
+															ssx.title AS sub_title,
+															gss.group_sub_std_id,
+															gss.order_number AS group_sub_order_number,
+															gss.title AS group_sub_title
+													FROM
+															sub_standards ssx
+															LEFT JOIN group_sub_standards gss ON gss.group_sub_std_id = ssx.group_sub_std_id
+											) ss ON ss.sub_std_id = ms_stdx.relative_sub_std_id
+							) ms_std ON cssx.map_sub_std_id = ms_std.map_sub_std_id
 			) css ON css.course_id = c.course_id
 	WHERE
 			c.curriculum_id = $1
