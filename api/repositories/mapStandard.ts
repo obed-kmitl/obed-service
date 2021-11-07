@@ -65,7 +65,7 @@ const findMapStandard = async (curriculumId: number): Promise<QueryResultRow> =>
 			m_std.*,
 			COALESCE(
 				json_agg(
-					json_build_object('main_sub_std_id', main_sub_std_id, 'sub_std_id', relative_sub_std_id)
+					json_build_object('main_sub_std_id', main_sub_std_id, 'relative_sub_std_id', relative_sub_std_id)
 				) FILTER (
 					WHERE
 						relative_sub_std_id IS NOT NULL
@@ -89,7 +89,7 @@ const findMapStandard = async (curriculumId: number): Promise<QueryResultRow> =>
  */
 const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
 SELECT
-	ms_std.relative_sub_std_id,
+	ms_std.relative_sub_std_id AS sub_std_id,
 	s_std.group_sub_std_id,
     s_std.order_number as sub_order_number,
     s_std.group_sub_order_number,
