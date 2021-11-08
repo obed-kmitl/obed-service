@@ -9,8 +9,6 @@ const findByCourse = async (courseId: Number): Promise<QueryResultRow> => db.que
 			COALESCE(
 					json_agg(
 							json_build_object(
-									'map_sub_std_id',
-									css.map_sub_std_id,
 									'sub_std_id',
 									css.sub_std_id,
 									'sub_order_number',
@@ -26,7 +24,7 @@ const findByCourse = async (courseId: Number): Promise<QueryResultRow> => db.que
 							)
 					) FILTER (
 							WHERE
-									css.map_sub_std_id IS NOT NULL
+									css.sub_std_id IS NOT NULL
 					),
 					'[]'
 			) AS relative_standards
@@ -34,9 +32,13 @@ const findByCourse = async (courseId: Number): Promise<QueryResultRow> => db.que
 			courses c
 			LEFT JOIN (
 					SELECT
-							cssx.map_sub_std_id AS dup_map_sub_std_id,
 							cssx.course_id,
-							ms_std.*
+							ms_std.sub_std_id,
+							ms_std.sub_order_number,
+							ms_std.sub_title,
+							ms_std.group_sub_std_id,
+							ms_std.group_sub_order_number,
+							ms_std.group_sub_title
 					FROM
 							course_sub_standards cssx
 							LEFT JOIN (
@@ -58,7 +60,15 @@ const findByCourse = async (courseId: Number): Promise<QueryResultRow> => db.que
 															LEFT JOIN group_sub_standards gss ON gss.group_sub_std_id = ssx.group_sub_std_id
 											) ss ON ss.sub_std_id = ms_stdx.relative_sub_std_id
 							) ms_std ON cssx.map_sub_std_id = ms_std.map_sub_std_id
-			) css ON css.course_id = $1
+					GROUP BY
+							cssx.course_id,
+							ms_std.sub_std_id,
+							ms_std.sub_order_number,
+							ms_std.sub_title,
+							ms_std.group_sub_std_id,
+							ms_std.group_sub_order_number,
+							ms_std.group_sub_title
+			) AS css ON css.course_id = c.course_id
 	WHERE
 			c.course_id = $1
 	GROUP BY
@@ -70,7 +80,7 @@ const findByCourse = async (courseId: Number): Promise<QueryResultRow> => db.que
  */
 const createCourse = async (courseInfo:
 	CreateCourseInputDTO): Promise<QueryResultRow> => db.query(`
-		INSERT INTO courses ( curriculum_id, pre_course_id, course_number, course_name_en, course_name_th) 
+		INSERT INTO courses (curriculum_id, pre_course_id, course_number, course_name_en, course_name_th) 
 		VALUES ($1, $2, $3, $4, $5)
 		RETURNING *
 		`, [

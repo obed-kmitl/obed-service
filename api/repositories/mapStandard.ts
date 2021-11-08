@@ -89,7 +89,6 @@ const findMapStandard = async (curriculumId: number): Promise<QueryResultRow> =>
  */
 const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
 	SELECT
-		ms_std.map_sub_std_id,
 		ms_std.relative_sub_std_id AS sub_std_id,
 		s_std.group_sub_std_id,
 			s_std.order_number as sub_order_number,
@@ -114,7 +113,6 @@ const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResul
 			ms_std.curriculum_id = $1
 	GROUP BY
 			ms_std.relative_sub_std_id,
-			ms_std.map_sub_std_id,
 			s_std.sub_std_id,
 			s_std.group_sub_std_id,
 			s_std.order_number,
@@ -123,9 +121,24 @@ const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResul
 			s_std.group_sub_title
 `, [curriculumId]);
 
+/**
+ * Find all map standard by sub_std_id
+ */
+const findMapStandardBySubStdId = async (
+	subStdId :Number[],
+): Promise<QueryResultRow> => db.query(`
+	SELECT
+		*
+	FROM
+		map_sub_standards
+	WHERE
+		relative_sub_std_id IN (${subStdId.join(', ')})
+	`);
+
 export default {
 	create,
 	createMapSubStandard,
 	findMapStandard,
+	findMapStandardBySubStdId,
 	findAllRelativeStandard,
 };
