@@ -22,6 +22,7 @@
     "camelcase": "warn",
     "max-classes-per-file": "off",
     "consistent-return": "warn",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-await-in-loop": "off"
   }
 }

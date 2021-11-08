@@ -11,12 +11,12 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 	const { relative_standards, ...courseInput } = req.body;
 
 	const resultCourse = await courseRepository.createCourse(courseInput);
-	const { course_id } = resultCourse.rows[0];
+	const { course_id, curriculum_id } = resultCourse.rows[0];
 
 	let mapStandards = [];
 	if (relative_standards.length > 0) {
 		const resultMapstandard = await mapStandardRepository.findMapStandardBySubStdId(
-			relative_standards,
+			relative_standards, curriculum_id,
 		);
 		mapStandards = resultMapstandard.rows.map((row) => row.map_sub_std_id);
 	}
@@ -51,12 +51,12 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 	const { relative_standards, ...courseInput } = req.body;
 
 	const resultCourse = await courseRepository.updateCourse(courseInput, courseId);
-	const { course_id } = resultCourse.rows[0];
+	const { course_id, curriculum_id } = resultCourse.rows[0];
 
 	let mapStandards = [];
 	if (relative_standards.length > 0) {
 		const resultMapstandard = await mapStandardRepository.findMapStandardBySubStdId(
-			relative_standards,
+			relative_standards, curriculum_id,
 		);
 		mapStandards = resultMapstandard.rows.map((row) => row.map_sub_std_id);
 	}

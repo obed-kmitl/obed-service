@@ -1,7 +1,7 @@
 import db from '_/utils/db';
 import format from 'pg-format';
 import { QueryResultRow } from 'pg';
-import { MapStandardInputDTO } from '_/dtos/mapStandard';
+import { MapStandardInputDTO, MapSubStandard } from '_/dtos/mapStandard';
 
 /**
  * Create sub standard
@@ -31,24 +31,59 @@ Promise<QueryResultRow> => db.transaction(
  * Create map sub standard
  */
 const createMapSubStandard = async (
-	mapSubStandardInfo: Array<Array<any>>,
+	mapSubStandardInfo: MapSubStandard[],
 	curriculumId: Number,
 ): Promise<QueryResultRow> => db.transaction(async () => {
-	await db.query(`
-			DELETE FROM
-				map_sub_standards
-			WHERE
-				curriculum_id = ${curriculumId}
-		`);
+	const { rows: oldMapSubStandards } = await db.query(`
+		SELECT 
+			*
+		FROM 
+			map_sub_standards
+		WHERE
+			curriculum_id = $1
+	`, [curriculumId]);
 
-	if (mapSubStandardInfo.length > 0) {
+	let toRemove: Number[][] = [];
+	oldMapSubStandards.forEach((old) => {
+		const findMatch = mapSubStandardInfo
+			.find((_new) => old.main_sub_std_id === _new.main_sub_std_id
+	&& old.relative_sub_std_id === _new.relative_sub_std_id);
+		if (!findMatch) {
+			toRemove = [...toRemove, [curriculumId, old.main_sub_std_id, old.relative_sub_std_id]];
+		}
+	});
+
+	let toAdd: Number[][] = [];
+	mapSubStandardInfo.forEach((_new) => {
+		const findMatch = oldMapSubStandards
+			.find((old) => old.main_sub_std_id === _new.main_sub_std_id
+		&& old.relative_sub_std_id === _new.relative_sub_std_id);
+		if (!findMatch) {
+			toAdd = [...toAdd, [curriculumId, _new.main_sub_std_id, _new.relative_sub_std_id]];
+		}
+	});
+
+	for (let i = 0; i < toRemove.length; i += 1) {
+		await db.query(`
+			DELETE FROM
+				map_sub_standards 
+			WHERE
+				curriculum_id = $1
+				AND
+				main_sub_std_id = $2
+				AND
+				relative_sub_std_id = $3
+		`, toRemove[i]);
+	}
+
+	if (toAdd.length > 0) {
 		await db.query(format(`
 			INSERT INTO 
 				map_sub_standards 
 				(curriculum_id, main_sub_std_id, relative_sub_std_id) 
 			VALUES 
 				%L
-			`, mapSubStandardInfo));
+			`, toAdd));
 	}
 },
 () => db.query(`
@@ -121,19 +156,23 @@ const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResul
 			s_std.group_sub_title
 `, [curriculumId]);
 
+// TODO
 /**
  * Find all map standard by sub_std_id
  */
 const findMapStandardBySubStdId = async (
 	subStdId :Number[],
+	curriculumId: Number,
 ): Promise<QueryResultRow> => db.query(`
 	SELECT
 		*
 	FROM
 		map_sub_standards
 	WHERE
-		relative_sub_std_id IN (${subStdId.join(', ')})
-	`);
+		curriculum_id = $1
+		AND
+		relative_sub_std_id = ANY('{${subStdId.join(', ')}}'::INT[])
+	`, [curriculumId]);
 
 export default {
 	create,
