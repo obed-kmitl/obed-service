@@ -52,7 +52,12 @@ const getAllRelativeStandard = async (req: Request, res: Response): Promise<Resp
 
 	const result = await mapStandardRepository.findAllRelativeStandard(curriculumId);
 
-	sendResponse(res, result.rows);
+	const sortedResults = result.rows.sort((
+		ra, rb,
+	) => ra.sub_order_number - rb.sub_order_number
+	|| ra.group_sub_order_number - rb.group_sub_order_number);
+
+	sendResponse(res, sortedResults);
 };
 
 export default {
