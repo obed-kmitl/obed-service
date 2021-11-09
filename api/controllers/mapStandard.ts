@@ -54,8 +54,12 @@ const getAllRelativeStandard = async (req: Request, res: Response): Promise<Resp
 
 	const sortedResults = result.rows.sort((
 		ra, rb,
-	) => ra.sub_order_number - rb.sub_order_number
-	|| ra.group_sub_order_number - rb.group_sub_order_number);
+	) => {
+		const concatA = `${ra.group_sub_order_number}.${ra.sub_order_number}`;
+		const concatB = `${rb.group_sub_order_number}.${rb.sub_order_number}`;
+
+		return concatA.localeCompare(concatB);
+	});
 
 	sendResponse(res, sortedResults);
 };
