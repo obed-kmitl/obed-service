@@ -17,7 +17,7 @@ const create = async (req: Request, res: Response): Promise<Response> => {
  */
 const createGroupSections = async (req: Request, res: Response): Promise<Response> => {
 	const { semesterId } = req.params;
-	const mapGroupSectionInfo = req.body.couse_id_list.map((ci) => [semesterId, ci]);
+	const mapGroupSectionInfo = req.body.course_id_list.map((ci) => [semesterId, ci]);
 
 	const result = await semesterRepository.createGroupSections(mapGroupSectionInfo);
 

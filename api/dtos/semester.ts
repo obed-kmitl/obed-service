@@ -13,7 +13,7 @@ export class CreateGroupSectionsRequestDTO {
 	@IsNotEmpty()
 	@IsNumber({}, { each: true })
 	@IsArray()
-	couse_id_list: Number[]= [];
+	course_id_list: Number[]= [];
 }
 
 export class CreateSectionRequestDTO {
