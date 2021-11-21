@@ -118,65 +118,76 @@ const createCourseSubStandards = async (
  * Find course by currriculumId
  */
 const findAllByCurriculum = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
-  SELECT
-			c.*,
-			COALESCE(
-					json_agg(
-							json_build_object(
-									'map_sub_std_id',
-									css.map_sub_std_id,
-									'sub_std_id',
-									css.sub_std_id,
-									'sub_order_number',
-									css.sub_order_number,
-									'sub_title',
-									css.sub_title,
-									'group_sub_std_id',
-									css.group_sub_std_id,
-									'group_sub_order_number',
-									css.group_sub_order_number,
-									'group_sub_title',
-									css.group_sub_title
-							)
-					) FILTER (
-							WHERE
-									css.map_sub_std_id IS NOT NULL
-					),
-					'[]'
-			) AS relative_standards
-	FROM
-			courses c
-			LEFT JOIN (
-					SELECT
-							cssx.map_sub_std_id AS dup_map_sub_std_id,
-							cssx.course_id,
-							ms_std.*
-					FROM
-							course_sub_standards cssx
-							LEFT JOIN (
-									SELECT
-											ms_stdx.*,
-											ss.*
-									FROM
-											map_sub_standards ms_stdx
-											LEFT JOIN (
-													SELECT
-															ssx.sub_std_id,
-															ssx.order_number AS sub_order_number,
-															ssx.title AS sub_title,
-															gss.group_sub_std_id,
-															gss.order_number AS group_sub_order_number,
-															gss.title AS group_sub_title
-													FROM
-															sub_standards ssx
-															LEFT JOIN group_sub_standards gss ON gss.group_sub_std_id = ssx.group_sub_std_id
-											) ss ON ss.sub_std_id = ms_stdx.relative_sub_std_id
-							) ms_std ON cssx.map_sub_std_id = ms_std.map_sub_std_id
-			) css ON css.course_id = c.course_id
-	WHERE
-			c.curriculum_id = $1
-	GROUP BY
-			c.course_id
+SELECT
+    c.*,
+    COALESCE(
+        json_agg(
+            json_build_object(
+                'sub_std_id',
+                css.sub_std_id,
+                'sub_order_number',
+                css.sub_order_number,
+                'sub_title',
+                css.sub_title,
+                'group_sub_std_id',
+                css.group_sub_std_id,
+                'group_sub_order_number',
+                css.group_sub_order_number,
+                'group_sub_title',
+                css.group_sub_title
+            )
+        ) FILTER (
+            WHERE
+                css.sub_std_id IS NOT NULL
+        ),
+        '[]'
+    ) AS relative_standards
+FROM
+    courses c
+    LEFT JOIN (
+        SELECT
+            cssx.course_id,
+            ms_std.sub_std_id,
+            ms_std.sub_order_number,
+            ms_std.sub_title,
+            ms_std.group_sub_std_id,
+            ms_std.group_sub_order_number,
+            ms_std.group_sub_title
+        FROM
+            course_sub_standards cssx
+            LEFT JOIN (
+                SELECT
+                    ms_stdx.*,
+                    ss.*
+                FROM
+                    map_sub_standards ms_stdx
+                    LEFT JOIN (
+                        SELECT
+                            ssx.sub_std_id,
+                            ssx.order_number AS sub_order_number,
+                            ssx.title AS sub_title,
+                            gss.group_sub_std_id,
+                            gss.order_number AS group_sub_order_number,
+                            gss.title AS group_sub_title
+                        FROM
+                            sub_standards ssx
+                            LEFT JOIN group_sub_standards gss ON gss.group_sub_std_id = ssx.group_sub_std_id
+                    ) ss ON ss.sub_std_id = ms_stdx.relative_sub_std_id
+            ) ms_std ON cssx.map_sub_std_id = ms_std.map_sub_std_id
+        GROUP BY
+            cssx.course_id,
+            ms_std.sub_std_id,
+            ms_std.sub_order_number,
+            ms_std.sub_title,
+            ms_std.group_sub_std_id,
+            ms_std.group_sub_order_number,
+            ms_std.group_sub_title
+    ) AS css ON css.course_id = c.course_id
+WHERE
+    c.curriculum_id = $1
+GROUP BY
+    c.curriculum_id,
+    c.course_id
 `, [curriculumId]);
 
 /**
