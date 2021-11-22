@@ -13,6 +13,17 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
+ * Duplicate Semester
+ */
+const duplicate = async (req: Request, res: Response): Promise<Response> => {
+	const { curriculum_id } = req.body;
+
+	const result = await semesterRepository.duplicateSemester(curriculum_id);
+
+	sendResponse(res, result.rows);
+};
+
+/**
  * Create multiple group sections
  */
 const createGroupSections = async (req: Request, res: Response): Promise<Response> => {
@@ -53,6 +64,17 @@ const get = async (req: Request, res: Response): Promise<Response> => {
 	const result = await semesterRepository.find(semesterId);
 
 	sendResponse(res, result.rows[0]);
+};
+
+/**
+ * Get all sections by curriculum
+ */
+const getByCurriculum = async (req: Request, res: Response): Promise<Response> => {
+	const { curriculumId } = req.params;
+
+	const result = await semesterRepository.findByCurriculum(curriculumId);
+
+	sendResponse(res, result.rows);
 };
 
 /**
@@ -101,7 +123,9 @@ export default {
 	createGroupSections,
 	createSection,
 	get,
+	getByCurriculum,
 	updateSection,
 	removeGroupSection,
 	removeSection,
+	duplicate,
 };

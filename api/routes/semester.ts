@@ -4,6 +4,7 @@ import asyncWrapper from '_/middleware/asyncWrapper';
 import {
 	CreateSemesterRequestDTO, CreateGroupSectionsRequestDTO,
 	CreateSectionRequestDTO, UpdateSectionRequestDTO,
+	DuplicateSemesterRequestDTO,
 } from '_/dtos/semester';
 
 import express from 'express';
@@ -16,6 +17,12 @@ router.post('/create', [
 	permit('ADMIN'),
 	validateRequest(CreateSemesterRequestDTO),
 ], asyncWrapper(semesterController.create));
+
+router.post('/duplicate', [
+	verifyToken,
+	permit('ADMIN'),
+	validateRequest(DuplicateSemesterRequestDTO),
+], asyncWrapper(semesterController.duplicate));
 
 router.post('/createGroupSections/:semesterId', [
 	verifyToken,
@@ -33,6 +40,11 @@ router.get('/get/:semesterId', [
 	verifyToken,
 	permit('ADMIN'),
 ], asyncWrapper(semesterController.get));
+
+router.get('/getByCurriculum/:curriculumId', [
+	verifyToken,
+	permit('ADMIN'),
+], asyncWrapper(semesterController.getByCurriculum));
 
 router.put('/updateSection/:sectionId', [
 	verifyToken,
