@@ -253,6 +253,112 @@ GROUP BY
     sem.semester_id
 `, [yearNumber, curriculumId]);
 
+const findSectionByTeacher = (teacherId: Number): Promise<QueryResultRow> => db.query(`
+SELECT
+    COALESCE(
+        json_agg(s.*) FILTER (
+            WHERE
+                s.section_id IS NOT NULL
+        ),
+        '[]'
+    ) AS sections
+FROM
+    teachers t
+    LEFT JOIN (
+        SELECT
+            sx.*,
+            gs.semester_id,
+            gs.course_name_en,
+            gs.course_name_th,
+            gs.course_number,
+            gs.department,
+            gs.faculty,
+            gs.title,
+            gs.university,
+            gs.semester_number,
+            gs.year_number
+        FROM
+            sections sx
+            LEFT JOIN (
+                SELECT
+                    gsx.*,
+                    c.course_name_en,
+                    c.course_name_th,
+                    c.course_number,
+                    c.department,
+                    c.faculty,
+                    c.title,
+                    c.university,
+                    sem.semester_number,
+                    sem.year_number
+                FROM
+                    group_sections gsx
+                    LEFT JOIN (
+                        SELECT
+                            cx.*,
+                            cur.department,
+                            cur.faculty,
+                            cur.title,
+                            cur.university
+                        FROM
+                            courses cx
+                            LEFT JOIN curriculums cur ON cur.curriculum_id = cx.curriculum_id
+                    ) c ON c.course_id = gsx.course_id
+                    LEFT JOIN semesters sem ON sem.semester_id = gsx.semester_id
+            ) gs ON gs.group_sec_id = sx.group_sec_id
+    ) s ON s.section_id = t.section_id
+WHERE
+    t.user_id = $1
+GROUP BY
+    t.user_id
+`, [teacherId]);
+
+const findSection = (sectionId: Number): Promise<QueryResultRow> => db.query(`
+SELECT
+    sx.*,
+    gs.semester_id,
+    gs.course_name_en,
+    gs.course_name_th,
+    gs.course_number,
+    gs.department,
+    gs.faculty,
+    gs.title,
+    gs.university,
+    gs.semester_number,
+    gs.year_number
+FROM
+    sections sx
+    LEFT JOIN (
+        SELECT
+            gsx.*,
+            c.course_name_en,
+            c.course_name_th,
+            c.course_number,
+            c.department,
+            c.faculty,
+            c.title,
+            c.university,
+            sem.semester_number,
+            sem.year_number
+        FROM
+            group_sections gsx
+            LEFT JOIN (
+                SELECT
+                    cx.*,
+                    cur.department,
+                    cur.faculty,
+                    cur.title,
+                    cur.university
+                FROM
+                    courses cx
+                    LEFT JOIN curriculums cur ON cur.curriculum_id = cx.curriculum_id
+            ) c ON c.course_id = gsx.course_id
+            LEFT JOIN semesters sem ON sem.semester_id = gsx.semester_id
+    ) gs ON gs.group_sec_id = sx.group_sec_id
+WHERE
+    sx.section_id = $1
+`, [sectionId]);
+
 /**
  * Create section
  */
@@ -484,6 +590,8 @@ export default {
 	saveTeachers,
 	find,
 	findByCurriculum,
+	findSectionByTeacher,
+	findSection,
 	updateSection,
 	deleteGroupSection,
 	deleteSection,
