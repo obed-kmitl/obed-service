@@ -21,15 +21,9 @@ const save = async (req: Request, res: Response): Promise<Response> => {
 		relative_std_id,
 	};
 
-	const mapSubStandardValues = map_sub_standards.map((mss) => ([
-		curriculum_id,
-		mss.main_sub_std_id,
-		mss.relative_sub_std_id,
-	]));
-
 	const [resultMapStandard, resultMapSubStandard] = await Promise.all([
 		mapStandardRepository.create(mapStandardInput),
-		mapStandardRepository.createMapSubStandard(mapSubStandardValues, curriculum_id),
+		mapStandardRepository.createMapSubStandard(map_sub_standards, curriculum_id),
 	]);
 
 	sendResponse(res,
@@ -58,7 +52,16 @@ const getAllRelativeStandard = async (req: Request, res: Response): Promise<Resp
 
 	const result = await mapStandardRepository.findAllRelativeStandard(curriculumId);
 
-	sendResponse(res, result.rows);
+	const sortedResults = result.rows.sort((
+		ra, rb,
+	) => {
+		const concatA = `${ra.group_sub_order_number}.${ra.sub_order_number}`;
+		const concatB = `${rb.group_sub_order_number}.${rb.sub_order_number}`;
+
+		return concatA.localeCompare(concatB);
+	});
+
+	sendResponse(res, sortedResults);
 };
 
 export default {
