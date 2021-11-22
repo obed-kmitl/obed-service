@@ -78,6 +78,28 @@ const getByCurriculum = async (req: Request, res: Response): Promise<Response> =
 };
 
 /**
+ * Get all sections by teacher
+ */
+const getSectionByTeacher = async (req: Request, res: Response): Promise<Response> => {
+	const { teacherId } = req.params;
+
+	const result = await semesterRepository.findSectionByTeacher(teacherId);
+
+	sendResponse(res, result.rows);
+};
+
+/**
+ * Get all sections
+ */
+const getSection = async (req: Request, res: Response): Promise<Response> => {
+	const { sectionId } = req.params;
+
+	const result = await semesterRepository.findSection(sectionId);
+
+	sendResponse(res, result.rows[0]);
+};
+
+/**
  * Update section
  */
 const updateSection = async (req: Request, res: Response): Promise<Response> => {
@@ -123,7 +145,9 @@ export default {
 	createGroupSections,
 	createSection,
 	get,
+	getSectionByTeacher,
 	getByCurriculum,
+	getSection,
 	updateSection,
 	removeGroupSection,
 	removeSection,
