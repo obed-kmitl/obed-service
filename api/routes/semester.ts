@@ -41,6 +41,11 @@ router.get('/get/:semesterId', [
 	permit('ADMIN'),
 ], asyncWrapper(semesterController.get));
 
+router.get('/getByCurriculum/:curriculumId', [
+	verifyToken,
+	permit('ADMIN'),
+], asyncWrapper(semesterController.getByCurriculum));
+
 router.put('/updateSection/:sectionId', [
 	verifyToken,
 	permit('ADMIN'),

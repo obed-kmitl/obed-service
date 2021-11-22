@@ -1,5 +1,6 @@
 CREATE TABLE semesters(
 	semester_id SERIAL PRIMARY KEY,
+  curriculum_id INT NOT NULL REFERENCES curriculums(curriculum_id) ON DELETE CASCADE,
 	year_number INT NOT NULL,
 	semester_number INT NOT NULL
 );

@@ -7,9 +7,17 @@ export class CreateSemesterRequestDTO {
 	@IsNotEmpty()
 	@IsNumber()
 	year_number : Number=-1;
+
+  @IsNotEmpty()
+	@IsNumber()
+	curriculum_id : number=-1;
 }
 
-export class DuplicateSemesterRequestDTO extends CreateSemesterRequestDTO {}
+export class DuplicateSemesterRequestDTO {
+  @IsNotEmpty()
+	@IsNumber()
+	curriculum_id : number=-1;
+}
 
 export class CreateGroupSectionsRequestDTO {
 	@IsNotEmpty()
