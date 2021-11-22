@@ -1,6 +1,8 @@
 import curriculumRepository from '_/repositories/curriculum';
+import semesterRepository from '_/repositories/semester';
 import { sendResponse } from '_/utils/response';
 import { CurriculumInputDTO } from '_/dtos/curriculum';
+import { CreateSemesterRequestDTO } from '_/dtos/semester';
 
 import { Request, Response } from 'express';
 import { deserialize } from 'json-typescript-mapper';
@@ -10,6 +12,12 @@ import { deserialize } from 'json-typescript-mapper';
  */
 const create = async (req: Request, res: Response): Promise<Response> => {
 	const result = await curriculumRepository.createCurriculum(req.body);
+
+	const createSemesterObject: CreateSemesterRequestDTO = {
+		year_number: new Date().getFullYear() + 543,
+		curriculum_id: result.rows[0].curriculum_id,
+	};
+	await semesterRepository.createSemester(createSemesterObject);
 
 	sendResponse(res, result.rows[0]);
 };

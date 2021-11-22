@@ -22,9 +22,9 @@ export default {
 	async transaction(fn, callback) {
 		try {
 			await pool.query('BEGIN;');
-			await fn();
+			const fnResponse = await fn();
 			await pool.query('COMMIT;');
-			return callback();
+			return callback(fnResponse);
 		} catch (err) {
 			await pool.query('ROLLBACK;');
 			throw err;

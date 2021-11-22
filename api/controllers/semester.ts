@@ -16,7 +16,9 @@ const create = async (req: Request, res: Response): Promise<Response> => {
  * Duplicate Semester
  */
 const duplicate = async (req: Request, res: Response): Promise<Response> => {
-	const result = await semesterRepository.duplicateSemester(req.body);
+	const { curriculum_id } = req.body;
+
+	const result = await semesterRepository.duplicateSemester(curriculum_id);
 
 	sendResponse(res, result.rows);
 };
@@ -65,6 +67,17 @@ const get = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
+ * Get all sections by curriculum
+ */
+const getByCurriculum = async (req: Request, res: Response): Promise<Response> => {
+	const { curriculumId } = req.params;
+
+	const result = await semesterRepository.findByCurriculum(curriculumId);
+
+	sendResponse(res, result.rows);
+};
+
+/**
  * Update section
  */
 const updateSection = async (req: Request, res: Response): Promise<Response> => {
@@ -110,6 +123,7 @@ export default {
 	createGroupSections,
 	createSection,
 	get,
+	getByCurriculum,
 	updateSection,
 	removeGroupSection,
 	removeSection,
