@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import db from '_/utils/db';
 import { CreateSemesterRequestDTO, SectionInputDTO, DuplicateSemesterRequestDTO } from '_/dtos/semester';
 import { QueryResultRow } from 'pg';
@@ -543,36 +544,36 @@ const duplicateSemester = async (curriculumId: number): Promise<QueryResultRow> 
 			group_sections: filterLatestYearSemester[index].group_sections,
 		}));
 
-		await Promise.all(mapGroupSectionInfo.map(async (sem) => {
-			await Promise.all(sem.group_sections.map(async (gs) => {
+		// eslint-disable-next-line no-restricted-syntax
+		for (const sem of mapGroupSectionInfo) {
+			// eslint-disable-next-line no-restricted-syntax
+			for (const gs of sem.group_sections) {
 				const createGroupSectionResult = await createGroupSections([[
 					sem.semester_id,
 					gs.course_id,
 				]]);
 
-				await Promise.all(
-					gs.sections.map(async (s) => {
-						const createSectionResult = await createSection(
-							createGroupSectionResult.rows[0].group_sec_id,
-							{
-								section_number: s.section_number,
-							},
-						);
-						await Promise.all(
-							s.teacher_list.map(async (t) => {
-								await saveTeachers(
-									createSectionResult.rows[0].section_id,
-									[[
-										createSectionResult.rows[0].section_id,
-										t.user_id,
-									]],
-								);
-							}),
-						);
-					}),
-				);
-			}));
-		}));
+				// eslint-disable-next-line no-restricted-syntax
+				for (const s of gs.sections) {
+					const createSectionResult = await createSection(
+						createGroupSectionResult.rows[0].group_sec_id,
+						{
+							section_number: s.section_number,
+						},
+					);
+
+					const teacherDataList = s.teacher_list.map((t) => [
+						createSectionResult.rows[0].section_id,
+						t.user_id,
+					]);
+
+					await saveTeachers(
+						createSectionResult.rows[0].section_id,
+						[...teacherDataList],
+					);
+				}
+			}
+		}
 
 		return {
 			lastestYearNumber,
