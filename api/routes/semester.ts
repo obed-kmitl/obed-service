@@ -48,12 +48,12 @@ router.get('/getByCurriculum/:curriculumId', [
 
 router.get('/getSection/:sectionId', [
 	verifyToken,
-	permit('ADMIN'),
+	permit('ADMIN', 'TEACHER'),
 ], asyncWrapper(semesterController.getSection));
 
-router.get('/getSectionByTeacher/:teacherId', [
+router.get('/getSectionByTeacher', [
 	verifyToken,
-	permit('ADMIN'),
+	permit('ADMIN', 'TEACHER'),
 ], asyncWrapper(semesterController.getSectionByTeacher));
 
 router.put('/updateSection/:sectionId', [

@@ -81,9 +81,9 @@ const getByCurriculum = async (req: Request, res: Response): Promise<Response> =
  * Get all sections by teacher
  */
 const getSectionByTeacher = async (req: Request, res: Response): Promise<Response> => {
-	const { teacherId } = req.params;
+	const { userId } = req;
 
-	const result = await semesterRepository.findSectionByTeacher(teacherId);
+	const result = await semesterRepository.findSectionByTeacher(userId);
 
 	sendResponse(res, result.rows);
 };
