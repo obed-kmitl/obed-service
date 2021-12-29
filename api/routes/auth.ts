@@ -26,4 +26,6 @@ router.put('/updatePassword', [
 	validateRequest(UpdatePasswordRequestDTO),
 ], asyncWrapper(authController.updatePassword));
 
+router.post('/googleAuthToken', [verifyToken], asyncWrapper(authController.googleAuthToken));
+
 export default router;

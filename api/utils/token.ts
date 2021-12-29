@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import authConfig from '_/configs/auth';
-import redisClient from '_/utils/redis';
 
 export const GenerateRefreshToken = async (userId: number) => {
 	const refreshToken = jwt.sign(
@@ -8,8 +7,6 @@ export const GenerateRefreshToken = async (userId: number) => {
 		authConfig.secret,
 		{ expiresIn: authConfig.jwtRefreshExpiration },
 	);
-
-	await redisClient.setAsync(userId.toString(), JSON.stringify({ token: refreshToken }));
 
 	return refreshToken;
 };

@@ -1,7 +1,6 @@
 import userRepository from '_/repositories/user';
 import authConfig from '_/configs/auth';
 import authToken from '_/utils/token';
-import redisClient from '_/utils/redis';
 import { extractToken } from '_/utils/extractToken';
 import { ApplicationError } from '_/errors/applicationError';
 import { sendResponse } from '_/utils/response';
@@ -9,12 +8,14 @@ import { UserInputDTO } from '_/dtos/user';
 import { CommonError } from '_/errors/common';
 import { AuthError } from '_/errors/auth';
 import { isTeacher, isAdmin } from '_/constants/user';
+import googleConfig from '_/configs/google';
 
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import { QueryResultRow, DatabaseError } from 'pg';
 import jwt from 'jsonwebtoken';
 import { deserialize } from 'json-typescript-mapper';
+import { google } from 'googleapis';
 
 /**
  * Register as TEACHER role
@@ -153,12 +154,6 @@ const logout = async (req: Request, res: Response) => {
 	const { userId } = req;
 	const accessToken = extractToken(req);
 
-	// remove the refresh token
-	await redisClient.del(userId.toString());
-
-	// blacklist current access token
-	await redisClient.setAsync(`BL_${userId.toString()}`, accessToken);
-
 	sendResponse(res, { message: 'Logout success' });
 };
 
@@ -183,11 +178,11 @@ const getAccessToken = async (req: Request, res: Response, next: NextFunction) =
 		return next(new ApplicationError(AuthError.USER_NOT_FOUND));
 	}
 
-	const refreshToken = await redisClient.getAsync(userId);
+	// const refreshToken = await redisClient.getAsync(userId);
 
-	if (!refreshToken) {
-		return next(new ApplicationError(CommonError.FORBIDDEN));
-	}
+	// if (!refreshToken) {
+	// 	return next(new ApplicationError(CommonError.FORBIDDEN));
+	// }
 
 	try {
 		await jwt.verify(requestToken, authConfig.secret);
@@ -240,6 +235,24 @@ const updatePassword = async (
 	sendResponse(res, { message: 'Update password success' });
 };
 
+const googleAuthToken = async (
+	req: Request, res: Response, next: NextFunction,
+): Promise<Response> => {
+	const { userId } = req;
+	const { code } = req.body;
+
+	const oauth2Client = new google.auth.OAuth2(
+		googleConfig.clientId,
+		googleConfig.secret,
+		googleConfig.redirectUri,
+	);
+	const { tokens } = await oauth2Client.getToken(code);
+
+	console.log(userId, tokens);
+
+	sendResponse(res, { message: 'google auth success' });
+};
+
 export default {
 	adminRegister,
 	register,
@@ -248,4 +261,5 @@ export default {
 	logout,
 	getAccessToken,
 	updatePassword,
+	googleAuthToken,
 };

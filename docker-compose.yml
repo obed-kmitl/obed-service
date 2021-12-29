@@ -11,9 +11,3 @@ services:
       POSTGRES_DB: obed-db
     ports:
       - "5432:5432"
-  redis:
-    image: redis:latest
-    container_name: obed-cache
-    restart: always # every time start-up will restart
-    ports:
-      - "6379:6379"

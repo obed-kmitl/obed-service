@@ -4,7 +4,6 @@ import { extractToken } from '_/utils/extractToken';
 import { AuthError } from '_/errors/auth';
 import { ApplicationError } from '_/errors/applicationError';
 import { CommonError } from '_/errors/common';
-import redisClient from '_/utils/redis';
 import { isPermitRole } from '_/constants/user';
 
 import jwt from 'jsonwebtoken';
@@ -22,12 +21,6 @@ export const verifyToken = async (req:Request, res:Response, next:NextFunction) 
 	try {
 		const decoded = jwt.verify(accessToken, authConfig.secret);
 		req.userId = decoded.id;
-
-		// Check if accessToken is in blacklist cache should return an error
-		const accessTokenBL = await redisClient.getAsync(`BL_${decoded.id.toString()}`);
-		if (accessTokenBL === accessToken) {
-			return next(new ApplicationError(CommonError.UNAUTHORIZED));
-		}
 
 		next();
 	} catch (err) {
