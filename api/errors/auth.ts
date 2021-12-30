@@ -19,6 +19,18 @@ export const AuthError = {
 		message: 'Refresh Token is required',
 		statusCode: 403,
 	},
+	REFRESH_TOKEN_IS_EXPIRED: {
+		type: ApplicationError.errorType.APP_OBED_SERVICE,
+		code: 'REFRESH_TOKEN_IS_EXPIRED',
+		message: 'Refresh Token is expired',
+		statusCode: 403,
+	},
+	REFRESH_TOKEN_NOT_FOUND: {
+		type: ApplicationError.errorType.APP_OBED_SERVICE,
+		code: 'REFRESH_TOKEN_NOT_FOUND',
+		message: 'Refresh Token not found',
+		statusCode: 404,
+	},
 	INVALID_PASSWORD: {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
 		code: 'INVALID_PASSWORD',
