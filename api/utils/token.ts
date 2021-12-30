@@ -1,7 +1,6 @@
 import authConfig from '_/configs/auth';
 
 import crypto from 'crypto';
-import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 
 export const convertBearer = (token) => `Bearer ${token}`;

@@ -1,6 +1,6 @@
 import userRepository from '_/repositories/user';
 import authConfig from '_/configs/auth';
-import authToken, { extractBearer } from '_/utils/token';
+import authToken from '_/utils/token';
 import { ApplicationError } from '_/errors/applicationError';
 import { sendResponse } from '_/utils/response';
 import { UserInputDTO } from '_/dtos/user';
@@ -14,7 +14,6 @@ import { isExpired } from '_/utils/isExpired';
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import { QueryResultRow, DatabaseError } from 'pg';
-import jwt from 'jsonwebtoken';
 import { deserialize } from 'json-typescript-mapper';
 import { google } from 'googleapis';
 import dayjs from 'dayjs';
@@ -202,6 +201,7 @@ const getAccessToken = async (req: Request, res: Response, next: NextFunction) =
 	// Generate new access token from useId
 	const newAccessToken = await authToken.GenerateAccessToken(result.rows[0].user_id);
 
+	// Extend refresh token expired time
 	await authRepository.saveOAuthRefreshToken(
 		result.rows[0].user_id,
 		refreshToken,
