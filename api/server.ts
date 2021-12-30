@@ -4,6 +4,7 @@ import { errorHandler } from '_/middleware/errorHandler';
 
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { version } from '../package.json';
 
 const server = express(); // init the application
@@ -20,6 +21,9 @@ server.use(express.json());
 
 // Allow cors policy
 server.use(cors());
+
+// Allow cookie parser
+server.use(cookieParser());
 
 /**
  * API health check

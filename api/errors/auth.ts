@@ -49,6 +49,12 @@ export const AuthError = {
 		message: 'Access Token is required',
 		statusCode: 403,
 	},
+	ACCESS_TOKEN_IS_NOT_BEARER: {
+		type: ApplicationError.errorType.APP_OBED_SERVICE,
+		code: 'ACCESS_TOKEN_IS_NOT_BEARER',
+		message: 'Access Token is not bearer',
+		statusCode: 403,
+	},
 	USER_NOT_FOUND: {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
 		code: 'USER_NOT_FOUND',

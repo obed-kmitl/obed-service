@@ -1,7 +1,6 @@
 import userRepository from '_/repositories/user';
 import authConfig from '_/configs/auth';
-import authToken from '_/utils/token';
-import { extractToken } from '_/utils/extractToken';
+import authToken, { extractBearer } from '_/utils/token';
 import { ApplicationError } from '_/errors/applicationError';
 import { sendResponse } from '_/utils/response';
 import { UserInputDTO } from '_/dtos/user';
@@ -118,6 +117,8 @@ const login = async (req: Request, res: Response, next: NextFunction): Promise<R
 	// Remove unused password from userResult
 	const { password: unusedPassword, ...userProfile } = userResult;
 
+	res.cookie('accessToken', accessToken, { httpOnly: true });
+	res.cookie('refreshToken', refreshToken, { httpOnly: true });
 	sendResponse(res, { userProfile, accessToken, refreshToken });
 };
 
@@ -150,11 +151,17 @@ const adminLogin = async (req: Request, res: Response, next: NextFunction): Prom
 	const accessToken = await authToken.GenerateAccessToken(userResult.user_id);
 	const refreshToken = await authToken.GenerateRefreshToken();
 
-	await authRepository.saveOAuthRefreshToken(userResult.user_id, refreshToken, dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString());
+	await authRepository.saveOAuthRefreshToken(
+		userResult.user_id,
+		refreshToken,
+		dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString(),
+	);
 
 	// Remove unused password from userResult
 	const { password: unusedPassword, ...userProfile } = userResult;
 
+	res.cookie('accessToken', accessToken, { httpOnly: true });
+	res.cookie('refreshToken', refreshToken, { httpOnly: true });
 	sendResponse(res, { userProfile, accessToken, refreshToken });
 };
 
@@ -173,7 +180,7 @@ const logout = async (req: Request, res: Response) => {
  * Get new accessToken using refreshToken
  */
 const getAccessToken = async (req: Request, res: Response, next: NextFunction) => {
-	const { refreshToken } = req.body;
+	const { refreshToken } = req.cookies;
 
 	// Validate refreshToken
 	if (refreshToken == null) {
@@ -187,9 +194,6 @@ const getAccessToken = async (req: Request, res: Response, next: NextFunction) =
 		return next(new ApplicationError(AuthError.REFRESH_TOKEN_NOT_FOUND));
 	}
 
-	console.log(dayjs(result.rows[0].expired_at),
-		dayjs(), dayjs().isAfter(dayjs(result.rows[0].expired_at)));
-
 	// Check if refresh token is expired
 	if (isExpired(result.rows[0].expired_at)) {
 		return next(new ApplicationError(AuthError.REFRESH_TOKEN_IS_EXPIRED));
@@ -198,10 +202,14 @@ const getAccessToken = async (req: Request, res: Response, next: NextFunction) =
 	// Generate new access token from useId
 	const newAccessToken = await authToken.GenerateAccessToken(result.rows[0].user_id);
 
-	sendResponse(res, {
-		accessToken: newAccessToken,
+	await authRepository.saveOAuthRefreshToken(
+		result.rows[0].user_id,
 		refreshToken,
-	});
+		dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString(),
+	);
+
+	res.cookie('accessToken', newAccessToken, { httpOnly: true });
+	sendResponse(res, { message: 'Refresh token success' });
 };
 
 /**

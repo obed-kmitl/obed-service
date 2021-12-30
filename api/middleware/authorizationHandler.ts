@@ -1,10 +1,10 @@
 import authConfig from '_/configs/auth';
 import userRepository from '_/repositories/user';
-import { extractToken } from '_/utils/extractToken';
 import { AuthError } from '_/errors/auth';
 import { ApplicationError } from '_/errors/applicationError';
 import { CommonError } from '_/errors/common';
 import { isPermitRole } from '_/constants/user';
+import { extractBearer } from '_/utils/token';
 
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
@@ -12,14 +12,20 @@ import { Request, Response, NextFunction } from 'express';
 const { TokenExpiredError } = jwt;
 
 export const verifyToken = async (req:Request, res:Response, next:NextFunction) : Response => {
-	const accessToken = extractToken(req);
+	const { accessToken } = req.cookies;
 
 	if (!accessToken) {
 		return next(new ApplicationError(AuthError.ACCESS_TOKEN_IS_REQUIRED));
 	}
 
+	const token = extractBearer(accessToken);
+
+	if (!token) {
+		return next(new ApplicationError(AuthError.ACCESS_TOKEN_IS_NOT_BEARER));
+	}
+
 	try {
-		const decoded = jwt.verify(accessToken, authConfig.secret);
+		const decoded = jwt.verify(token, authConfig.secret);
 		req.userId = decoded.id;
 
 		next();

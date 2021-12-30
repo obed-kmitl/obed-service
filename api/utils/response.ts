@@ -30,6 +30,6 @@ export function formatResponse(result, override = {}) {
 	};
 }
 
-export function sendResponse(res, payload, statusCode = 200, context = {}) {
+export function sendResponse(res, payload, statusCode = 200) {
 	return res.status(statusCode).json(formatResponse(payload));
 }
