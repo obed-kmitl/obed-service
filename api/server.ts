@@ -4,6 +4,7 @@ import { errorHandler } from '_/middleware/errorHandler';
 
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { version } from '../package.json';
 
 const server = express(); // init the application
@@ -18,8 +19,14 @@ server.set('port', process.env.PORT || 3001);
 // middileware
 server.use(express.json());
 
+// Allow cookie parser
+server.use(cookieParser());
+
 // Allow cors policy
-server.use(cors());
+server.use(cors({
+	origin: true,
+	credentials: true,
+}));
 
 /**
  * API health check

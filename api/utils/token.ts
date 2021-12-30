@@ -1,25 +1,32 @@
-import jwt from 'jsonwebtoken';
 import authConfig from '_/configs/auth';
 
-export const GenerateRefreshToken = async (userId: number) => {
-	const refreshToken = jwt.sign(
-		{ sub: userId },
-		authConfig.secret,
-		{ expiresIn: authConfig.jwtRefreshExpiration },
-	);
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 
-	return refreshToken;
+export const convertBearer = (token) => `Bearer ${token}`;
+
+export const extractBearer = (token) => {
+	if (token && token.split(' ')[0] === 'Bearer') {
+		return token.split(' ')[1];
+	}
+	return null;
 };
 
-export const GenerateAccessToken = (userId: number) => {
-	const accessToken = jwt.sign({ id: userId }, authConfig.secret, {
-		expiresIn: authConfig.jwtExpiration,
-	});
+export const GenerateRefreshToken = async () => crypto.randomBytes(48).toString('hex');
 
-	return accessToken;
+export const GenerateAccessToken = (userId: number) => {
+	const accessToken = jwt.sign(
+		{ id: userId },
+		authConfig.secret,
+		{ expiresIn: authConfig.jwtExpiration },
+	);
+
+	return convertBearer(accessToken);
 };
 
 export default {
 	GenerateRefreshToken,
 	GenerateAccessToken,
+	extractBearer,
+	convertBearer,
 };

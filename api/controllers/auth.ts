@@ -1,7 +1,6 @@
 import userRepository from '_/repositories/user';
 import authConfig from '_/configs/auth';
 import authToken from '_/utils/token';
-import { extractToken } from '_/utils/extractToken';
 import { ApplicationError } from '_/errors/applicationError';
 import { sendResponse } from '_/utils/response';
 import { UserInputDTO } from '_/dtos/user';
@@ -9,13 +8,16 @@ import { CommonError } from '_/errors/common';
 import { AuthError } from '_/errors/auth';
 import { isTeacher, isAdmin } from '_/constants/user';
 import googleConfig from '_/configs/google';
+import authRepository from '_/repositories/auth';
+import { isExpired } from '_/utils/isExpired';
+import cookieConfig from '_/configs/cookie';
 
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import { QueryResultRow, DatabaseError } from 'pg';
-import jwt from 'jsonwebtoken';
 import { deserialize } from 'json-typescript-mapper';
 import { google } from 'googleapis';
+import dayjs from 'dayjs';
 
 /**
  * Register as TEACHER role
@@ -104,12 +106,20 @@ const login = async (req: Request, res: Response, next: NextFunction): Promise<R
 	}
 
 	const accessToken = await authToken.GenerateAccessToken(userResult.user_id);
-	const refreshToken = await authToken.GenerateRefreshToken(userResult.user_id);
+	const refreshToken = await authToken.GenerateRefreshToken();
+
+	await authRepository.saveOAuthRefreshToken(
+		userResult.user_id,
+		refreshToken,
+		dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString(),
+	);
 
 	// Remove unused password from userResult
 	const { password: unusedPassword, ...userProfile } = userResult;
 
-	sendResponse(res, { userProfile, accessToken, refreshToken });
+	res.cookie('accessToken', accessToken, cookieConfig);
+	res.cookie('refreshToken', refreshToken, cookieConfig);
+	sendResponse(res, { userProfile });
 };
 
 /**
@@ -139,21 +149,31 @@ const adminLogin = async (req: Request, res: Response, next: NextFunction): Prom
 	}
 
 	const accessToken = await authToken.GenerateAccessToken(userResult.user_id);
-	const refreshToken = await authToken.GenerateRefreshToken(userResult.user_id);
+	const refreshToken = await authToken.GenerateRefreshToken();
+
+	await authRepository.saveOAuthRefreshToken(
+		userResult.user_id,
+		refreshToken,
+		dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString(),
+	);
 
 	// Remove unused password from userResult
 	const { password: unusedPassword, ...userProfile } = userResult;
 
-	sendResponse(res, { userProfile, accessToken, refreshToken });
+	res.cookie('accessToken', accessToken, cookieConfig);
+	res.cookie('refreshToken', refreshToken, cookieConfig);
+	sendResponse(res, { userProfile });
 };
 
 /**
  * Logout with any role
  */
 const logout = async (req: Request, res: Response) => {
-	const { userId } = req;
-	const accessToken = extractToken(req);
+	const { userId } = req.params;
 
+	await authRepository.saveOAuthRefreshToken(userId, null, null);
+	res.clearCookie('accessToken');
+	res.clearCookie('refreshToken');
 	sendResponse(res, { message: 'Logout success' });
 };
 
@@ -161,41 +181,37 @@ const logout = async (req: Request, res: Response) => {
  * Get new accessToken using refreshToken
  */
 const getAccessToken = async (req: Request, res: Response, next: NextFunction) => {
-	const { userId } = req.params;
+	const { refreshToken } = req.cookies;
 
-	const { refreshToken: requestToken } = req.body;
-
-	// Validate requestToken
-	if (requestToken == null) {
+	// Validate refreshToken
+	if (refreshToken == null) {
 		return next(new ApplicationError(AuthError.REFRESH_TOKEN_IS_REQUIRED));
 	}
 
-	// Check if user exist in database
-	const result = await userRepository.findUser(userId);
-	const userResult = result.rows[0];
+	const result = await authRepository.findOAuthRefreshToken(refreshToken);
 
-	if (!userResult) {
-		return next(new ApplicationError(AuthError.USER_NOT_FOUND));
+	// Check if refresh token not found
+	if (result.rows.length === 0) {
+		return next(new ApplicationError(AuthError.REFRESH_TOKEN_NOT_FOUND));
 	}
 
-	// const refreshToken = await redisClient.getAsync(userId);
-
-	// if (!refreshToken) {
-	// 	return next(new ApplicationError(CommonError.FORBIDDEN));
-	// }
-
-	try {
-		await jwt.verify(requestToken, authConfig.secret);
-	} catch (err) {
-		return next(new ApplicationError(CommonError.FORBIDDEN));
+	// Check if refresh token is expired
+	if (isExpired(result.rows[0].expired_at)) {
+		return next(new ApplicationError(AuthError.REFRESH_TOKEN_IS_EXPIRED));
 	}
 
-	const newAccessToken = await authToken.GenerateAccessToken(userId);
+	// Generate new access token from useId
+	const newAccessToken = await authToken.GenerateAccessToken(result.rows[0].user_id);
 
-	sendResponse(res, {
-		accessToken: newAccessToken,
-		refreshToken: requestToken,
-	});
+	// Extend refresh token expired time
+	await authRepository.saveOAuthRefreshToken(
+		result.rows[0].user_id,
+		refreshToken,
+		dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString(),
+	);
+
+	res.cookie('accessToken', newAccessToken, cookieConfig);
+	sendResponse(res, { message: 'Refresh token success' });
 };
 
 /**

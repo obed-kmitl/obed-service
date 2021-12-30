@@ -17,7 +17,19 @@ export const AuthError = {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
 		code: 'REFRESH_TOKEN_IS_REQUIRED',
 		message: 'Refresh Token is required',
-		statusCode: 403,
+		statusCode: 401,
+	},
+	REFRESH_TOKEN_IS_EXPIRED: {
+		type: ApplicationError.errorType.APP_OBED_SERVICE,
+		code: 'REFRESH_TOKEN_IS_EXPIRED',
+		message: 'Refresh Token is expired',
+		statusCode: 401,
+	},
+	REFRESH_TOKEN_NOT_FOUND: {
+		type: ApplicationError.errorType.APP_OBED_SERVICE,
+		code: 'REFRESH_TOKEN_NOT_FOUND',
+		message: 'Refresh Token not found',
+		statusCode: 404,
 	},
 	INVALID_PASSWORD: {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
@@ -35,7 +47,13 @@ export const AuthError = {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
 		code: 'ACCESS_TOKEN_IS_REQUIRED',
 		message: 'Access Token is required',
-		statusCode: 403,
+		statusCode: 401,
+	},
+	ACCESS_TOKEN_IS_NOT_BEARER: {
+		type: ApplicationError.errorType.APP_OBED_SERVICE,
+		code: 'ACCESS_TOKEN_IS_NOT_BEARER',
+		message: 'Access Token is not bearer',
+		statusCode: 401,
 	},
 	USER_NOT_FOUND: {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
@@ -47,7 +65,7 @@ export const AuthError = {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
 		code: 'NO_PERMISSION',
 		message: 'No Permission',
-		statusCode: 403,
+		statusCode: 401,
 	},
 	PASSWORD_SHOULD_DIFFERENT: {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
