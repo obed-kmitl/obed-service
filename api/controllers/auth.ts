@@ -10,6 +10,7 @@ import { isTeacher, isAdmin } from '_/constants/user';
 import googleConfig from '_/configs/google';
 import authRepository from '_/repositories/auth';
 import { isExpired } from '_/utils/isExpired';
+import cookieConfig from '_/configs/cookie';
 
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
@@ -116,9 +117,9 @@ const login = async (req: Request, res: Response, next: NextFunction): Promise<R
 	// Remove unused password from userResult
 	const { password: unusedPassword, ...userProfile } = userResult;
 
-	res.cookie('accessToken', accessToken, { httpOnly: true });
-	res.cookie('refreshToken', refreshToken, { httpOnly: true });
-	sendResponse(res, { userProfile, accessToken, refreshToken });
+	res.cookie('accessToken', accessToken, cookieConfig);
+	res.cookie('refreshToken', refreshToken, cookieConfig);
+	sendResponse(res, { userProfile });
 };
 
 /**
@@ -159,9 +160,9 @@ const adminLogin = async (req: Request, res: Response, next: NextFunction): Prom
 	// Remove unused password from userResult
 	const { password: unusedPassword, ...userProfile } = userResult;
 
-	res.cookie('accessToken', accessToken, { httpOnly: true });
-	res.cookie('refreshToken', refreshToken, { httpOnly: true });
-	sendResponse(res, { userProfile, accessToken, refreshToken });
+	res.cookie('accessToken', accessToken, cookieConfig);
+	res.cookie('refreshToken', refreshToken, cookieConfig);
+	sendResponse(res, { userProfile });
 };
 
 /**
@@ -171,7 +172,8 @@ const logout = async (req: Request, res: Response) => {
 	const { userId } = req.params;
 
 	await authRepository.saveOAuthRefreshToken(userId, null, null);
-
+	res.clearCookie('accessToken');
+	res.clearCookie('refreshToken');
 	sendResponse(res, { message: 'Logout success' });
 };
 
@@ -208,7 +210,7 @@ const getAccessToken = async (req: Request, res: Response, next: NextFunction) =
 		dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString(),
 	);
 
-	res.cookie('accessToken', newAccessToken, { httpOnly: true });
+	res.cookie('accessToken', newAccessToken, cookieConfig);
 	sendResponse(res, { message: 'Refresh token success' });
 };
 

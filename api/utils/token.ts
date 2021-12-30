@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 export const convertBearer = (token) => `Bearer ${token}`;
 
 export const extractBearer = (token) => {
-	if (token.split(' ')[0] === 'Bearer') {
+	if (token && token.split(' ')[0] === 'Bearer') {
 		return token.split(' ')[1];
 	}
 	return null;

@@ -19,11 +19,14 @@ server.set('port', process.env.PORT || 3001);
 // middileware
 server.use(express.json());
 
-// Allow cors policy
-server.use(cors());
-
 // Allow cookie parser
 server.use(cookieParser());
+
+// Allow cors policy
+server.use(cors({
+	origin: true,
+	credentials: true,
+}));
 
 /**
  * API health check

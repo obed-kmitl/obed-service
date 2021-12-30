@@ -7,6 +7,7 @@ import { isPermitRole } from '_/constants/user';
 import authToken, { extractBearer } from '_/utils/token';
 import authRepository from '_/repositories/auth';
 import { isExpired } from '_/utils/isExpired';
+import cookieConfig from '_/configs/cookie';
 
 import jwt from 'jsonwebtoken';
 import dayjs from 'dayjs';
@@ -63,7 +64,7 @@ export const verifyToken = async (req:Request, res:Response, next:NextFunction) 
 				dayjs().add(authConfig.jwtRefreshExpiration, 'day').toString(),
 			);
 
-			res.cookie('accessToken', newAccessToken, { httpOnly: true });
+			res.cookie('accessToken', newAccessToken, cookieConfig);
 
 			req.userId = result.rows[0].user_id;
 			return next();
