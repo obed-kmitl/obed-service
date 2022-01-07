@@ -9,3 +9,5 @@ export { default as standardRepository } from './standard';
 export { default as semesterRepository } from './semester';
 
 export { default as activityRepository } from './activity';
+
+export { default as categoryRepository } from './category';

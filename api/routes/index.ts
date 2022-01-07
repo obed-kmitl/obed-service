@@ -7,6 +7,7 @@ import courseRouter from './course';
 import mapStandardRouter from './mapStandard';
 import semesterRouter from './semester';
 import activityRouter from './activity';
+import categoryRouter from './category';
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use('/standard', standardRouter);
 router.use('/mapStandard', mapStandardRouter);
 router.use('/semester', semesterRouter);
 router.use('/activity', activityRouter);
+router.use('/category', categoryRouter);
 
 export default router;

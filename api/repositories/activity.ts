@@ -1,6 +1,6 @@
 import db from '_/utils/db';
 import { QueryResultRow } from 'pg';
-import { CreateActivityRequestDTO, CreateCategoryRequestDTO } from '_/dtos/activity';
+import { CreateActivityRequestDTO } from '_/dtos/activity';
 
 /**
  * Create activity
@@ -18,21 +18,6 @@ const create = async (activityInfo:
 	activityInfo.type,
 ]);
 
-/**
- * Create category
- */
-const createCategory = async (categoryInfo:
-	CreateCategoryRequestDTO): Promise<QueryResultRow> => db.query(`
-		INSERT INTO categories (section_id, title, weight) 
-		VALUES ($1, $2, $3)
-		RETURNING *
-		`, [
-	categoryInfo.section_id,
-	categoryInfo.title,
-	categoryInfo.weight,
-]);
-
 export default {
 	create,
-	createCategory,
 };

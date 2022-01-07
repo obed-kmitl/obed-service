@@ -23,19 +23,3 @@ export class CreateActivityRequestDTO {
 	@IsString()
 	type: string= '';
 }
-
-export class CreateCategoryRequestDTO {
-	@IsNotEmpty()
-	@IsNumber()
-	section_id : number= -1;
-
-	@IsNotEmpty()
-	@IsString()
-	title: string= '';
-
-  @IsNotEmpty()
-	@IsNumber()
-  @Min(0)
-  @Max(100)
-	weight: number= -1;
-}
