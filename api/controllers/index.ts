@@ -11,3 +11,7 @@ export { default as standardController } from './standard';
 export { default as mapStandardController } from './mapStandard';
 
 export { default as semesterController } from './semester';
+
+export { default as activityController } from './activity';
+
+export { default as categoryController } from './category';
