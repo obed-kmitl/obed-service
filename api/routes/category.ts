@@ -14,10 +14,17 @@ router.post('/create', [
 	validateRequest(CreateCategoryRequestDTO),
 ], asyncWrapper(categoryController.create));
 
-router.put('/update/:sectionId', [
+router.get('/getAllBySection/:sectionId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(categoryController.getAllBySection));
+
+router.put('/update/:categoryId', [
 	verifyToken,
 	permit('TEACHER'),
 	validateRequest(UpdateCategoryRequestDTO),
 ], asyncWrapper(categoryController.update));
+
+router.delete('/remove/:categoryId', [verifyToken, permit('TEACHER')], asyncWrapper(categoryController.remove));
 
 export default router;

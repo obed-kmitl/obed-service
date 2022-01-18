@@ -23,3 +23,21 @@ export class CreateActivityRequestDTO {
 	@IsString()
 	type: string= '';
 }
+
+export class UpdateActivityRequestDTO {
+	@IsOptional()
+	@IsNumber()
+	category_id?: Number= undefined;
+
+	@IsNotEmpty()
+	@IsString()
+	title: string= '';
+
+	@IsOptional()
+	@IsString()
+	detail?: string= undefined;
+
+  @IsNotEmpty()
+	@IsString()
+	type: string= '';
+}

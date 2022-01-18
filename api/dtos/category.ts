@@ -21,7 +21,7 @@ export class CreateCategoryRequestDTO {
 export class UpdateCategoryRequestDTO {
 	@IsOptional()
 	@IsNumber()
-	section_id?: number= -1;
+	category_id?: number= -1;
 
 	@IsNotEmpty()
 	@IsString()

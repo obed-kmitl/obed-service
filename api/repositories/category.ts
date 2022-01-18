@@ -17,6 +17,18 @@ const create = async (categoryInfo:
 ]);
 
 /**
+ * Get all categories by sectionId
+ */
+const getAllBySection = async (sectionId: number): Promise<QueryResultRow> => db.query(`
+  SELECT
+      *
+  FROM
+      categories
+  WHERE
+      section_id = $1
+		`, [sectionId]);
+
+/**
  * Update category
  */
 const update = async (categoryInfo:
@@ -25,15 +37,26 @@ const update = async (categoryInfo:
     SET 
       title = $2,
       weight = $3
-    WHERE section_id = $1
+    WHERE category_id = $1
     RETURNING *
 		`, [
-	categoryInfo.section_id,
+	categoryInfo.category_id,
 	categoryInfo.title,
 	categoryInfo.weight,
 ]);
 
+/**
+ * Remove category
+ */
+const remove = async (categoryId: number): Promise<QueryResultRow> => db.query(`
+  DELETE FROM categories 
+  WHERE category_id = $1
+  RETURNING *
+		`, [categoryId]);
+
 export default {
 	create,
+	getAllBySection,
 	update,
+	remove,
 };
