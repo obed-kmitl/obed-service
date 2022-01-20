@@ -58,7 +58,7 @@ const getAllRelativeStandard = async (req: Request, res: Response): Promise<Resp
 		const concatA = `${ra.group_sub_order_number}.${ra.sub_order_number}`;
 		const concatB = `${rb.group_sub_order_number}.${rb.sub_order_number}`;
 
-		return concatA.localeCompare(concatB);
+		return parseFloat(concatA) - parseFloat(concatB);
 	});
 
 	sendResponse(res, sortedResults);
