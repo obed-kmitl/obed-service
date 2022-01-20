@@ -39,7 +39,20 @@ const getAllByCurriculum = async (req: Request, res: Response): Promise<Response
 
 	const result = await courseRepository.findAllByCurriculum(curriculumId);
 
-	sendResponse(res, result.rows);
+	const sortedResults = result.rows.map((course) => {
+		const sortRelativeStandards = course.relative_standards.sort((
+			ra, rb,
+		) => {
+			const concatA = `${ra.group_sub_order_number}.${ra.sub_order_number}`;
+			const concatB = `${rb.group_sub_order_number}.${rb.sub_order_number}`;
+
+			return parseFloat(concatA) - parseFloat(concatB);
+		});
+
+		return { ...course, relative_standards: sortRelativeStandards };
+	});
+
+	sendResponse(res, sortedResults);
 };
 
 /**
