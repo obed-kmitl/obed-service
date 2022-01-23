@@ -1,13 +1,30 @@
 import semesterRepository from '_/repositories/semester';
 import { sendResponse } from '_/utils/response';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CreateSemesterRequestDTO } from '_/dtos/semester';
+import { ApplicationError } from '_/errors/applicationError';
+import { SemesterError } from '_/errors/semester';
 
 /**
  * Create Semester
  */
-const create = async (req: Request, res: Response): Promise<Response> => {
-	const result = await semesterRepository.createSemester(req.body);
+const create = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+	const findResult = await semesterRepository.findByCurriculum(req.body.curriculum_id);
+	const getAllYearNumber = [...findResult.rows].map((sem) => sem.year_number);
+	const lastestYearNumber = Math.max(...getAllYearNumber);
+	const newYearNumber = lastestYearNumber + 1;
+
+	if (newYearNumber > new Date().getFullYear() + 545) {
+		return next(new ApplicationError(SemesterError.INVALID_YEAR_NUMBER));
+	}
+
+	const createSemesterInfo: CreateSemesterRequestDTO = {
+		year_number: newYearNumber,
+		curriculum_id: req.body.curriculum_id,
+	};
+
+	const result = await semesterRepository.createSemester(createSemesterInfo);
 
 	sendResponse(res, result.rows);
 };
