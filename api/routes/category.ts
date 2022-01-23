@@ -4,9 +4,15 @@ import { categoryController } from '_/controllers';
 
 import express from 'express';
 import { validateRequest } from '_/middleware/validationHandler';
-import { CreateCategoryRequestDTO, UpdateCategoryRequestDTO } from '_/dtos/category';
+import { SaveCategoryRequestDTO, CreateCategoryRequestDTO, UpdateCategoryRequestDTO } from '_/dtos/category';
 
 const router = express.Router();
+
+router.post('/save', [
+	verifyToken,
+	permit('TEACHER'),
+	validateRequest(SaveCategoryRequestDTO),
+], asyncWrapper(categoryController.save));
 
 router.post('/create', [
 	verifyToken,

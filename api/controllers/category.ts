@@ -47,7 +47,17 @@ const remove = async (req: Request, res: Response): Promise<Response> => {
 	sendResponse(res, result.rows[0]);
 };
 
+/**
+ * Save Category
+ */
+const save = async (req: Request, res: Response): Promise<Response> => {
+	const result = await categoryRepository.save(req.body);
+
+	sendResponse(res, result.rows);
+};
+
 export default {
+	save,
 	create,
 	update,
 	remove,
