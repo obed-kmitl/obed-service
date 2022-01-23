@@ -1,6 +1,35 @@
 import {
-	IsNotEmpty, IsString, IsOptional, IsNumber, Min, Max,
+	IsNotEmpty, IsString, IsOptional, IsNumber, Min, Max, IsArray,
 } from 'class-validator';
+
+export class Category {
+	@IsOptional()
+	@IsNumber()
+	section_id? : number= undefined;
+
+  @IsNotEmpty()
+	@IsNumber()
+	category_id: number| string= -1;
+
+	@IsNotEmpty()
+	@IsString()
+	title: string= '';
+
+  @IsNotEmpty()
+	@IsNumber()
+  @Min(0)
+  @Max(100)
+	weight: number= -1;
+}
+
+export class SaveCategoryRequestDTO {
+  @IsNotEmpty()
+	@IsNumber()
+	section_id : number= -1;
+
+  @IsArray()
+  categories : Category[] = [];
+}
 
 export class CreateCategoryRequestDTO {
 	@IsNotEmpty()
@@ -21,7 +50,7 @@ export class CreateCategoryRequestDTO {
 export class UpdateCategoryRequestDTO {
 	@IsOptional()
 	@IsNumber()
-	category_id?: number= -1;
+	category_id?: number= undefined;
 
 	@IsNotEmpty()
 	@IsString()
