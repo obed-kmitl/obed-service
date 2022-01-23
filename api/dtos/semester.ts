@@ -1,12 +1,12 @@
 import {
 	IsArray,
-	IsNotEmpty, IsNumber,
+	IsNotEmpty, IsNumber, IsOptional,
 } from 'class-validator';
 
 export class CreateSemesterRequestDTO {
-	@IsNotEmpty()
+	@IsOptional()
 	@IsNumber()
-	year_number : Number=-1;
+	year_number? : Number=undefined;
 
   @IsNotEmpty()
 	@IsNumber()

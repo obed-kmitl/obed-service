@@ -3,6 +3,8 @@ import db from '_/utils/db';
 import { CreateSemesterRequestDTO, SectionInputDTO, DuplicateSemesterRequestDTO } from '_/dtos/semester';
 import { QueryResultRow } from 'pg';
 import format from 'pg-format';
+import { ApplicationError } from '_/errors/applicationError';
+import { SemesterError } from '_/errors/semester';
 import curriculum from './curriculum';
 
 /**
@@ -528,6 +530,11 @@ const duplicateSemester = async (curriculumId: number): Promise<QueryResultRow> 
 		const getAllYearNumber = [...findResult.rows].map((sem) => sem.year_number);
 		const lastestYearNumber = Math.max(...getAllYearNumber);
 		const newYearNumber = lastestYearNumber + 1;
+
+		if (newYearNumber > new Date().getFullYear() + 545) {
+			throw new ApplicationError(SemesterError.INVALID_YEAR_NUMBER);
+		}
+
 		const filterLatestYearSemester = [...findResult.rows].filter((
 			sem,
 		) => sem.year_number === lastestYearNumber);
