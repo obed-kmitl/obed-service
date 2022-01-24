@@ -57,7 +57,7 @@ const getAllBySection = async (sectionId: number): Promise<QueryResultRow> => db
       `, []);
 
 		result = [...result, {
-			title: 'unassigned',
+			title: 'Unassigned',
 			activities: activityResult.rows,
 		}];
 
