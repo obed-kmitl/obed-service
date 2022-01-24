@@ -15,3 +15,5 @@ export { default as semesterController } from './semester';
 export { default as activityController } from './activity';
 
 export { default as categoryController } from './category';
+
+export { default as cloController } from './clo';
