@@ -29,6 +29,8 @@ const getAllBySection = async (sectionId: number): Promise<QueryResultRow> => db
       categories
   WHERE
       section_id = $1
+  ORDER BY
+      category_id
 		`, [sectionId]);
 
 /**
