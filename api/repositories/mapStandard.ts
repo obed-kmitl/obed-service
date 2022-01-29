@@ -156,7 +156,6 @@ const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResul
 			s_std.group_sub_title
 `, [curriculumId]);
 
-// TODO
 /**
  * Find all map standard by sub_std_id
  */
@@ -174,10 +173,61 @@ const findMapStandardBySubStdId = async (
 		relative_sub_std_id = ANY('{${subStdId.join(', ')}}'::INT[])
 	`, [curriculumId]);
 
+/**
+ * Find all relative standard by section_id
+ */
+const findRelativeStandardBySection = async (
+	sectionId :number[],
+): Promise<QueryResultRow> => db.transaction(async () => {
+	const sectionResult = await db.query(`
+    SELECT
+        *
+    FROM
+        sections
+    WHERE
+        section_id = $1
+      `, [sectionId]);
+
+	const groupSectionResult = await db.query(`
+    SELECT
+        *
+    FROM
+        group_sections
+    WHERE
+        group_sec_id = $1
+      `, [sectionResult.rows[0].group_sec_id]);
+
+	const couseId = groupSectionResult.rows[0].course_id;
+
+	const couseSubStandardResult = await db.query(`
+    SELECT
+        *
+    FROM
+        course_sub_standards
+    WHERE
+        course = $1
+    `, [couseId]);
+
+	const mapSubStandardResult = Promise.all(couseSubStandardResult.rows.map(async ({ map_sub_std_id }) => db.query(`
+    SELECT
+      *
+    FROM
+      map_sub_standards
+    WHERE
+      map_sub_std_id = $1
+  `, [map_sub_std_id])));
+
+	// const mapSub;
+},
+async () => {
+
+});
+
 export default {
 	create,
 	createMapSubStandard,
 	findMapStandard,
 	findMapStandardBySubStdId,
 	findAllRelativeStandard,
+	findRelativeStandardBySection,
 };

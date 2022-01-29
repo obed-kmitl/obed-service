@@ -64,8 +64,20 @@ const getAllRelativeStandard = async (req: Request, res: Response): Promise<Resp
 	sendResponse(res, sortedResults);
 };
 
+/**
+ * Get all relative standard
+ */
+const getRelativeStandardBySection = async (req: Request, res: Response): Promise<Response> => {
+	const { sectionId } = req.params;
+
+	const result = await mapStandardRepository.findRelativeStandardBySection(sectionId);
+
+	sendResponse(res, result);
+};
+
 export default {
 	save,
 	get,
 	getAllRelativeStandard,
+	getRelativeStandardBySection,
 };

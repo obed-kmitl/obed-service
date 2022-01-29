@@ -14,10 +14,10 @@ router.post('/create', [
 	validateRequest(CreateCLORequestDTO),
 ], asyncWrapper(cloController.create));
 
-// router.put('/update/:cloId', [
-// 	verifyToken,
-// 	permit('TEACHER'),
-// 	validateRequest(UpdateCLORequestDTO),
-// ], asyncWrapper(cloController.update));
+router.put('/update/:cloId', [
+	verifyToken,
+	permit('TEACHER'),
+	validateRequest(UpdateCLORequestDTO),
+], asyncWrapper(cloController.update));
 
 export default router;
