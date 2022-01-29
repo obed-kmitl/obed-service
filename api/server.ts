@@ -15,6 +15,7 @@ const server = express(); // init the application
  * variables it takes the default port 3000
  */
 server.set('port', process.env.PORT || 3001);
+server.set('view engine', 'ejs');
 
 // middileware
 server.use(express.json());
