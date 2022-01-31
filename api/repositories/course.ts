@@ -100,7 +100,7 @@ const createCourseSubStandards = async (
 	await db.query(`
 			DELETE FROM
 				course_sub_standards
-			WHEREf
+			WHERE
 				course_id = $1
 		`, [courseId]);
 	if (relativeStandardInfo.length > 0) {

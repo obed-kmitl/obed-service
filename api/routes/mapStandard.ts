@@ -26,7 +26,7 @@ router.get('/getRelativeStandard/:curriculumId', [
 
 router.get('/getRelativeStandardBySection/:sectionId', [
 	verifyToken,
-	permit('ADMIN'),
+	permit('TEACHER'),
 ], asyncWrapper(mapStandardController.getRelativeStandardBySection));
 
 export default router;

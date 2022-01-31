@@ -14,10 +14,22 @@ router.post('/create', [
 	validateRequest(CreateCLORequestDTO),
 ], asyncWrapper(cloController.create));
 
+router.get('/getAllBySection/:sectionId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(cloController.getAllBySection));
+
+router.get('/get/:cloId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(cloController.get));
+
 router.put('/update/:cloId', [
 	verifyToken,
 	permit('TEACHER'),
 	validateRequest(UpdateCLORequestDTO),
 ], asyncWrapper(cloController.update));
+
+router.delete('/remove/:cloId', [verifyToken, permit('TEACHER')], asyncWrapper(cloController.remove));
 
 export default router;
