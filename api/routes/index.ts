@@ -8,6 +8,7 @@ import mapStandardRouter from './mapStandard';
 import semesterRouter from './semester';
 import activityRouter from './activity';
 import categoryRouter from './category';
+import cloRouter from './clo';
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.use('/mapStandard', mapStandardRouter);
 router.use('/semester', semesterRouter);
 router.use('/activity', activityRouter);
 router.use('/category', categoryRouter);
+router.use('/clo', cloRouter);
 
 export default router;
