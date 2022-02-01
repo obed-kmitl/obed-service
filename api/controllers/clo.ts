@@ -9,7 +9,47 @@ import { Request, Response } from 'express';
 const create = async (req: Request, res: Response): Promise<Response> => {
 	const result = await cloRepository.create(req.body);
 
-	sendResponse(res, result.rows[0]);
+	const { clo_id: cloId } = result.rows[0];
+
+	const { rows: [clo] } = await cloRepository.find(cloId);
+
+	const filterDuplicateRelative = clo.relative_sub_standards.filter((
+		value, index, self,
+	) => index === self.findIndex((t) => (
+		t.sub_std_id === value.sub_std_id
+	)));
+
+	const filterDuplicateMain = clo.main_sub_standards.filter((
+		value, index, self,
+	) => index === self.findIndex((t) => (
+		t.sub_std_id === value.sub_std_id
+	)));
+
+	const sortRelatives = filterDuplicateRelative.sort((
+		ra, rb,
+	) => {
+		const concatA = `${ra.group_sub_order_number}.${ra.sub_order_number}`;
+		const concatB = `${rb.group_sub_order_number}.${rb.sub_order_number}`;
+
+		return parseFloat(concatA) - parseFloat(concatB);
+	});
+
+	const sortMains = filterDuplicateMain.sort((
+		ra, rb,
+	) => {
+		const concatA = `${ra.group_sub_order_number}.${ra.sub_order_number}`;
+		const concatB = `${rb.group_sub_order_number}.${rb.sub_order_number}`;
+
+		return parseFloat(concatA) - parseFloat(concatB);
+	});
+
+	const newCLO = {
+		...clo,
+		relative_sub_standards: sortRelatives,
+		main_sub_standards: sortMains,
+	};
+
+	sendResponse(res, newCLO);
 };
 
 /**
