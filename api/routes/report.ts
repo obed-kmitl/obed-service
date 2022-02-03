@@ -11,8 +11,10 @@ router.get('/generate/:sectionId', [
 	permit('TEACHER'),
 ], asyncWrapper(reportController.generate));
 
-router.get('/demo', (req, res) => {
-	res.render('api/templates/report.ejs');
-});
+router.get('/demo', asyncWrapper(reportController.demo));
+
+// router.get('/demo', (req, res) => {
+// 	res.render('report');
+// });
 
 export default router;
