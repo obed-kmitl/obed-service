@@ -162,7 +162,11 @@ const getAllBySection = async (req: Request, res: Response): Promise<Response> =
 		};
 	});
 
-	sendResponse(res, clos);
+	const sortClos = clos.sort((
+		a, b,
+	) => parseFloat(a.order_number) - parseFloat(b.order_number));
+
+	sendResponse(res, sortClos);
 };
 
 /**
