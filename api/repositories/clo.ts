@@ -107,7 +107,7 @@ const find = async (cloId: number): Promise<QueryResultRow> => db.query(`
                          FROM
                              sub_standards ssx
                              LEFT JOIN group_sub_standards gss ON gss.group_sub_std_id = ssx.group_sub_std_id
-                     ) relative_ss ON relative_ss.sub_std_id = mssx.main_sub_std_id
+                     ) relative_ss ON relative_ss.sub_std_id = mssx.relative_sub_std_id
              ) mss ON mss.map_sub_std_id_x = clo_ssx.map_sub_std_id
      ) clo_ss ON clo_ss.clo_id = clo.clo_id
  WHERE
@@ -275,7 +275,7 @@ FROM
                         FROM
                             sub_standards ssx
                             LEFT JOIN group_sub_standards gss ON gss.group_sub_std_id = ssx.group_sub_std_id
-                    ) relative_ss ON relative_ss.sub_std_id = mssx.main_sub_std_id
+                    ) relative_ss ON relative_ss.sub_std_id = mssx.relative_sub_std_id
             ) mss ON mss.map_sub_std_id_x = clo_ssx.map_sub_std_id
     ) clo_ss ON clo_ss.clo_id = clo.clo_id
 WHERE

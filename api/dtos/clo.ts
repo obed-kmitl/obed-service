@@ -12,8 +12,13 @@ export class CreateCLORequestDTO {
 	detail: string= '';
 
   @IsNotEmpty()
-	@IsNumber()
-	order_number : number=-1;
+	@IsString()
+	order_number : string= '';
+
+  @IsOptional()
+	@IsArray()
+	@IsNumber({}, { each: true })
+	relative_standards?: number[]= undefined;
 }
 
 export class UpdateCLORequestDTO {
@@ -22,8 +27,8 @@ export class UpdateCLORequestDTO {
 	detail: string= '';
 
   @IsNotEmpty()
-	@IsNumber()
-	order_number : number=-1;
+	@IsString()
+	order_number : string= '';
 
   @IsOptional()
 	@IsArray()
