@@ -2,7 +2,7 @@ CREATE TABLE clos(
 	clo_id SERIAL PRIMARY KEY,
 	section_id INT NOT NULL REFERENCES sections(section_id) ON DELETE CASCADE,
   detail VARCHAR(300),
-  order_number SMALLINT NOT NULL
+  order_number VARCHAR(300)
 );
 
 CREATE TABLE clo_sub_standards(
