@@ -256,6 +256,18 @@ const removeSubActivity = async (subActivityId: number): Promise<QueryResultRow>
  RETURNING *
    `, [subActivityId]);
 
+/**
+ * Get  activity
+ */
+const find = async (activityId: number): Promise<QueryResultRow> => db.query(`
+SELECT
+    *
+FROM
+    activities
+WHERE
+    activity_id = $1
+  `, [activityId]);
+
 export default {
 	create,
 	getAllBySection,
@@ -266,4 +278,5 @@ export default {
 	updateSubActivity,
 	findAllSubActivity,
 	removeSubActivity,
+	find,
 };

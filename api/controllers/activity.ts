@@ -89,10 +89,11 @@ const updateSubActivity = async (req: Request, res: Response): Promise<Response>
 };
 
 /**
- * Get All sub activity
+ * Get activity
  */
-const getAllSubActivity = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response): Promise<Response> => {
 	const { activityId } = req.params;
+	const activityResult = await activityRepository.find(activityId);
 	const result = await activityRepository.findAllSubActivity(activityId);
 
 	const sortedResult = result.rows.map((row) => {
@@ -106,7 +107,10 @@ const getAllSubActivity = async (req: Request, res: Response): Promise<Response>
 		};
 	});
 
-	sendResponse(res, sortedResult);
+	sendResponse(res, {
+		...activityResult.rows[0],
+		subActivities: sortedResult,
+	});
 };
 
 /**
@@ -126,6 +130,6 @@ export default {
 	remove,
 	createSubActivity,
 	updateSubActivity,
-	getAllSubActivity,
+	get,
 	removeSubActivity,
 };

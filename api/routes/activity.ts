@@ -36,10 +36,10 @@ router.post('/createSubActivity', [
 	validateRequest(CreateSubActivityRequestDTO),
 ], asyncWrapper(activityController.createSubActivity));
 
-router.get('/getAllSubActivity/:activityId', [
+router.get('/get/:activityId', [
 	verifyToken,
 	permit('TEACHER'),
-], asyncWrapper(activityController.getAllSubActivity));
+], asyncWrapper(activityController.get));
 
 router.put('/updateSubActivity/:subActivityId', [
 	verifyToken,
