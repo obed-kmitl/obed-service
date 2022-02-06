@@ -46,9 +46,86 @@ const remove = async (req: Request, res: Response): Promise<Response> => {
 	sendResponse(res, result.rows[0]);
 };
 
+/**
+ * Create Sub Activity
+ */
+const createSubActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { clos } = req.body;
+	const result = await activityRepository.createSubActivity(req.body);
+
+	const subActivityId: number = result.rows[0].sub_activity_id;
+	const cloArray: number[][] = clos.map((clo) => [subActivityId, clo]);
+	const createCLOResult = await activityRepository.createSubActivitiesCLO(subActivityId, cloArray);
+
+	const sortedClos = createCLOResult.rows[0].clos.sort((
+		a, b,
+	) => parseFloat(a.order_number) - parseFloat(b.order_number));
+
+	sendResponse(res, {
+		...createCLOResult.rows[0],
+		clos: sortedClos,
+	});
+};
+
+/**
+ * Update Sub Activity
+ */
+const updateSubActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { subActivityId } = req.params;
+	const { clos } = req.body;
+	await activityRepository.updateSubActivity(subActivityId, req.body);
+
+	const cloArray: number[][] = clos.map((clo) => [subActivityId, clo]);
+	const createCLOResult = await activityRepository.createSubActivitiesCLO(subActivityId, cloArray);
+
+	const sortedClos = createCLOResult.rows[0].clos.sort((
+		a, b,
+	) => parseFloat(a.order_number) - parseFloat(b.order_number));
+
+	sendResponse(res, {
+		...createCLOResult.rows[0],
+		clos: sortedClos,
+	});
+};
+
+/**
+ * Get All sub activity
+ */
+const getAllSubActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { activityId } = req.params;
+	const result = await activityRepository.findAllSubActivity(activityId);
+
+	const sortedResult = result.rows.map((row) => {
+		const sortedClos = row.clos.sort((
+			a, b,
+		) => parseFloat(a.order_number) - parseFloat(b.order_number));
+
+		return {
+			...row,
+			clos: sortedClos,
+		};
+	});
+
+	sendResponse(res, sortedResult);
+};
+
+/**
+ * Remove sub activity
+ */
+const removeSubActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { subActivityId } = req.params;
+	const result = await activityRepository.removeSubActivity(subActivityId);
+
+	sendResponse(res, result.rows[0]);
+};
+
 export default {
 	create,
 	getAllBySection,
 	update,
 	remove,
+	createSubActivity,
+	updateSubActivity,
+	getAllSubActivity,
+	removeSubActivity,
 };

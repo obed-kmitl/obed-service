@@ -1,7 +1,11 @@
 import db from '_/utils/db';
 import { QueryResultRow } from 'pg';
-import { CreateActivityRequestDTO, UpdateActivityRequestDTO } from '_/dtos/activity';
+import {
+	CreateActivityRequestDTO, UpdateActivityRequestDTO,
+	CreateSubActivityRequestDTO, UpdateSubActivityRequestDTO,
+} from '_/dtos/activity';
 
+import format from 'pg-format';
 import { categoryRepository } from '.';
 
 /**
@@ -95,9 +99,169 @@ const remove = async (activityId: number): Promise<QueryResultRow> => db.query(`
   RETURNING *
 		`, [activityId]);
 
+/**
+ * Create sub activity
+ */
+const createSubActivity = async (subActivityInfo:
+	CreateSubActivityRequestDTO): Promise<QueryResultRow> => db.query(`
+		INSERT INTO sub_activities (activity_id, title, detail, max_score) 
+		VALUES ($1, $2, $3, $4)
+		RETURNING *
+		`, [
+	subActivityInfo.activity_id,
+	subActivityInfo.title,
+	subActivityInfo.detail,
+	subActivityInfo.max_score,
+]);
+
+/**
+ * Find sub activity
+ */
+const findSubActivity = async (subActivityId:
+	number): Promise<QueryResultRow> => db.query(`
+	SELECT
+    sa.*,
+    COALESCE(
+        json_agg(
+            json_build_object(
+                'clo_id',
+                sac.clo_id,
+                'detail',
+                sac.detail,
+                'order_number',
+                sac.order_number
+            )
+        ) FILTER (
+            WHERE
+                sac.clo_id IS NOT NULL
+        ),
+        '[]'
+    ) AS clos
+FROM
+    sub_activities sa
+    LEFT JOIN (
+        SELECT
+            sacx.clo_id,
+            sacx.sub_activity_id,
+            c.clo_id as clo_id_temp,
+            c.detail,
+            c.order_number
+        FROM
+            sub_activities_clo sacx
+            LEFT JOIN clos c ON c.clo_id = sacx.clo_id
+    ) sac ON sac.sub_activity_id = sa.sub_activity_id
+WHERE
+    sa.sub_activity_id = $1
+GROUP BY
+    sa.sub_activity_id
+		`, [
+	subActivityId,
+]);
+
+/**
+ * Create multiple sub activities clo
+ */
+const createSubActivitiesCLO = async (
+	subActivityId: number,	cloArray: number[][],
+): Promise<QueryResultRow> => db.transaction(async () => {
+	await db.query(`
+			DELETE FROM
+				sub_activities_clo
+			WHERE
+        sub_activity_id = $1
+		`, [subActivityId]);
+	if (cloArray.length > 0) {
+		await db.query(format(`
+			INSERT INTO
+        sub_activities_clo
+				(sub_activity_id, clo_id)
+			VALUES
+				%L
+			`, cloArray));
+	}
+	return { subActivityId };
+}, (result) => findSubActivity(result.subActivityId));
+
+/**
+ * Update sub activity
+ */
+const updateSubActivity = async (subActivityId: number, subActivityInfo:
+	UpdateSubActivityRequestDTO): Promise<QueryResultRow> => db.query(`
+    UPDATE sub_activities
+    SET 
+      title = $2,
+      detail = $3,
+      max_score = $4
+    WHERE sub_activity_id = $1
+    RETURNING *
+		`, [
+	subActivityId,
+	subActivityInfo.title,
+	subActivityInfo.detail,
+	subActivityInfo.max_score,
+]);
+
+/**
+ * Find all sub activity
+ */
+const findAllSubActivity = async (activityId:
+	number): Promise<QueryResultRow> => db.query(`
+	SELECT
+    sa.*,
+    COALESCE(
+        json_agg(
+            json_build_object(
+                'clo_id',
+                sac.clo_id,
+                'detail',
+                sac.detail,
+                'order_number',
+                sac.order_number
+            )
+        ) FILTER (
+            WHERE
+                sac.clo_id IS NOT NULL
+        ),
+        '[]'
+    ) AS clos
+FROM
+    sub_activities sa
+    LEFT JOIN (
+        SELECT
+            sacx.clo_id,
+            sacx.sub_activity_id,
+            c.clo_id as clo_id_temp,
+            c.detail,
+            c.order_number
+        FROM
+            sub_activities_clo sacx
+            LEFT JOIN clos c ON c.clo_id = sacx.clo_id
+    ) sac ON sac.sub_activity_id = sa.sub_activity_id
+WHERE
+    sa.activity_id = $1
+GROUP BY
+    sa.sub_activity_id
+		`, [
+	activityId,
+]);
+
+/**
+ * Remove sub activity
+ */
+const removeSubActivity = async (subActivityId: number): Promise<QueryResultRow> => db.query(`
+ DELETE FROM sub_activities 
+ WHERE sub_activity_id = $1
+ RETURNING *
+   `, [subActivityId]);
+
 export default {
 	create,
 	getAllBySection,
 	update,
 	remove,
+	createSubActivity,
+	createSubActivitiesCLO,
+	updateSubActivity,
+	findAllSubActivity,
+	removeSubActivity,
 };
