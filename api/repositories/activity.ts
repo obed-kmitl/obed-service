@@ -241,6 +241,8 @@ WHERE
     sa.activity_id = $1
 GROUP BY
     sa.sub_activity_id
+ORDER BY
+    sa.sub_activity_id
 		`, [
 	activityId,
 ]);
