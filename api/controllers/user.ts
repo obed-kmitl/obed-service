@@ -2,26 +2,32 @@ import userRepository from '_/repositories/user';
 import { UserInputDTO } from '_/dtos/user';
 import { sendResponse } from '_/utils/response';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
+
 import { deserialize } from 'json-typescript-mapper';
 
 /**
  * Get User profile
  */
-const getProfile = async (req: Request, res: Response): Promise<Response> => {
+const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { userId } = req;
 
 	const result = await userRepository.findUser(userId);
-
+	if (result.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 	sendResponse(res, result.rows[0]);
 };
 
 /**
  * Get all users
  */
-const getAll = async (req: Request, res: Response): Promise<Response> => {
+const getAll = async (req: Request, res: Response, next:NextFunction): Promise<Response> => {
 	const result = await userRepository.findAllUser();
-
+	if (result.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 	sendResponse(res, result.rows);
 };
 

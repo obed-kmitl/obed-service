@@ -33,9 +33,6 @@ const CommonError = {
 		code: 'RESOURCE_NOT_FOUND',
 		message: 'Resource not found',
 		statusCode: 404,
-		meta: {
-			translationKey: 'app.common.error.RESOURCE_NOT_FOUND',
-		},
 	},
 
 	// Predefined 5xx http errors

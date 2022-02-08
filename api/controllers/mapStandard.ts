@@ -2,7 +2,8 @@ import { sendResponse } from '_/utils/response';
 import mapStandardRepository from '_/repositories/mapStandard';
 import { CreateMapStandardRequestDTO, MapStandardInputDTO } from '_/dtos/mapStandard';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
 /**
  * Save Map Standard
@@ -36,22 +37,27 @@ const save = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get map standard by curriculumId
  */
-const get = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { curriculumId } = req.params;
 
 	const result = await mapStandardRepository.findMapStandardByCurriculum(curriculumId);
-
+	if (result.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 	sendResponse(res, result.rows[0]);
 };
 
 /**
  * Get all relative standard
  */
-const getAllRelativeStandard = async (req: Request, res: Response): Promise<Response> => {
+const getAllRelativeStandard = async (req: Request, res: Response,
+	next:NextFunction): Promise<Response> => {
 	const { curriculumId } = req.params;
 
 	const result = await mapStandardRepository.findAllRelativeStandard(curriculumId);
-
+	if (result.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 	const sortedResults = result.rows.sort((
 		ra, rb,
 	) => {
@@ -67,10 +73,14 @@ const getAllRelativeStandard = async (req: Request, res: Response): Promise<Resp
 /**
  * Get all relative standard
  */
-const getRelativeStandardBySection = async (req: Request, res: Response): Promise<Response> => {
+const getRelativeStandardBySection = async (req: Request,
+	res: Response, next: NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 
 	const result = await mapStandardRepository.findRelativeStandardBySection(sectionId);
+	if (result.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 
 	const sortedResults = result.sort((
 		ra, rb,

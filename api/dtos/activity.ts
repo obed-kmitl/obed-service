@@ -46,10 +46,6 @@ export class CreateSubActivityRequestDTO {
 	@IsNumber()
 	activity_id : number= -1;
 
-	@IsNotEmpty()
-	@IsString()
-	title: string= '';
-
 	@IsOptional()
 	@IsString()
 	detail?: string= undefined;
@@ -65,10 +61,6 @@ export class CreateSubActivityRequestDTO {
 }
 
 export class UpdateSubActivityRequestDTO {
-	@IsNotEmpty()
-	@IsString()
-	title: string= '';
-
 	@IsOptional()
 	@IsString()
 	detail?: string= undefined;

@@ -2,7 +2,8 @@ import { sendResponse } from '_/utils/response';
 import { activityRepository } from '_/repositories';
 import { UpdateActivityRequestDTO } from '_/dtos/activity';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
 /**
  * Create Activity
@@ -16,9 +17,14 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get All activity by section
  */
-const getAllBySection = async (req: Request, res: Response): Promise<Response> => {
+const getAllBySection = async (req: Request,
+	res: Response, next:NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 	const result = await activityRepository.getAllBySection(sectionId);
+
+	if (result.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 
 	sendResponse(res, result);
 };
@@ -91,9 +97,14 @@ const updateSubActivity = async (req: Request, res: Response): Promise<Response>
 /**
  * Get activity
  */
-const get = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { activityId } = req.params;
 	const activityResult = await activityRepository.find(activityId);
+
+	if (activityResult.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
+
 	const result = await activityRepository.findAllSubActivity(activityId);
 
 	const sortedResult = result.rows.map((row) => {

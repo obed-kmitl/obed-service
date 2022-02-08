@@ -1,8 +1,9 @@
 import { sendResponse } from '_/utils/response';
 import standardRepository from '_/repositories/standard';
 import { StandardInputDTO, GroupSubStandardInputDTO, SubStandardInputDTO } from '_/dtos/standard';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
-import { Request, Response } from 'express';
 import { deserialize } from 'json-typescript-mapper';
 
 /**
@@ -34,22 +35,27 @@ const createSubStandard = async (req: Request, res: Response): Promise<Response>
 /**
  * Get By StandardId
  */
-const get = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response, next:NextFunction): Promise<Response> => {
 	const { standardId } = req.params;
 
 	const result = await standardRepository.findStandard(standardId);
-
+	if (result.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 	sendResponse(res, result.rows);
 };
 
 /**
  * Get Standard By CurriculumId
  */
-const getAllByCurriculum = async (req: Request, res: Response): Promise<Response> => {
+const getAllByCurriculum = async (req: Request,
+	res: Response, next:NextFunction): Promise<Response> => {
 	const { curriculumId } = req.params;
 
 	const result = await standardRepository.findAllByCurriculum(curriculumId);
-
+	if (result.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
 	sendResponse(res, result.rows);
 };
 
