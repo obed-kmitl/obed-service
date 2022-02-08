@@ -1,0 +1,73 @@
+import { sendResponse } from '_/utils/response';
+import { studentRepository } from '_/repositories';
+
+import { Request, Response } from 'express';
+
+/**
+ * Create students
+ */
+const create = async (req: Request, res: Response): Promise<Response> => {
+	const { students } = req.body;
+	const studentArray = students.map((stu) => ([
+		stu.section_id,
+		stu.prefix,
+		stu.student_number,
+		stu.firstname,
+		stu.lastname,
+	]));
+	await studentRepository.create(studentArray);
+
+	sendResponse(res, { message: 'Create all students success' });
+};
+
+/**
+ * Update student
+ */
+const update = async (req: Request, res: Response): Promise<Response> => {
+	const { studentId } = req.params;
+	const result = await studentRepository.update(studentId, req.body);
+
+	sendResponse(res, result.rows[0]);
+};
+
+/**
+ * Get all students by section
+ */
+const getAllBySection = async (req: Request, res: Response): Promise<Response> => {
+	const { sectionId } = req.params;
+	const result = await studentRepository.getAllBySection(sectionId);
+
+	const sortResult = result.rows.sort((
+		a, b,
+	) => parseFloat(a.student_number) - parseFloat(b.student_number));
+
+	sendResponse(res, sortResult);
+};
+
+/**
+ * Get student
+ */
+const get = async (req: Request, res: Response): Promise<Response> => {
+	const { studentId } = req.params;
+	const result = await studentRepository.get(studentId);
+
+	sendResponse(res, result.rows[0]);
+};
+
+/**
+ * Remove student
+ */
+const remove = async (req: Request, res: Response): Promise<Response> => {
+	const { studentId } = req.params;
+	const result = await studentRepository.remove(studentId);
+
+	sendResponse(res, result.rows[0]);
+};
+
+export default {
+	create,
+	getAllBySection,
+	get,
+	remove,
+	update,
+};

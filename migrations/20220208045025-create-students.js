@@ -18,7 +18,7 @@ exports.setup = function (options, seedLink) {
 };
 
 exports.up = function (db) {
-	let filePath = path.join(__dirname, 'sqls', '20220123174427-create-clo-up.sql');
+	let filePath = path.join(__dirname, 'sqls', '20220208045025-create-students-up.sql');
 	return new Promise((resolve, reject) => {
 		fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
 			if (err) return reject(err);
@@ -31,7 +31,7 @@ exports.up = function (db) {
 };
 
 exports.down = function (db) {
-	let filePath = path.join(__dirname, 'sqls', '20220123174427-create-clo-down.sql');
+	let filePath = path.join(__dirname, 'sqls', '20220208045025-create-students-down.sql');
 	return new Promise((resolve, reject) => {
 		fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
 			if (err) return reject(err);

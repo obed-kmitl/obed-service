@@ -15,3 +15,5 @@ export { default as categoryRepository } from './category';
 export { default as cloRepository } from './clo';
 
 export { default as mapStandardRepository } from './mapStandard';
+
+export { default as studentRepository } from './student';
