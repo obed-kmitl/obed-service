@@ -41,9 +41,7 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
 	const { curriculumId } = req.params;
 
 	const result = await mapStandardRepository.findMapStandardByCurriculum(curriculumId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows[0]);
 };
 
@@ -76,9 +74,6 @@ const getRelativeStandardBySection = async (req: Request,
 	const { sectionId } = req.params;
 
 	const result = await mapStandardRepository.findRelativeStandardBySection(sectionId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
 
 	const sortedResults = result.sort((
 		ra, rb,

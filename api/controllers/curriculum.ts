@@ -31,10 +31,6 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
 
 	const result = await curriculumRepository.findCurriculum(curriculumId);
 
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
-
 	sendResponse(res, result.rows[0]);
 };
 

@@ -78,10 +78,6 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
 
 	const { rows: [clo] } = await cloRepository.find(cloId);
 
-	if ([clo].length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
-
 	const filterDuplicateRelative = clo.relative_sub_standards.filter((
 		value, index, self,
 	) => index === self.findIndex((t) => (

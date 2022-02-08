@@ -52,9 +52,7 @@ const getAllBySection = async (req: Request, res: Response,
 const get = async (req: Request, res: Response, next:NextFunction): Promise<Response> => {
 	const { studentId } = req.params;
 	const result = await studentRepository.get(studentId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows[0]);
 };
 

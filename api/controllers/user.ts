@@ -14,9 +14,7 @@ const getProfile = async (req: Request, res: Response, next: NextFunction): Prom
 	const { userId } = req;
 
 	const result = await userRepository.findUser(userId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows[0]);
 };
 

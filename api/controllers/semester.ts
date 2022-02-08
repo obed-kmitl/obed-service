@@ -80,9 +80,7 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
 	const { semesterId } = req.params;
 
 	const result = await semesterRepository.find(semesterId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows[0]);
 };
 
@@ -117,9 +115,7 @@ const getSection = async (req: Request, res: Response, next: NextFunction): Prom
 	const { sectionId } = req.params;
 
 	const result = await semesterRepository.findSection(sectionId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows[0]);
 };
 
