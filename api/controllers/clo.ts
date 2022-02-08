@@ -130,10 +130,6 @@ const getAllBySection = async (req: Request,
 
 	const result = await cloRepository.findAllBySection(sectionId);
 
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
-
 	const clos = result.rows.map((clo) => {
 		const filterDuplicateRelative = clo.relative_sub_standards.filter((
 			value, index, self,

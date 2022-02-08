@@ -40,9 +40,7 @@ const getAllByCurriculum = async (req: Request,
 	const { curriculumId } = req.params;
 
 	const result = await courseRepository.findAllByCurriculum(curriculumId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	const sortedResults = result.rows.map((course) => {
 		const sortRelativeStandards = course.relative_standards.sort((
 			ra, rb,

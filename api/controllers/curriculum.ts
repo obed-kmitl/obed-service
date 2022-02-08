@@ -43,9 +43,7 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
  */
 const getAll = async (req: Request, res: Response, next:NextFunction): Promise<Response> => {
 	const result = await curriculumRepository.findAllCurriculum();
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows);
 };
 

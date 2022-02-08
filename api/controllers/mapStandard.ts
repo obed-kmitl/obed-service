@@ -55,9 +55,7 @@ const getAllRelativeStandard = async (req: Request, res: Response,
 	const { curriculumId } = req.params;
 
 	const result = await mapStandardRepository.findAllRelativeStandard(curriculumId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	const sortedResults = result.rows.sort((
 		ra, rb,
 	) => {

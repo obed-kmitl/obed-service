@@ -38,9 +38,7 @@ const getAllBySection = async (req: Request, res: Response,
 	next:NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 	const result = await studentRepository.getAllBySection(sectionId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	const sortResult = result.rows.sort((
 		a, b,
 	) => parseFloat(a.student_number) - parseFloat(b.student_number));

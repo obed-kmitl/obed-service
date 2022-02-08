@@ -25,9 +25,7 @@ const getProfile = async (req: Request, res: Response, next: NextFunction): Prom
  */
 const getAll = async (req: Request, res: Response, next:NextFunction): Promise<Response> => {
 	const result = await userRepository.findAllUser();
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows);
 };
 

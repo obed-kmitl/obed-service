@@ -94,9 +94,7 @@ const getByCurriculum = async (req: Request,
 	const { curriculumId } = req.params;
 
 	const result = await semesterRepository.findByCurriculum(curriculumId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows);
 };
 
@@ -108,9 +106,7 @@ const getSectionByTeacher = async (req: Request,
 	const { userId } = req;
 
 	const result = await semesterRepository.findSectionByTeacher(userId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows);
 };
 

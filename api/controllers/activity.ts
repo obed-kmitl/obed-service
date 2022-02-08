@@ -22,10 +22,6 @@ const getAllBySection = async (req: Request,
 	const { sectionId } = req.params;
 	const result = await activityRepository.getAllBySection(sectionId);
 
-	if (result.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
-
 	sendResponse(res, result);
 };
 

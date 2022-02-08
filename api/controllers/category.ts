@@ -35,9 +35,7 @@ const getAllBySection = async (req: Request,
 	res: Response, next:NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 	const result = await categoryRepository.getAllBySection(sectionId);
-	if (result.rows.length === 0) {
-		return next(CommonError.RESOURCE_NOT_FOUND);
-	}
+
 	sendResponse(res, result.rows);
 };
 
