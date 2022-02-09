@@ -1,7 +1,8 @@
 import { sendResponse } from '_/utils/response';
 import { studentRepository } from '_/repositories';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
 /**
  * Create students
@@ -33,7 +34,8 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get all students by section
  */
-const getAllBySection = async (req: Request, res: Response): Promise<Response> => {
+const getAllBySection = async (req: Request, res: Response,
+	next:NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 	const result = await studentRepository.getAllBySection(sectionId);
 
@@ -47,7 +49,7 @@ const getAllBySection = async (req: Request, res: Response): Promise<Response> =
 /**
  * Get student
  */
-const get = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response, next:NextFunction): Promise<Response> => {
 	const { studentId } = req.params;
 	const result = await studentRepository.get(studentId);
 

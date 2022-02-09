@@ -1,7 +1,8 @@
 import { sendResponse } from '_/utils/response';
 import { cloRepository, mapStandardRepository } from '_/repositories';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
 /**
  * Create Course Learning Outcome
@@ -72,7 +73,7 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get CLO
  */
-const get = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { cloId } = req.params;
 
 	const { rows: [clo] } = await cloRepository.find(cloId);
@@ -119,7 +120,8 @@ const get = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get all CLO By Section
  */
-const getAllBySection = async (req: Request, res: Response): Promise<Response> => {
+const getAllBySection = async (req: Request,
+	res: Response, next:NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 
 	const result = await cloRepository.findAllBySection(sectionId);

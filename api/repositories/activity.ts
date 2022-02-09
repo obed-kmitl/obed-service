@@ -104,12 +104,11 @@ const remove = async (activityId: number): Promise<QueryResultRow> => db.query(`
  */
 const createSubActivity = async (subActivityInfo:
 	CreateSubActivityRequestDTO): Promise<QueryResultRow> => db.query(`
-		INSERT INTO sub_activities (activity_id, title, detail, max_score) 
-		VALUES ($1, $2, $3, $4)
+		INSERT INTO sub_activities (activity_id,  detail, max_score) 
+		VALUES ($1, $2, $3)
 		RETURNING *
 		`, [
 	subActivityInfo.activity_id,
-	subActivityInfo.title,
 	subActivityInfo.detail,
 	subActivityInfo.max_score,
 ]);
@@ -189,14 +188,12 @@ const updateSubActivity = async (subActivityId: number, subActivityInfo:
 	UpdateSubActivityRequestDTO): Promise<QueryResultRow> => db.query(`
     UPDATE sub_activities
     SET 
-      title = $2,
-      detail = $3,
-      max_score = $4
+      detail = $2,
+      max_score = $3
     WHERE sub_activity_id = $1
     RETURNING *
 		`, [
 	subActivityId,
-	subActivityInfo.title,
 	subActivityInfo.detail,
 	subActivityInfo.max_score,
 ]);

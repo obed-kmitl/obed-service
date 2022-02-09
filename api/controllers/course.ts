@@ -2,7 +2,8 @@ import courseRepository from '_/repositories/course';
 import { sendResponse } from '_/utils/response';
 import mapStandardRepository from '_/repositories/mapStandard';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
 /**
  * Create Course
@@ -34,7 +35,8 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get Course By CurriculumId
  */
-const getAllByCurriculum = async (req: Request, res: Response): Promise<Response> => {
+const getAllByCurriculum = async (req: Request,
+	res: Response, next:NextFunction): Promise<Response> => {
 	const { curriculumId } = req.params;
 
 	const result = await courseRepository.findAllByCurriculum(curriculumId);
