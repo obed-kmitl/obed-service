@@ -10,6 +10,7 @@ import activityRouter from './activity';
 import categoryRouter from './category';
 import cloRouter from './clo';
 import studentRouter from './student';
+import assessmentRouter from './assessment';
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.use('/activity', activityRouter);
 router.use('/category', categoryRouter);
 router.use('/clo', cloRouter);
 router.use('/student', studentRouter);
+router.use('/assessment', assessmentRouter);
 
 export default router;
