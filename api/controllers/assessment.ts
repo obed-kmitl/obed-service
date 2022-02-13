@@ -36,8 +36,8 @@ const saveIndividual = async (req: Request, res: Response): Promise<Response> =>
  * getAllIndividualByActivity
  */
 const getAllIndividualByActivity = async (req: Request, res: Response): Promise<Response> => {
-	const { activityId } = req.params;
-	const { rows } = await assessmentRepository.getAllIndividualByActivity(activityId);
+	const { sectionId, activityId } = req.params;
+	const { rows } = await assessmentRepository.getAllIndividualByActivity(sectionId, activityId);
 	const groupByStudent = _.groupBy(rows, 'student_number');
 
 	const mapResult: any[] = [];
