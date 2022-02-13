@@ -14,7 +14,7 @@ router.post('/saveIndividual', [
 	validateRequest(SaveIndividualAssessmentRequestDTO),
 ], asyncWrapper(assessmentController.saveIndividual));
 
-router.get('/getAllIndividualByActivity/:activityId', [
+router.get('/getAllIndividualByActivity/:sectionId/:activityId', [
 	verifyToken,
 	permit('TEACHER'),
 ], asyncWrapper(assessmentController.getAllIndividualByActivity));

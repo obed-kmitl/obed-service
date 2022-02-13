@@ -22,26 +22,22 @@ const saveIndividual = async (individualAssessmentPayload:
 /**
  * getAllIndividualByActivity
  */
-const getAllIndividualByActivity = async (activityId: number): Promise<QueryResultRow> => db.query(`
+const getAllIndividualByActivity = async (sectionId: number, activityId: number): Promise<QueryResultRow> => db.query(`
 SELECT
+    stu.*,
     sa.sub_activity_id,
     sa.detail,
     sa.max_score,
-    s.student_id,
-    s.student_number,
-    s.prefix,
-    s.firstname,
-    s.lastname,
     sc.score
 FROM
-    sub_activities sa
-    LEFT JOIN activities a ON a.activity_id = $1
-    LEFT JOIN students s ON s.section_id = a.section_id
+    students stu
+    LEFT JOIN sub_activities sa ON sa.activity_id = $2
     LEFT JOIN scores sc ON sc.sub_activity_id = sa.sub_activity_id
+    AND sc.student_id = stu.student_id
 WHERE
-    sa.activity_id = $1
-    AND sc.student_id = s.student_id
+    section_id = $1
 		`, [
+	sectionId,
 	activityId,
 ]);
 
