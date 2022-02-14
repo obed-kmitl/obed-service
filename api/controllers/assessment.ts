@@ -62,7 +62,47 @@ const getAllIndividualByActivity = async (req: Request, res: Response): Promise<
 	sendResponse(res, mapResult);
 };
 
+/**
+ * createGroup
+ */
+const createGroup = async (req: Request, res: Response): Promise<Response> => {
+	const { activityId } = req.params;
+	const result = await assessmentRepository.createGroup(req.body, activityId);
+	sendResponse(res, result.rows[0]);
+};
+
+/**
+ * assignGroup
+ */
+const assignGroup = async (req: Request, res: Response): Promise<Response> => {
+	const { groupId } = req.params;
+	const result = await assessmentRepository.assignGroup(req.body, groupId);
+	sendResponse(res, result.rows[0]);
+};
+
+/**
+ * getAllGroupByActivity
+ */
+const getAllGroupByActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { activityId } = req.params;
+	const result = await assessmentRepository.findAllGroupByActivity(activityId);
+	sendResponse(res, result.rows);
+};
+
+/**
+ * unassignGroup
+ */
+const unassignGroup = async (req: Request, res: Response): Promise<Response> => {
+	const { groupId } = req.params;
+	const result = await assessmentRepository.removeStudentGroup(req.body, groupId);
+	sendResponse(res, result.rows[0]);
+};
+
 export default {
 	saveIndividual,
 	getAllIndividualByActivity,
+	createGroup,
+	assignGroup,
+	getAllGroupByActivity,
+	unassignGroup,
 };
