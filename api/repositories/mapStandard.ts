@@ -95,7 +95,7 @@ const createMapSubStandard = async (
 /**
  * Find map standard by currriculumId
  */
-const findMapStandard = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
+const findMapStandardByCurriculum = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
 	SELECT
 			m_std.*,
 			COALESCE(
@@ -156,7 +156,6 @@ const findAllRelativeStandard = async (curriculumId: number): Promise<QueryResul
 			s_std.group_sub_title
 `, [curriculumId]);
 
-// TODO
 /**
  * Find all map standard by sub_std_id
  */
@@ -174,10 +173,98 @@ const findMapStandardBySubStdId = async (
 		relative_sub_std_id = ANY('{${subStdId.join(', ')}}'::INT[])
 	`, [curriculumId]);
 
+/**
+ * Find all map standard by courseId
+ */
+const findMapStandardByCourseId = async (
+	courseId,
+): Promise<QueryResultRow> => db.query(`
+  SELECT
+      css.*,
+      mss.*
+  FROM
+      course_sub_standards css
+      LEFT JOIN (
+          SELECT
+              mssx.*,
+              ss.*
+          FROM
+              map_sub_standards mssx
+              LEft JOIN (
+                  SELECT
+                      ssx.sub_std_id,
+                      ssx.group_sub_std_id,
+                      ssx.order_number sub_order_number,
+                      ssx.title sub_title,
+                      gss.*
+                  FROM
+                      sub_standards ssx
+                      LEFT JOIN (
+                          SELECT
+                              gssx.group_sub_std_id,
+                              gssx.order_number group_sub_order_number,
+                              gssx.title group_sub_title
+                          FROM
+                              group_sub_standards gssx
+                      ) gss ON gss.group_sub_std_id = ssx.group_sub_std_id
+              ) ss ON ss.sub_std_id = mssx.relative_sub_std_id
+      ) mss ON mss.map_sub_std_id = css.map_sub_std_id
+  WHERE
+      course_id = $1
+	`, [courseId]);
+
+/**
+ * Find all relative standard by section_id
+ */
+const findRelativeStandardBySection = async (
+	sectionId :number[],
+): Promise<QueryResultRow> => db.transaction(async () => {
+	const sectionResult = await db.query(`
+    SELECT
+        *
+    FROM
+        sections
+    WHERE
+        section_id = $1
+      `, [sectionId]);
+
+	const groupSectionResult = await db.query(`
+    SELECT
+        *
+    FROM
+        group_sections
+    WHERE
+        group_sec_id = $1
+      `, [sectionResult.rows[0].group_sec_id]);
+
+	const couseId = groupSectionResult.rows[0].course_id;
+
+	const mapSubStandardResult = await findMapStandardByCourseId(couseId);
+
+	const mapRelativeSubStandards = mapSubStandardResult.rows.map((mapSubStandard) => ({
+		sub_std_id: mapSubStandard.sub_std_id,
+		group_sub_std_id: mapSubStandard.group_sub_std_id,
+		sub_order_number: mapSubStandard.sub_order_number,
+		sub_title: mapSubStandard.sub_title,
+		group_sub_order_number: mapSubStandard.group_sub_order_number,
+		group_sub_title: mapSubStandard.group_sub_title,
+	}));
+
+	const filterDuplicateRelative = mapRelativeSubStandards.filter((
+		value, index, self,
+	) => index === self.findIndex((t) => (
+		t.sub_std_id === value.sub_std_id
+	)));
+
+	return filterDuplicateRelative;
+},
+async (filterDuplicateRelative) => filterDuplicateRelative);
+
 export default {
 	create,
 	createMapSubStandard,
-	findMapStandard,
+	findMapStandardByCurriculum,
 	findMapStandardBySubStdId,
 	findAllRelativeStandard,
+	findRelativeStandardBySection,
 };

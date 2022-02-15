@@ -29,7 +29,7 @@ export const AuthError = {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,
 		code: 'REFRESH_TOKEN_NOT_FOUND',
 		message: 'Refresh Token not found',
-		statusCode: 404,
+		statusCode: 401,
 	},
 	INVALID_PASSWORD: {
 		type: ApplicationError.errorType.APP_OBED_SERVICE,

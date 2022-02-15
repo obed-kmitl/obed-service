@@ -2,7 +2,8 @@ import { sendResponse } from '_/utils/response';
 import { activityRepository } from '_/repositories';
 import { UpdateActivityRequestDTO } from '_/dtos/activity';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
 /**
  * Create Activity
@@ -16,7 +17,8 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get All activity by section
  */
-const getAllBySection = async (req: Request, res: Response): Promise<Response> => {
+const getAllBySection = async (req: Request,
+	res: Response, next:NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 	const result = await activityRepository.getAllBySection(sectionId);
 
@@ -46,9 +48,95 @@ const remove = async (req: Request, res: Response): Promise<Response> => {
 	sendResponse(res, result.rows[0]);
 };
 
+/**
+ * Create Sub Activity
+ */
+const createSubActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { clos } = req.body;
+	const result = await activityRepository.createSubActivity(req.body);
+
+	const subActivityId: number = result.rows[0].sub_activity_id;
+	const cloArray: number[][] = clos.map((clo) => [subActivityId, clo]);
+	const createCLOResult = await activityRepository.createSubActivitiesCLO(subActivityId, cloArray);
+
+	const sortedClos = createCLOResult.rows[0].clos.sort((
+		a, b,
+	) => parseFloat(a.order_number) - parseFloat(b.order_number));
+
+	sendResponse(res, {
+		...createCLOResult.rows[0],
+		clos: sortedClos,
+	});
+};
+
+/**
+ * Update Sub Activity
+ */
+const updateSubActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { subActivityId } = req.params;
+	const { clos } = req.body;
+	await activityRepository.updateSubActivity(subActivityId, req.body);
+
+	const cloArray: number[][] = clos.map((clo) => [subActivityId, clo]);
+	const createCLOResult = await activityRepository.createSubActivitiesCLO(subActivityId, cloArray);
+
+	const sortedClos = createCLOResult.rows[0].clos.sort((
+		a, b,
+	) => parseFloat(a.order_number) - parseFloat(b.order_number));
+
+	sendResponse(res, {
+		...createCLOResult.rows[0],
+		clos: sortedClos,
+	});
+};
+
+/**
+ * Get activity
+ */
+const get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+	const { activityId } = req.params;
+	const activityResult = await activityRepository.find(activityId);
+
+	if (activityResult.rows.length === 0) {
+		return next(CommonError.RESOURCE_NOT_FOUND);
+	}
+
+	const result = await activityRepository.findAllSubActivity(activityId);
+
+	const sortedResult = result.rows.map((row) => {
+		const sortedClos = row.clos.sort((
+			a, b,
+		) => parseFloat(a.order_number) - parseFloat(b.order_number));
+
+		return {
+			...row,
+			clos: sortedClos,
+		};
+	});
+
+	sendResponse(res, {
+		...activityResult.rows[0],
+		subActivities: sortedResult,
+	});
+};
+
+/**
+ * Remove sub activity
+ */
+const removeSubActivity = async (req: Request, res: Response): Promise<Response> => {
+	const { subActivityId } = req.params;
+	const result = await activityRepository.removeSubActivity(subActivityId);
+
+	sendResponse(res, result.rows[0]);
+};
+
 export default {
 	create,
 	getAllBySection,
 	update,
 	remove,
+	createSubActivity,
+	updateSubActivity,
+	get,
+	removeSubActivity,
 };

@@ -1,5 +1,5 @@
 import {
-	IsNotEmpty, IsString, IsOptional, IsNumber, Min, Max,
+	IsNotEmpty, IsString, IsOptional, IsNumber, Min, Max, IsArray,
 } from 'class-validator';
 
 export class CreateActivityRequestDTO {
@@ -40,4 +40,37 @@ export class UpdateActivityRequestDTO {
   @IsNotEmpty()
 	@IsString()
 	type: string= '';
+}
+export class CreateSubActivityRequestDTO {
+	@IsNotEmpty()
+	@IsNumber()
+	activity_id : number= -1;
+
+	@IsOptional()
+	@IsString()
+	detail?: string= undefined;
+
+  @IsNotEmpty()
+	@IsNumber()
+	max_score: number= -1;
+
+  @IsOptional()
+	@IsArray()
+	@IsNumber({}, { each: true })
+	clos?: number[]= undefined;
+}
+
+export class UpdateSubActivityRequestDTO {
+	@IsOptional()
+	@IsString()
+	detail?: string= undefined;
+
+  @IsNotEmpty()
+	@IsNumber()
+	max_score: number= -1;
+
+  @IsOptional()
+	@IsArray()
+	@IsNumber({}, { each: true })
+	clos?: number[]= undefined;
 }

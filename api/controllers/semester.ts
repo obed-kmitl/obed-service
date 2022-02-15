@@ -2,6 +2,7 @@ import semesterRepository from '_/repositories/semester';
 import { sendResponse } from '_/utils/response';
 
 import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 import { CreateSemesterRequestDTO } from '_/dtos/semester';
 import { ApplicationError } from '_/errors/applicationError';
 import { SemesterError } from '_/errors/semester';
@@ -75,7 +76,7 @@ const createSection = async (req: Request, res: Response): Promise<Response> => 
 /**
  * Get section
  */
-const get = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { semesterId } = req.params;
 
 	const result = await semesterRepository.find(semesterId);
@@ -86,7 +87,8 @@ const get = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get all sections by curriculum
  */
-const getByCurriculum = async (req: Request, res: Response): Promise<Response> => {
+const getByCurriculum = async (req: Request,
+	res: Response, next: NextFunction): Promise<Response> => {
 	const { curriculumId } = req.params;
 
 	const result = await semesterRepository.findByCurriculum(curriculumId);
@@ -97,7 +99,8 @@ const getByCurriculum = async (req: Request, res: Response): Promise<Response> =
 /**
  * Get all sections by teacher
  */
-const getSectionByTeacher = async (req: Request, res: Response): Promise<Response> => {
+const getSectionByTeacher = async (req: Request,
+	res: Response, next: NextFunction): Promise<Response> => {
 	const { userId } = req;
 
 	const result = await semesterRepository.findSectionByTeacher(userId);
@@ -108,7 +111,7 @@ const getSectionByTeacher = async (req: Request, res: Response): Promise<Respons
 /**
  * Get all sections
  */
-const getSection = async (req: Request, res: Response): Promise<Response> => {
+const getSection = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 
 	const result = await semesterRepository.findSection(sectionId);

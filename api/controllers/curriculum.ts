@@ -4,7 +4,8 @@ import { sendResponse } from '_/utils/response';
 import { CurriculumInputDTO } from '_/dtos/curriculum';
 import { CreateSemesterRequestDTO } from '_/dtos/semester';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 import { deserialize } from 'json-typescript-mapper';
 
 /**
@@ -25,7 +26,7 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get Curriculum By Id
  */
-const get = async (req: Request, res: Response): Promise<Response> => {
+const get = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
 	const { curriculumId } = req.params;
 
 	const result = await curriculumRepository.findCurriculum(curriculumId);
@@ -36,7 +37,7 @@ const get = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get All Curriculums
  */
-const getAll = async (req: Request, res: Response): Promise<Response> => {
+const getAll = async (req: Request, res: Response, next:NextFunction): Promise<Response> => {
 	const result = await curriculumRepository.findAllCurriculum();
 
 	sendResponse(res, result.rows);

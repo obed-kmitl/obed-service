@@ -1,0 +1,5 @@
+DROP TABLE student_groups CASCADE;
+
+DROP TABLE students CASCADE;
+
+DROP TABLE groups CASCADE;

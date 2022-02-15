@@ -25,8 +25,7 @@ CREATE TABLE activities(
 
 CREATE TABLE sub_activities(
 	sub_activity_id SERIAL PRIMARY KEY,
-  section_id INT NOT NULL REFERENCES sections(section_id) ON DELETE CASCADE,
-  title VARCHAR(50),
+  activity_id INT NOT NULL REFERENCES activities(activity_id) ON DELETE CASCADE,
   detail VARCHAR(400),
   max_score FLOAT
 );

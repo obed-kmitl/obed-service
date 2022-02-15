@@ -1,8 +1,9 @@
 import { sendResponse } from '_/utils/response';
 import { categoryRepository } from '_/repositories';
-
-import { Request, Response } from 'express';
 import { UpdateCategoryRequestDTO } from '_/dtos/category';
+
+import { Request, Response, NextFunction } from 'express';
+import { CommonError } from '_/errors/common';
 
 /**
  * Create Category
@@ -30,7 +31,8 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 /**
  * Get All Category
  */
-const getAllBySection = async (req: Request, res: Response): Promise<Response> => {
+const getAllBySection = async (req: Request,
+	res: Response, next:NextFunction): Promise<Response> => {
 	const { sectionId } = req.params;
 	const result = await categoryRepository.getAllBySection(sectionId);
 
