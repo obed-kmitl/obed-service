@@ -40,9 +40,9 @@ const creatGroupSubStandard = async (groupSubStandardInfo: CreateGroupSubStandar
  * Create Sub Standard
  */
 const creatSubStandard = async (groupSubStandardInfo: CreateSubStandardRequestDTO): Promise<QueryResultRow> => db.query(`
- INSERT INTO sub_standards (group_sub_std_id, order_number, title)
- VALUES ($1, $2, $3)
- RETURNING *
+INSERT INTO sub_standards (group_sub_std_id, order_number, title)
+VALUES ($1, $2, $3)
+RETURNING *
 `, [
 	groupSubStandardInfo.group_sub_std_id,
 	groupSubStandardInfo.order_number,
