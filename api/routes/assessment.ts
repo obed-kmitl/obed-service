@@ -4,6 +4,7 @@ import asyncWrapper from '_/middleware/asyncWrapper';
 import {
 	SaveIndividualAssessmentRequestDTO, CreateGroupRequestDTO,
 	AssignGroupRequestDTO, UnassignGroupRequestDTO,
+	SaveGroupAssessmentRequestDTO,
 } from '_/dtos/assessment';
 
 import express from 'express';
@@ -44,5 +45,16 @@ router.post('/unassignGroup/:groupId', [
 	permit('TEACHER'),
 	validateRequest(UnassignGroupRequestDTO),
 ], asyncWrapper(assessmentController.unassignGroup));
+
+router.post('/saveGroupAssessment', [
+	verifyToken,
+	permit('TEACHER'),
+	validateRequest(SaveGroupAssessmentRequestDTO),
+], asyncWrapper(assessmentController.saveGroupAssessment));
+
+router.get('/getAllGroupAssessmentByActivity/:activityId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(assessmentController.getAllGroupAssessmentByActivity));
 
 export default router;

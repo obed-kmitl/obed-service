@@ -53,3 +53,19 @@ export class UnassignGroupRequestDTO {
 	@IsNumber()
   student_id: number = -1;
 }
+
+export class GroupAssessment {
+  @IsNotEmpty()
+	@IsNumber()
+  group_id: number = -1;
+
+  @IsNotEmpty()
+  @IsArray()
+  scores: Score[] = [];
+}
+
+export class SaveGroupAssessmentRequestDTO {
+  @IsNotEmpty()
+  @IsArray()
+  groupAssessments: GroupAssessment[] = [];
+}
