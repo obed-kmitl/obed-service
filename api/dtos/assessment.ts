@@ -35,3 +35,37 @@ export class SaveIndividualAssessmentPayload {
 
   score: number
 }
+
+export class CreateGroupRequestDTO {
+  @IsNotEmpty()
+	@IsString()
+  title: string = '';
+}
+
+export class AssignGroupRequestDTO {
+  @IsNotEmpty()
+	@IsNumber()
+  student_id: number = -1;
+}
+
+export class UnassignGroupRequestDTO {
+  @IsNotEmpty()
+	@IsNumber()
+  student_id: number = -1;
+}
+
+export class GroupAssessment {
+  @IsNotEmpty()
+	@IsNumber()
+  group_id: number = -1;
+
+  @IsNotEmpty()
+  @IsArray()
+  scores: Score[] = [];
+}
+
+export class SaveGroupAssessmentRequestDTO {
+  @IsNotEmpty()
+  @IsArray()
+  groupAssessments: GroupAssessment[] = [];
+}

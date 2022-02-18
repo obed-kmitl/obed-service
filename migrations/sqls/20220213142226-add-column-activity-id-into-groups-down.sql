@@ -1,0 +1,2 @@
+ALTER TABLE groups
+DROP COLUMN activity_id CASCADE
