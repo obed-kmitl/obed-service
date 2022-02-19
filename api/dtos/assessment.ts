@@ -42,6 +42,12 @@ export class CreateGroupRequestDTO {
   title: string = '';
 }
 
+export class UpdateGroupRequestDTO {
+  @IsNotEmpty()
+	@IsString()
+  title: string = '';
+}
+
 export class AssignGroupRequestDTO {
   @IsNotEmpty()
 	@IsNumber()

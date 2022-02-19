@@ -1,9 +1,8 @@
 import db from '_/utils/db';
 import { QueryResultRow } from 'pg';
-import format from 'pg-format';
 import {
 	SaveIndividualAssessmentPayload, CreateGroupRequestDTO,
-	AssignGroupRequestDTO, UnassignGroupRequestDTO,
+	AssignGroupRequestDTO, UnassignGroupRequestDTO, UpdateGroupRequestDTO,
 } from '_/dtos/assessment';
 
 /**
@@ -54,6 +53,20 @@ RETURNING *
    `, [
 	groupInfo.title,
 	activityId,
+]);
+
+/**
+* updateGroup
+*/
+const updateGroup = async (groupInfo: UpdateGroupRequestDTO, groupId: number): Promise<QueryResultRow> => db.query(`
+UPDATE groups
+SET 
+  title = $1
+WHERE group_id = $2
+RETURNING *
+   `, [
+	groupInfo.title,
+	groupId,
 ]);
 
 /**
@@ -222,4 +235,5 @@ export default {
 	findGroup,
 	getAllGroupAssessmentByActivity,
 	deleteGroup,
+	updateGroup,
 };

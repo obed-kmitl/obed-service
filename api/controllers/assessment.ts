@@ -72,6 +72,15 @@ const createGroup = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
+ * updateGroup
+ */
+const updateGroup = async (req: Request, res: Response): Promise<Response> => {
+	const { groupId } = req.params;
+	const result = await assessmentRepository.updateGroup(req.body, groupId);
+	sendResponse(res, result.rows[0]);
+};
+
+/**
  * assignGroup
  */
 const assignGroup = async (req: Request, res: Response): Promise<Response> => {
@@ -199,4 +208,5 @@ export default {
 	saveGroupAssessment,
 	getAllGroupAssessmentByActivity,
 	removeGroup,
+	updateGroup,
 };
