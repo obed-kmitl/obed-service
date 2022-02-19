@@ -203,6 +203,15 @@ WHERE
 	activityId,
 ]);
 
+/**
+* Delete Group
+*/
+const deleteGroup = async (groupId: string): Promise<QueryResultRow> => db.query(`
+ DELETE FROM groups 
+ WHERE group_id = $1
+ RETURNING *
+`, [groupId]);
+
 export default {
 	saveIndividual,
 	getAllIndividualByActivity,
@@ -212,4 +221,5 @@ export default {
 	removeStudentGroup,
 	findGroup,
 	getAllGroupAssessmentByActivity,
+	deleteGroup,
 };

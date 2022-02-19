@@ -46,6 +46,11 @@ router.post('/unassignGroup/:groupId', [
 	validateRequest(UnassignGroupRequestDTO),
 ], asyncWrapper(assessmentController.unassignGroup));
 
+router.delete('/removeGroup/:groupId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(assessmentController.removeGroup));
+
 router.post('/saveGroupAssessment', [
 	verifyToken,
 	permit('TEACHER'),
