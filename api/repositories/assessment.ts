@@ -199,7 +199,7 @@ SELECT
     stu.prefix,
     stu.firstname,
     stu.lastname,
-    sc.sub_activity_id,
+    sa.sub_activity_id,
     sa.detail,
     sa.max_score,
     sc.score
