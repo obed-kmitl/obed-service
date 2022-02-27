@@ -26,7 +26,7 @@ const register = async (req: Request, res: Response, next: NextFunction): Promis
 	try {
 		const user = req.body;
 		// Wait for random password logic
-		user.password = bcrypt.hashSync('password', authConfig.salt);
+		user.password = bcrypt.hashSync(user.password, authConfig.salt);
 		user.role = 'TEACHER';
 
 		const result = await userRepository.createUser(user);
@@ -57,7 +57,7 @@ const adminRegister = async (
 	try {
 		const user = req.body;
 		// Wait for random password logic
-		user.password = bcrypt.hashSync('password', authConfig.salt);
+		user.password = bcrypt.hashSync(user.password, authConfig.salt);
 		user.role = 'ADMIN';
 
 		const result = await userRepository.createUser(user);
@@ -269,6 +269,34 @@ const googleAuthToken = async (
 	sendResponse(res, { message: 'google auth success' });
 };
 
+/**
+ * Force Update user password
+ */
+const forceUpdatePassword = async (
+	req: Request, res: Response, next: NextFunction,
+): Promise<Response> => {
+	const { userId } = req.params;
+	const { password } = req.body;
+
+	const result = await userRepository.findUserWithPassword(userId);
+	const userResult = result.rows[0];
+
+	if (!userResult) {
+		return next(new ApplicationError(AuthError.USER_NOT_FOUND));
+	}
+
+	const newPasswordHash = bcrypt.hashSync(password, authConfig.salt);
+
+	const userInfo = deserialize(UserInputDTO, {
+		user_id: userId,
+		password: newPasswordHash,
+	});
+
+	await userRepository.updateUser(userInfo);
+
+	sendResponse(res, { message: 'Force Update password success' });
+};
+
 export default {
 	adminRegister,
 	register,
@@ -278,4 +306,5 @@ export default {
 	getAccessToken,
 	updatePassword,
 	googleAuthToken,
+	forceUpdatePassword,
 };
