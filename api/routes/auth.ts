@@ -1,7 +1,9 @@
 import { authController } from '_/controllers';
 import { verifyToken, permit } from '_/middleware/authorizationHandler';
 import { validateRequest } from '_/middleware/validationHandler';
-import { RegisterRequestDTO, LoginRequestDTO, UpdatePasswordRequestDTO } from '_/dtos/user';
+import {
+	RegisterRequestDTO, LoginRequestDTO, UpdatePasswordRequestDTO, ForceUpdatePasswordRequestDTO,
+} from '_/dtos/user';
 import asyncWrapper from '_/middleware/asyncWrapper';
 
 import { Router } from 'express';
@@ -25,6 +27,12 @@ router.put('/updatePassword', [
 	permit('ADMIN', 'TEACHER'),
 	validateRequest(UpdatePasswordRequestDTO),
 ], asyncWrapper(authController.updatePassword));
+
+router.put('/forceUpdatePassword/:userId', [
+	verifyToken,
+	permit('ADMIN'),
+	validateRequest(ForceUpdatePasswordRequestDTO),
+], asyncWrapper(authController.forceUpdatePassword));
 
 router.post('/googleAuthToken', [verifyToken], asyncWrapper(authController.googleAuthToken));
 

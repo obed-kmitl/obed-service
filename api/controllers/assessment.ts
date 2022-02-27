@@ -72,6 +72,15 @@ const createGroup = async (req: Request, res: Response): Promise<Response> => {
 };
 
 /**
+ * updateGroup
+ */
+const updateGroup = async (req: Request, res: Response): Promise<Response> => {
+	const { groupId } = req.params;
+	const result = await assessmentRepository.updateGroup(req.body, groupId);
+	sendResponse(res, result.rows[0]);
+};
+
+/**
  * assignGroup
  */
 const assignGroup = async (req: Request, res: Response): Promise<Response> => {
@@ -179,6 +188,16 @@ const getAllGroupAssessmentByActivity = async (req: Request, res: Response): Pro
 	sendResponse(res, mapResult);
 };
 
+/**
+ * Remove Group
+ */
+const removeGroup = async (req: Request, res: Response): Promise<Response> => {
+	const { groupId } = req.params;
+	const result = await assessmentRepository.deleteGroup(groupId);
+
+	sendResponse(res, result.rows[0]);
+};
+
 export default {
 	saveIndividual,
 	getAllIndividualByActivity,
@@ -188,4 +207,6 @@ export default {
 	unassignGroup,
 	saveGroupAssessment,
 	getAllGroupAssessmentByActivity,
+	removeGroup,
+	updateGroup,
 };

@@ -1,9 +1,8 @@
 import db from '_/utils/db';
 import { QueryResultRow } from 'pg';
-import format from 'pg-format';
 import {
 	SaveIndividualAssessmentPayload, CreateGroupRequestDTO,
-	AssignGroupRequestDTO, UnassignGroupRequestDTO,
+	AssignGroupRequestDTO, UnassignGroupRequestDTO, UpdateGroupRequestDTO,
 } from '_/dtos/assessment';
 
 /**
@@ -54,6 +53,20 @@ RETURNING *
    `, [
 	groupInfo.title,
 	activityId,
+]);
+
+/**
+* updateGroup
+*/
+const updateGroup = async (groupInfo: UpdateGroupRequestDTO, groupId: number): Promise<QueryResultRow> => db.query(`
+UPDATE groups
+SET 
+  title = $1
+WHERE group_id = $2
+RETURNING *
+   `, [
+	groupInfo.title,
+	groupId,
 ]);
 
 /**
@@ -186,7 +199,7 @@ SELECT
     stu.prefix,
     stu.firstname,
     stu.lastname,
-    sc.sub_activity_id,
+    sa.sub_activity_id,
     sa.detail,
     sa.max_score,
     sc.score
@@ -203,6 +216,15 @@ WHERE
 	activityId,
 ]);
 
+/**
+* Delete Group
+*/
+const deleteGroup = async (groupId: string): Promise<QueryResultRow> => db.query(`
+ DELETE FROM groups 
+ WHERE group_id = $1
+ RETURNING *
+`, [groupId]);
+
 export default {
 	saveIndividual,
 	getAllIndividualByActivity,
@@ -212,4 +234,6 @@ export default {
 	removeStudentGroup,
 	findGroup,
 	getAllGroupAssessmentByActivity,
+	deleteGroup,
+	updateGroup,
 };
