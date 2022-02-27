@@ -1,5 +1,5 @@
 import {
-	IsNotEmpty, IsString, IsOptional, IsEnum, IsDate, Length,
+	IsNotEmpty, IsString, IsOptional, IsEnum, IsDate, Length, MinLength,
 } from 'class-validator';
 import { RoleEnum, PrefixEnum } from '_/constants/user';
 
@@ -59,8 +59,9 @@ export class RegisterRequestDTO {
 	username: String= '';
 
 	@IsOptional()
-	@IsString()
-	password?: String= undefined;
+	@IsNotEmpty()
+  @Length(8, 100)
+	password: String= '';
 
 	@IsOptional()
 	@IsEnum(PrefixEnum, { each: true })
@@ -98,6 +99,13 @@ export class UpdatePasswordRequestDTO {
 	@Length(8, 100)
 	@IsNotEmpty()
 	newPassword: String= '';
+}
+
+export class ForceUpdatePasswordRequestDTO {
+	@IsString()
+	@Length(8, 100)
+	@IsNotEmpty()
+	password: String= '';
 }
 
 export class UpdateUserProfileRequestDTO {
