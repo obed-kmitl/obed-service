@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register api/server.ts --watch src",
     "migrate": "db-migrate up",
-    "migrate:create": "db-migrate create",
+    "migrate:generate": "db-migrate create",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
