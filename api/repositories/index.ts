@@ -19,3 +19,5 @@ export { default as mapStandardRepository } from './mapStandard';
 export { default as studentRepository } from './student';
 
 export { default as assessmentRepository } from './assessment';
+
+export { default as reportRepository } from './report';

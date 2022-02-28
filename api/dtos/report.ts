@@ -8,26 +8,25 @@ export class NextImprovement {
   title: string = '';
 
   @IsNotEmpty()
+  @IsArray()
   @IsString({ each: true })
   cause : string[] = [];
 
   @IsNotEmpty()
+  @IsArray()
   @IsString({ each: true })
   work : string[] = [];
 
   @IsNotEmpty()
+  @IsArray()
   @IsString({ each: true })
   evaluation : string[] = [];
 }
 
 export class SaveReportRequestDTO {
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
-	report_id?: number;
-
-  @IsOptional()
-  @IsNumber()
-  section_id?: number = -1;
+  section_id: number = -1;
 
   @IsNotEmpty()
   @IsArray()
@@ -37,18 +36,21 @@ export class SaveReportRequestDTO {
   grade : number[] = [0, 0, 0, 0, 0, 0, 0, 0];
 
   @IsNotEmpty()
+  @IsArray()
   @IsString({ each: true })
   prev_improvement : string[] = [];
 
   @IsNotEmpty()
+  @IsArray()
   @IsString({ each: true })
   verify_method : string[] = [];
 
   @IsNotEmpty()
+  @IsArray()
   @IsString({ each: true })
   summary : string[] = [];
 
   @IsNotEmpty()
-  @IsString({ each: true })
-  next_improvements: any[]= [];
+  @IsArray()
+  next_improvements: NextImprovement[]= [];
 }

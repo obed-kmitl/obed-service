@@ -8,10 +8,15 @@ import { validateRequest } from '_/middleware/validationHandler';
 
 const router = express.Router();
 
-router.post('/save/:sectionId', [
+router.post('/save', [
 	verifyToken,
 	permit('TEACHER'),
 	validateRequest(SaveReportRequestDTO),
 ], asyncWrapper(reportController.save));
+
+router.get('/getReportBySection/:sectionId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(reportController.getReportBySection));
 
 export default router;
