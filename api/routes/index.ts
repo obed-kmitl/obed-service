@@ -11,6 +11,7 @@ import categoryRouter from './category';
 import cloRouter from './clo';
 import studentRouter from './student';
 import assessmentRouter from './assessment';
+import reportRouter from './report';
 
 const router = express.Router();
 
@@ -26,5 +27,6 @@ router.use('/category', categoryRouter);
 router.use('/clo', cloRouter);
 router.use('/student', studentRouter);
 router.use('/assessment', assessmentRouter);
+router.use('/report', reportRouter);
 
 export default router;

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register api/server.ts --watch src",
     "migrate": "db-migrate up",
-    "migrate:create": "db-migrate create",
+    "migrate:generate": "db-migrate create",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -44,7 +44,7 @@
     "lodash": "^4.17.21",
     "pg": "8.7.1",
     "pg-format": "1.0.4",
-    "ts-node-dev": "1.1.8",
+    "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "3.10.1",
     "winston": "3.3.3"
   }
