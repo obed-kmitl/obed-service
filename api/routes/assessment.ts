@@ -15,7 +15,6 @@ const router = express.Router();
 router.post('/saveIndividual', [
 	verifyToken,
 	permit('TEACHER'),
-	validateRequest(SaveIndividualAssessmentRequestDTO),
 ], asyncWrapper(assessmentController.saveIndividual));
 
 router.get('/getAllIndividualByActivity/:sectionId/:activityId', [

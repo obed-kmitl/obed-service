@@ -1,6 +1,11 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import {
-	IsNotEmpty, IsString, IsOptional, IsNumber, Min, Max, IsArray,
+	IsNotEmpty, IsString, IsNumber, IsArray,
+	ValidateNested, IsDefined,
 } from 'class-validator';
+import { plainToInstance, Type } from 'class-transformer';
+import { customValidateSync } from '_/middleware/validationHandler';
+import { ApplicationError } from '_/errors/applicationError';
 
 export class Score {
   @IsNotEmpty()
@@ -17,15 +22,37 @@ export class IndividualAssessment {
 	@IsNumber()
 	student_id : number= -1;
 
+  @IsDefined()
   @IsNotEmpty()
   @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => Score)
   scores: Score[] = [];
 }
 
 export class SaveIndividualAssessmentRequestDTO {
+  @IsDefined()
   @IsNotEmpty()
   @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => IndividualAssessment)
   individualAssessments: IndividualAssessment[] = [];
+
+  static async validate(payload: SaveIndividualAssessmentRequestDTO) {
+  	const payloadClass = plainToInstance(SaveIndividualAssessmentRequestDTO, payload);
+  	const errors = customValidateSync(payloadClass);
+  	if (errors.length > 0) {
+  		throw new ApplicationError({
+  			type: ApplicationError.errorType.APP_OBED_SERVICE,
+  			code: 'VALIDATION_ERROR',
+  			message: errors[0],
+  			statusCode: 400,
+  			meta: {
+  				context: errors[0],
+  			},
+  		}, {});
+  	}
+  }
 }
 
 export class SaveIndividualAssessmentPayload {

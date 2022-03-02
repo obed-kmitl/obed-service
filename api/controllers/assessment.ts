@@ -1,16 +1,15 @@
 import { sendResponse } from '_/utils/response';
 import { assessmentRepository } from '_/repositories';
 
-import { Request, Response, NextFunction } from 'express';
-import { CommonError } from '_/errors/common';
+import { Request, Response } from 'express';
 import { SaveIndividualAssessmentRequestDTO, SaveIndividualAssessmentPayload, SaveGroupAssessmentRequestDTO } from '_/dtos/assessment';
-import activity from '_/repositories/activity';
 import _ from 'lodash';
 
 /**
  * Save Individual
  */
 const saveIndividual = async (req: Request, res: Response): Promise<Response> => {
+	await SaveIndividualAssessmentRequestDTO.validate(req.body);
 	const { individualAssessments }: SaveIndividualAssessmentRequestDTO = req.body;
 	const payloads: SaveIndividualAssessmentPayload[] = [];
 
