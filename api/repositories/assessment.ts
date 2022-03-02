@@ -22,6 +22,21 @@ const saveIndividual = async (individualAssessmentPayload:
 ]);
 
 /**
+ * Create assessment array
+ */
+const saveIndividualArray = async (individualAssessmentPayloads:
+	SaveIndividualAssessmentPayload[]): Promise<QueryResultRow> => db.transaction(
+	async () => {
+		for (const payload of individualAssessmentPayloads) {
+			await saveIndividual(payload);
+		}
+	},
+	() => ({
+		success: true,
+	}),
+);
+
+/**
  * getAllIndividualByActivity
  */
 const getAllIndividualByActivity = async (sectionId: number, activityId: number): Promise<QueryResultRow> => db.query(`
@@ -236,4 +251,5 @@ export default {
 	getAllGroupAssessmentByActivity,
 	deleteGroup,
 	updateGroup,
+	saveIndividualArray,
 };

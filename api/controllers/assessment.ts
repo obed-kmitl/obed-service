@@ -1,14 +1,18 @@
 import { sendResponse } from '_/utils/response';
 import { assessmentRepository } from '_/repositories';
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { SaveIndividualAssessmentRequestDTO, SaveIndividualAssessmentPayload, SaveGroupAssessmentRequestDTO } from '_/dtos/assessment';
 import _ from 'lodash';
 
 /**
  * Save Individual
  */
-const saveIndividual = async (req: Request, res: Response): Promise<Response> => {
+const saveIndividual = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+): Promise<Response> => {
 	await SaveIndividualAssessmentRequestDTO.validate(req.body);
 	const { individualAssessments }: SaveIndividualAssessmentRequestDTO = req.body;
 	const payloads: SaveIndividualAssessmentPayload[] = [];
@@ -23,10 +27,7 @@ const saveIndividual = async (req: Request, res: Response): Promise<Response> =>
 		}
 	}
 
-	const saveIndividualPromiseList = await payloads.map(async (
-		payload,
-	) => assessmentRepository.saveIndividual(payload));
-	Promise.all(saveIndividualPromiseList);
+	await assessmentRepository.saveIndividualArray(payloads);
 
 	sendResponse(res, { success: true });
 };
@@ -129,11 +130,7 @@ const saveGroupAssessment = async (req: Request, res: Response): Promise<Respons
 		}
 	}
 
-	const saveIndividualPromiseList = await payloads.map(async (
-		payload,
-	) => assessmentRepository.saveIndividual(payload));
-	Promise.all(saveIndividualPromiseList);
-
+	await assessmentRepository.saveIndividualArray(payloads);
 	sendResponse(res, { success: true });
 };
 
