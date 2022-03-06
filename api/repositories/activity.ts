@@ -28,12 +28,32 @@ const create = async (activityInfo:
  * Get all activities by categoryId
  */
 const getAllByCategory = async (categoryId: number): Promise<QueryResultRow> => db.query(`
- SELECT
-     *
- FROM
-     activities
- WHERE
-     category_id = $1
+SELECT
+    a.*,
+    COALESCE(
+        json_agg(
+            json_build_object(
+                'sub_activity_id',
+                sa.sub_activity_id,
+                'detail',
+                sa.detail,
+                'max_score',
+                sa.max_score
+            )
+        ) FILTER (
+            WHERE
+                sa.sub_activity_id IS NOT NULL
+        ),
+        '[]'
+    ) AS sub_activities,
+    SUM(sa.max_score) as total_max_score
+FROM
+    activities a
+    LEFT JOIN sub_activities sa ON sa.activity_id = a.activity_id
+WHERE
+    category_id = $1
+GROUP BY
+    a.activity_id
    `, [categoryId]);
 
 /**
@@ -52,12 +72,32 @@ const getAllBySection = async (sectionId: number): Promise<QueryResultRow> => db
 		}
 
 		const activityResult = await db.query(`
-      SELECT
-          *
-      FROM
-          activities
-      WHERE
-          category_id IS NULL
+    SELECT
+        a.*,
+        COALESCE(
+            json_agg(
+                json_build_object(
+                    'sub_activity_id',
+                    sa.sub_activity_id,
+                    'detail',
+                    sa.detail,
+                    'max_score',
+                    sa.max_score
+                )
+            ) FILTER (
+                WHERE
+                    sa.sub_activity_id IS NOT NULL
+            ),
+            '[]'
+        ) AS sub_activities,
+        SUM(sa.max_score) as total_max_score
+    FROM
+        activities a
+        LEFT JOIN sub_activities sa ON sa.activity_id = a.activity_id
+    WHERE
+        category_id IS NULL
+    GROUP BY
+        a.activity_id
       `, []);
 
 		result = [...result, {
