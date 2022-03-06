@@ -203,11 +203,11 @@ const deleteSubStandard = async (subStdId: number): Promise<QueryResultRow> => d
 const createAllStandards = async (
 	createAllStandardsInfo: CreateAllStandardsRequestDTO,
 ): Promise<QueryResultRow> => db.transaction(async () => {
-	const { standards } = createAllStandardsInfo;
+	const { standards, curriculum_id } = createAllStandardsInfo;
 
 	for (const standard of standards) {
 		const { rows: standardRows } = await create({
-			curriculum_id: standard.curriculum_id,
+			curriculum_id,
 			title: standard.title,
 		});
 		const standardId = get(standardRows[0], 'standard_id');

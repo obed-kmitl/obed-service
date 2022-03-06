@@ -8,6 +8,11 @@ import { validateRequest } from '_/middleware/validationHandler';
 
 const router = express.Router();
 
+router.post('/duplicate/:curriculumId', [
+	verifyToken,
+	permit('ADMIN'),
+], asyncWrapper(curriculumController.duplicate));
+
 router.post('/create', [
 	verifyToken,
 	permit('ADMIN'),

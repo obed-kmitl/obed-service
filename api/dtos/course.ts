@@ -33,10 +33,6 @@ export class CreateCourseRequestDTO {
 export class CreateCourseInputDTO {
 	@IsNotEmpty()
 	@IsNumber()
-	course_id : Number =-1;
-
-	@IsNotEmpty()
-	@IsNumber()
 	curriculum_id : number=-1;
 
 	@IsOptional()

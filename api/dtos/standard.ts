@@ -3,29 +3,34 @@ import {
 	IsNotEmpty, IsString, IsNumber, IsArray,
 	ValidateNested, IsDefined, IsOptional,
 } from 'class-validator';
-import { plainToInstance, Type } from 'class-transformer';
+import { Expose, plainToInstance, Type } from 'class-transformer';
 import { customValidateSync } from '_/middleware/validationHandler';
 import { ApplicationError } from '_/errors/applicationError';
 
 export class SubStandard {
+  @Expose()
   @IsNotEmpty()
 	@IsNumber()
 	order_number : number=-1;
 
+  @Expose()
 	@IsNotEmpty()
 	@IsString()
 	title : string='';
 }
 
 export class GroupSubStandard {
+  @Expose()
 	@IsNotEmpty()
 	@IsNumber()
 	order_number : number=-1;
 
+  @Expose()
 	@IsNotEmpty()
 	@IsString()
 	title : string='';
 
+  @Expose()
   @IsDefined()
   @IsNotEmpty()
   @IsArray()
@@ -34,14 +39,12 @@ export class GroupSubStandard {
   sub_standards: SubStandard[] = [];
 }
 export class Standard {
-	@IsNotEmpty()
-	@IsNumber()
-	curriculum_id : number=-1;
-
+  @Expose()
 	@IsNotEmpty()
 	@IsString()
 	title : string='';
 
+  @Expose()
   @IsDefined()
   @IsNotEmpty()
   @IsArray()
@@ -50,6 +53,12 @@ export class Standard {
   group_sub_standards: GroupSubStandard[] = [];
 }
 export class CreateAllStandardsRequestDTO {
+  @Expose()
+	@IsNotEmpty()
+	@IsNumber()
+	curriculum_id : number=-1;
+
+  @Expose()
   @IsDefined()
   @IsNotEmpty()
   @IsArray()
