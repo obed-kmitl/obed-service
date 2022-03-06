@@ -319,6 +319,7 @@ GROUP BY
 const findSection = (sectionId: Number): Promise<QueryResultRow> => db.query(`
 SELECT
     sx.*,
+    gs.course_id,
     gs.semester_id,
     gs.course_name_en,
     gs.course_name_th,
@@ -328,7 +329,39 @@ SELECT
     gs.title,
     gs.university,
     gs.semester_number,
-    gs.year_number
+    gs.year_number,
+    json_build_object(
+        'course_id',
+        gs.pre_course_id,
+        'course_name_en',
+        pre_c.course_name_en,
+        'course_name_th',
+        pre_c.course_name_th,
+        'course_number',
+        pre_c.course_number
+    ) AS pre_course,
+    COALESCE(
+        json_agg(
+            json_build_object(
+                'user_id',
+                t.user_id,
+                'email',
+                t.email,
+                'username',
+                t.username,
+                'prefix',
+                t.prefix,
+                'firstname',
+                t.firstname,
+                'lastname',
+                t.lastname
+            )
+        ) FILTER (
+            WHERE
+                t.section_id IS NOT NULL
+        ),
+        '[]'
+    ) AS teachers
 FROM
     sections sx
     LEFT JOIN (
@@ -341,6 +374,7 @@ FROM
             c.faculty,
             c.title,
             c.university,
+            c.pre_course_id,
             sem.semester_number,
             sem.year_number
         FROM
@@ -358,8 +392,35 @@ FROM
             ) c ON c.course_id = gsx.course_id
             LEFT JOIN semesters sem ON sem.semester_id = gsx.semester_id
     ) gs ON gs.group_sec_id = sx.group_sec_id
+    LEFT JOIN courses pre_c ON pre_c.course_id = gs.pre_course_id
+    LEFT JOIN (
+        SELECT
+            tx.user_id teacher_id,
+            tx.section_id,
+            u.*
+        FROM
+            teachers tx
+            LEFT JOIN users u ON u.user_id = tx.user_id
+    ) t ON t.section_id = sx.section_id
 WHERE
     sx.section_id = $1
+GROUP BY
+    sx.section_id,
+    gs.course_id,
+    gs.semester_id,
+    gs.course_name_en,
+    gs.course_name_th,
+    gs.course_number,
+    gs.department,
+    gs.faculty,
+    gs.title,
+    gs.university,
+    gs.semester_number,
+    gs.year_number,
+    gs.pre_course_id,
+    pre_c.course_name_en,
+    pre_c.course_name_th,
+    pre_c.course_number
 `, [sectionId]);
 
 /**
