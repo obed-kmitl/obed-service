@@ -10,13 +10,12 @@ import {
  */
 const create = async (categoryInfo:
 	CreateCategoryRequestDTO): Promise<QueryResultRow> => db.query(`
-		INSERT INTO categories (section_id, title, weight) 
-		VALUES ($1, $2, $3)
+		INSERT INTO categories (section_id, title) 
+		VALUES ($1, $2)
 		RETURNING *
 		`, [
 	categoryInfo.section_id,
 	categoryInfo.title,
-	categoryInfo.weight,
 ]);
 
 /**
@@ -40,14 +39,12 @@ const update = async (categoryInfo:
 	UpdateCategoryRequestDTO): Promise<QueryResultRow> => db.query(`
     UPDATE categories
     SET 
-      title = $2,
-      weight = $3
+      title = $2
     WHERE category_id = $1
     RETURNING *
 		`, [
 	categoryInfo.category_id,
 	categoryInfo.title,
-	categoryInfo.weight,
 ]);
 
 /**
@@ -80,13 +77,12 @@ const save = async (
 				const updateCate: UpdateCategoryRequestDTO = {
 					category_id: parseInt(cate.category_id.toString(), 10),
 					title: cate.title,
-					weight: cate.weight,
 				};
 				toUpdate.push(updateCate);
 			}
 
 			if (!isMatch && cate.category_id.toString().includes('NEW_')) {
-				toAdd.push([cate.section_id, cate.title, cate.weight]);
+				toAdd.push([cate.section_id, cate.title]);
 			}
 		}
 
@@ -101,7 +97,7 @@ const save = async (
 			await db.query(format(`
         INSERT INTO 
           categories
-          (section_id, title, weight) 
+          (section_id, title) 
         VALUES 
           %L
         `, toAdd));

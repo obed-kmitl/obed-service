@@ -14,12 +14,6 @@ export class Category {
 	@IsNotEmpty()
 	@IsString()
 	title: string= '';
-
-  @IsNotEmpty()
-	@IsNumber()
-  @Min(0)
-  @Max(100)
-	weight: number= -1;
 }
 
 export class SaveCategoryRequestDTO {
@@ -39,12 +33,6 @@ export class CreateCategoryRequestDTO {
 	@IsNotEmpty()
 	@IsString()
 	title: string= '';
-
-  @IsNotEmpty()
-	@IsNumber()
-  @Min(0)
-  @Max(100)
-	weight: number= -1;
 }
 
 export class UpdateCategoryRequestDTO {
@@ -55,10 +43,4 @@ export class UpdateCategoryRequestDTO {
 	@IsNotEmpty()
 	@IsString()
 	title: string= '';
-
-  @IsNotEmpty()
-	@IsNumber()
-  @Min(0)
-  @Max(100)
-	weight: number= -1;
 }
