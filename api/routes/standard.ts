@@ -8,12 +8,19 @@ import {
 	UpdateStandardRequestDTO,
 	UpdateGroupSubStandardRequestDTO,
 	UpdateSubStandardRequestDTO,
+	CreateAllStandardsRequestDTO,
 } from '_/dtos/standard';
 
 import express from 'express';
 import { validateRequest } from '_/middleware/validationHandler';
 
 const router = express.Router();
+
+router.post('/createAllStandards', [
+	verifyToken,
+	permit('ADMIN'),
+	validateRequest(CreateAllStandardsRequestDTO),
+], asyncWrapper(standardController.createAllStandards));
 
 router.post('/create', [
 	verifyToken,
