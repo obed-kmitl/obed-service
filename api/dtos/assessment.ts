@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	IsNotEmpty, IsString, IsNumber, IsArray,
-	ValidateNested, IsDefined,
+	ValidateNested, IsDefined, IsOptional,
 } from 'class-validator';
 import { plainToInstance, Type } from 'class-transformer';
 import { customValidateSync } from '_/middleware/validationHandler';
@@ -12,9 +12,9 @@ export class Score {
 	@IsNumber()
   sub_activity_id: number= -1;
 
-  @IsNotEmpty()
+  @IsOptional()
 	@IsNumber()
-  obtained_score: number= -1;
+  obtained_score?: number= undefined;
 }
 
 export class IndividualAssessment {
