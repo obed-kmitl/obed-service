@@ -12,8 +12,8 @@ export class Score {
 	@IsNumber()
   sub_activity_id: number= -1;
 
-  @IsOptional()
 	@IsNumber()
+  @IsOptional()
   obtained_score?: number;
 }
 export class IndividualAssessment {
@@ -59,7 +59,7 @@ export class SaveIndividualAssessmentPayload {
 
   sub_activity_id: number
 
-  score: number
+  score?: number
 }
 
 export class CreateGroupRequestDTO {
