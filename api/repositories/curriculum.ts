@@ -102,7 +102,7 @@ const duplicate = async (
 	await standardRepository.createAllStandards(createAllStandardsInfo);
 
 	return { newCurriculumId };
-}, async ({ newCurriculumId }) => ({ newCurriculumId }));
+}, async ({ newCurriculumId }) => findCurriculum(newCurriculumId));
 
 export default {
 	createCurriculum,

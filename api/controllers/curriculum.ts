@@ -76,12 +76,9 @@ const remove = async (req: Request, res: Response): Promise<Response> => {
  */
 const duplicate = async (req: Request, res: Response): Promise<Response> => {
 	const { curriculumId } = req.params;
-	const { newCurriculumId } = await curriculumRepository.duplicate(curriculumId);
+	const result = await curriculumRepository.duplicate(curriculumId);
 
-	sendResponse(res, {
-		message: `Duplicate culliculum from curriculumId '${curriculumId}' successfully`,
-		newCurriculumId,
-	});
+	sendResponse(res, result.rows[0]);
 };
 
 export default {
