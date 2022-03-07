@@ -11,6 +11,7 @@ const router = express.Router();
 router.post('/duplicate/:curriculumId', [
 	verifyToken,
 	permit('ADMIN'),
+	validateRequest(CreateCurriculumRequestDTO),
 ], asyncWrapper(curriculumController.duplicate));
 
 router.post('/create', [

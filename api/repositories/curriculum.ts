@@ -70,14 +70,10 @@ const deleteCurriculum = async (curriculumId: number): Promise<QueryResultRow> =
  */
 const duplicate = async (
 	curriculumId: number,
+	curriculumInfo:	 CreateCurriculumRequestDTO,
 ): Promise<QueryResultRow> => db.transaction(async () => {
-	const { rows: curriculumRows } = await findCurriculum(curriculumId);
-	const { rows: newCurrculumRows } = await createCurriculum({
-		title: curriculumRows[0].title,
-		university: curriculumRows[0].university,
-		department: curriculumRows[0].department,
-		faculty: curriculumRows[0].faculty,
-	});
+	const { rows: newCurrculumRows } = await createCurriculum(curriculumInfo);
+
 	const newCurriculumId: number = newCurrculumRows[0].curriculum_id;
 
 	const { rows: courseRows } = await courseRepository.findAllByCurriculum(curriculumId);
