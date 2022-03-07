@@ -14,9 +14,8 @@ export class Score {
 
   @IsOptional()
 	@IsNumber()
-  obtained_score?: number= undefined;
+  obtained_score?: number;
 }
-
 export class IndividualAssessment {
   @IsNotEmpty()
 	@IsNumber()
