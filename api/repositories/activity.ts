@@ -95,10 +95,11 @@ const getAllBySection = async (sectionId: number): Promise<QueryResultRow> => db
         activities a
         LEFT JOIN sub_activities sa ON sa.activity_id = a.activity_id
     WHERE
-        category_id IS NULL
+        category_id IS NULL AND
+        section_id = $1
     GROUP BY
         a.activity_id
-      `, []);
+      `, [sectionId]);
 
 		result = [...result, {
 			title: 'Unassigned',
