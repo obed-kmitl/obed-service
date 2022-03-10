@@ -19,4 +19,9 @@ router.get('/getReportBySection/:sectionId', [
 	permit('TEACHER'),
 ], asyncWrapper(reportController.getReportBySection));
 
+router.get('/getSectionReport/:sectionId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(reportController.getSectionReport));
+
 export default router;

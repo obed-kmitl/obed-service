@@ -306,6 +306,25 @@ WHERE
     activity_id = $1
   `, [activityId]);
 
+/**
+ * findฺSubActivityByClo
+ */
+const findฺSubActivityByClo = async (cloId: number): Promise<QueryResultRow> => db.query(`
+SELECT
+    sa.sub_activity_id,
+    sa.detail,
+    sa.max_score,
+    a.activity_id,
+    a.title as activity_title,
+    a.detail as activity_detail
+FROM
+    sub_activities_clo sac
+    LEFT JOIN sub_activities sa ON sa.sub_activity_id = sac.sub_activity_id
+    LEFT JOIN activities a ON a.activity_id = sa.activity_id
+WHERE
+    sac.clo_id = $1
+   `, [cloId]);
+
 export default {
 	create,
 	getAllBySection,
@@ -317,4 +336,5 @@ export default {
 	findAllSubActivity,
 	removeSubActivity,
 	find,
+	findฺSubActivityByClo,
 };
