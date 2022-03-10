@@ -21,3 +21,5 @@ export { default as studentRepository } from './student';
 export { default as assessmentRepository } from './assessment';
 
 export { default as reportRepository } from './report';
+
+export { default as scoreRepository } from './score';
