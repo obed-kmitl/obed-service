@@ -4,6 +4,8 @@ import mapStandardRepository from '_/repositories/mapStandard';
 
 import { Request, Response, NextFunction } from 'express';
 import { CommonError } from '_/errors/common';
+import { CreateAllCourseRequestDTO } from '_/dtos/course';
+import _ from 'lodash';
 
 /**
  * Create Course
@@ -30,6 +32,21 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 	const result = await courseRepository.createCourseSubStandards(course_id, relativeStandardInfo);
 
 	sendResponse(res, result.rows[0]);
+};
+
+/**
+ * Create all courses
+ */
+const createAll = async (req: Request, res: Response): Promise<Response> => {
+	const { courses } = req.body as CreateAllCourseRequestDTO;
+
+	const createAllCourses = courses.map(async (ele) => courseRepository.createCourse(ele));
+	const results = await Promise.all(createAllCourses);
+
+	sendResponse(res,
+		_.chain(results).map(
+			(ele) => ele.rows[0],
+		).value());
 };
 
 /**
@@ -102,4 +119,5 @@ export default {
 	getAllByCurriculum,
 	update,
 	remove,
+	createAll,
 };
