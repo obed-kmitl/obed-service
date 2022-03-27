@@ -1,11 +1,12 @@
+/* eslint-disable no-continue */
 import courseRepository from '_/repositories/course';
 import { sendResponse } from '_/utils/response';
 import mapStandardRepository from '_/repositories/mapStandard';
 
 import { Request, Response, NextFunction } from 'express';
 import { CommonError } from '_/errors/common';
-import { CreateAllCourseRequestDTO } from '_/dtos/course';
-import _ from 'lodash';
+import { CreateAllCourseRequestDTO, CreateCourseRequestDTO } from '_/dtos/course';
+import _, { isEmpty } from 'lodash';
 
 /**
  * Create Course
@@ -40,13 +41,32 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 const createAll = async (req: Request, res: Response): Promise<Response> => {
 	const { courses } = req.body as CreateAllCourseRequestDTO;
 
-	const createAllCourses = courses.map(async (ele) => courseRepository.createCourse(ele));
+	const validCourses: CreateCourseRequestDTO[] = [];
+	const invalidCourses: CreateCourseRequestDTO[] = [];
+	for await (const ele of courses) {
+		const result = await courseRepository.findByCurriculumAndCourse(
+			ele.curriculum_id, ele.course_number,
+		);
+		if (isEmpty(result.rows)) {
+			validCourses.push(ele);
+			continue;
+		}
+		invalidCourses.push(ele);
+	}
+
+	const createAllCourses = validCourses.map(async (
+		ele,
+	) => courseRepository.createCourse(ele));
 	const results = await Promise.all(createAllCourses);
 
 	sendResponse(res,
-		_.chain(results).map(
-			(ele) => ele.rows[0],
-		).value());
+		{
+			created_courses: _.chain(results)
+				.map(
+					(ele) => ele.rows[0],
+				).value(),
+			duplicated_course_number: invalidCourses.map((ele) => ele.course_number),
+		});
 };
 
 /**
