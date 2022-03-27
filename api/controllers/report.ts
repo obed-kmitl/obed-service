@@ -1,12 +1,16 @@
 import { sendResponse } from "_/utils/response";
 import { Request, Response } from "express";
 import ejs from "ejs";
-import pdf from "html-pdf";
+// import pdf from "html-pdf";
 import { CommonError } from "_/errors/common";
 import path from "path";
 
 const reportData = {
-  reportDate: "20 ธันวาคม 2565",
+  reportDate: new Date().toLocaleDateString("th-TH", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }),
   university: "สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง",
   faculty: "วิศวกรรมศาสตร์",
   department: "วิศวกรรมคอมพิวเตอร์",
@@ -322,7 +326,6 @@ const reportData = {
       ],
       evaluation: ["ข้อสอบและ Learning Outcome มีความสอดคล้องกัน > 80%"],
     },
-    
   ],
   assesment: [
     "ประชุมกรรมการหลักสูตรเพื่อพิจารณาผลการเรียนรู้เป็นรายวิชา",
@@ -369,16 +372,16 @@ const generate = async (req: Request, res: Response): Promise<Response> => {
             },
           },
         };
-        pdf
-          .create(data, options)
-          .toFile("reports/report.pdf", (reportErr, reportData) => {
-            if (err) {
-              throw CommonError.UNKNOWN_ERROR;
-            } else {
-              res.send("File created successfully");
-              // sendResponse(res, { success: true });
-            }
-          });
+        // pdf
+        //   .create(data, options)
+        //   .toFile("reports/report.pdf", (reportErr, reportData) => {
+        //     if (err) {
+        //       throw CommonError.UNKNOWN_ERROR;
+        //     } else {
+        //       res.send("File created successfully");
+        //       // sendResponse(res, { success: true });
+        //     }
+        //   });
       }
     }
   );
