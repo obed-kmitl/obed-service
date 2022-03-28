@@ -1,0 +1,2 @@
+ALTER TABLE courses ALTER COLUMN course_name_en TYPE VARCHAR(50) SET;
+ALTER TABLE courses ALTER COLUMN course_name_th TYPE VARCHAR(50) SET;
