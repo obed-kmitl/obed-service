@@ -1,5 +1,6 @@
+import { Type } from 'class-transformer';
 import {
-	IsNotEmpty, IsString, IsOptional, IsNumber, Min, Max, IsArray,
+	IsNotEmpty, IsString, IsOptional, IsNumber, Min, Max, IsArray, ValidateNested, IsDefined,
 } from 'class-validator';
 
 export class Category {
@@ -17,9 +18,7 @@ export class Category {
 
   @IsNotEmpty()
 	@IsNumber()
-  @Min(0)
-  @Max(100)
-	weight: number= -1;
+	weight: number=-1;
 }
 
 export class SaveCategoryRequestDTO {
@@ -28,6 +27,9 @@ export class SaveCategoryRequestDTO {
 	section_id : number= -1;
 
   @IsArray()
+  @ValidateNested()
+  @IsDefined()
+  @Type(() => Category)
   categories : Category[] = [];
 }
 
@@ -42,9 +44,7 @@ export class CreateCategoryRequestDTO {
 
   @IsNotEmpty()
 	@IsNumber()
-  @Min(0)
-  @Max(100)
-	weight: number= -1;
+	weight: number=-1;
 }
 
 export class UpdateCategoryRequestDTO {
@@ -58,7 +58,5 @@ export class UpdateCategoryRequestDTO {
 
   @IsNotEmpty()
 	@IsNumber()
-  @Min(0)
-  @Max(100)
-	weight: number= -1;
+	weight: number=-1;
 }

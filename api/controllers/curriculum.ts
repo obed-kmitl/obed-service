@@ -71,10 +71,27 @@ const remove = async (req: Request, res: Response): Promise<Response> => {
 	sendResponse(res, result.rows[0]);
 };
 
+/**
+ * Duplicate Curriculum
+ */
+const duplicate = async (req: Request, res: Response): Promise<Response> => {
+	const { curriculumId } = req.params;
+	const result = await curriculumRepository.duplicate(curriculumId, req.body);
+
+	const createSemesterObject: CreateSemesterRequestDTO = {
+		year_number: new Date().getFullYear() + 543,
+		curriculum_id: result.rows[0].curriculum_id,
+	};
+	await semesterRepository.createSemester(createSemesterObject);
+
+	sendResponse(res, result.rows[0]);
+};
+
 export default {
 	create,
 	get,
 	getAll,
 	update,
 	remove,
+	duplicate,
 };

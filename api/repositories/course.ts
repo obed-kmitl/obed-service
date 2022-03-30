@@ -76,6 +76,21 @@ const findByCourse = async (courseId: Number): Promise<QueryResultRow> => db.que
 `, [courseId]);
 
 /**
+ * findByCurriculumAndCourse
+ */
+const findByCurriculumAndCourse = async (curriculumId, courseId): Promise<QueryResultRow> => db.query(`
+		SELECT
+        *
+    FROM
+        courses
+    WHERE
+        curriculum_id = $1
+        AND course_number = $2
+		`, [
+	curriculumId, courseId,
+]);
+
+/**
  * Create course
  */
 const createCourse = async (courseInfo:
@@ -227,4 +242,5 @@ export default {
 	findAllByCurriculum,
 	updateCourse,
 	deleteCourse,
+	findByCurriculumAndCourse,
 };

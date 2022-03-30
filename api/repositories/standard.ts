@@ -7,7 +7,9 @@ import {
 	StandardInputDTO,
 	GroupSubStandardInputDTO,
 	SubStandardInputDTO,
+	CreateAllStandardsRequestDTO,
 } from '_/dtos/standard';
+import { get } from 'lodash';
 
 /**
  * Create Standard
@@ -195,6 +197,40 @@ const deleteSubStandard = async (subStdId: number): Promise<QueryResultRow> => d
  RETURNING *
 `, [subStdId]);
 
+/**
+ * createAllStandards
+ */
+const createAllStandards = async (
+	createAllStandardsInfo: CreateAllStandardsRequestDTO,
+): Promise<QueryResultRow> => db.transaction(async () => {
+	const { standards, curriculum_id } = createAllStandardsInfo;
+
+	for (const standard of standards) {
+		const { rows: standardRows } = await create({
+			curriculum_id,
+			title: standard.title,
+		});
+		const standardId = get(standardRows[0], 'standard_id');
+
+		for (const groupSubStandards of standard.group_sub_standards) {
+			const { rows: groupSubStandardRows } = await creatGroupSubStandard({
+				standard_id: standardId,
+				order_number: groupSubStandards.order_number,
+				title: groupSubStandards.title,
+			});
+			const groupSubStandardId = get(groupSubStandardRows[0], 'group_sub_std_id');
+
+			for (const subStandards of groupSubStandards.sub_standards) {
+				await creatSubStandard({
+					group_sub_std_id: groupSubStandardId,
+					order_number: subStandards.order_number,
+					title: subStandards.title,
+				});
+			}
+		}
+	}
+}, async () => {});
+
 export default {
 	 create,
 	 creatGroupSubStandard,
@@ -207,4 +243,5 @@ export default {
 	 deleteStandard,
 	 deleteGroupSubStandard,
 	 deleteSubStandard,
+	createAllStandards,
 };

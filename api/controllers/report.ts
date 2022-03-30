@@ -1,9 +1,9 @@
+import reportRepository from "_/repositories/report";
 import { sendResponse } from "_/utils/response";
-import { Request, Response } from "express";
-import ejs from "ejs";
-// import pdf from "html-pdf";
+import { summaryService } from "_/services";
 import { CommonError } from "_/errors/common";
-import path from "path";
+
+import { Request, Response, NextFunction } from "express";
 
 const reportData = {
   reportDate: new Date().toLocaleDateString("th-TH", {
@@ -339,52 +339,51 @@ const reportData = {
 };
 
 /**
+ * Create Report
+ */
+const save = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response> => {
+  const result = await reportRepository.save(req.body);
+  sendResponse(res, result.rows[0]);
+};
+
+/**
+ * Get Report
+ */
+const getReportBySection = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response> => {
+  const { sectionId } = req.params;
+  const result = await reportRepository.getReportBySection(sectionId);
+  await summaryService.getSectionReport(sectionId);
+
+  sendResponse(res, result.rows[0]);
+};
+
+/**
+ * getSectionReport
+ */
+const getSectionReport = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response> => {
+  const { sectionId } = req.params;
+  const result = await summaryService.getSectionReport(sectionId);
+
+  sendResponse(res, result);
+};
+
+/**
  * Generate report by section
  */
 const generate = async (req: Request, res: Response): Promise<Response> => {
-  ejs.renderFile(
-    path.join(__dirname, "../../views/", "report.ejs"),
-    { reportData: reportData },
-    (err, data) => {
-      if (err) {
-        res.send(err);
-      } else {
-        let options = {
-          format: "A4",
-          border: "0.5in",
-          header: {
-            height: "1cm",
-            contents: {
-              first: " ",
-              default:
-                '<div style="text-align: center; position: relative;">{{page}}</div><div style="postion: relative;right: 0; top: 0;">มคอ.5</div>',
-            },
-          },
-          footer: {
-            height: "1.7cm",
-            contents: {
-              first: " ",
-              default: `<hr><div>${
-                reportData.course_id + " " + reportData.course_name_en
-              }<br>คณะ${
-                reportData.faculty + " " + reportData.university
-              }</div>`,
-            },
-          },
-        };
-        // pdf
-        //   .create(data, options)
-        //   .toFile("reports/report.pdf", (reportErr, reportData) => {
-        //     if (err) {
-        //       throw CommonError.UNKNOWN_ERROR;
-        //     } else {
-        //       res.send("File created successfully");
-        //       // sendResponse(res, { success: true });
-        //     }
-        //   });
-      }
-    }
-  );
+  return;
 };
 
 const demo = async (req: Request, res: Response): Promise<Response> => {
@@ -392,6 +391,9 @@ const demo = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export default {
+  save,
+  getReportBySection,
+  getSectionReport,
   generate,
   demo,
 };

@@ -1,12 +1,18 @@
 import { courseController } from '_/controllers';
 import { verifyToken, permit } from '_/middleware/authorizationHandler';
 import asyncWrapper from '_/middleware/asyncWrapper';
-import { CreateCourseRequestDTO, UpdateCourseRequestDTO } from '_/dtos/course';
+import { CreateAllCourseRequestDTO, CreateCourseRequestDTO, UpdateCourseRequestDTO } from '_/dtos/course';
 
 import express from 'express';
 import { validateRequest } from '_/middleware/validationHandler';
 
 const router = express.Router();
+
+router.post('/createAll', [
+	verifyToken,
+	permit('ADMIN'),
+	validateRequest(CreateAllCourseRequestDTO),
+], asyncWrapper(courseController.createAll));
 
 router.post('/create', [
 	verifyToken,

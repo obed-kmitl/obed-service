@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { Pool } from 'pg';
 import dbConfig from '_/configs/db';
 import logger from '_/utils/logger';
@@ -13,11 +14,15 @@ logger.info('Postgres Database connected');
 
 export default {
 	async query(text, params?) {
-		const start = Date.now();
-		const res = await pool.query(text, params);
-		const duration = Date.now() - start;
-		// logger.info('executed query', { text, duration, rows: res.rowCount });
-		return res;
+		try {
+			const start = Date.now();
+			const res = await pool.query(text, params);
+			const duration = Date.now() - start;
+			// logger.info('executed query', { text, duration, rows: res.rowCount });
+			return res;
+		} catch (err) {
+			throw err;
+		}
 	},
 	async transaction(fn, callback) {
 		try {
@@ -26,7 +31,6 @@ export default {
 			await pool.query('COMMIT;');
 			return callback(fnResponse);
 		} catch (err) {
-			await pool.query('ROLLBACK;');
 			throw err;
 		}
 	},

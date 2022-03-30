@@ -1,10 +1,22 @@
 import { sendResponse } from '_/utils/response';
 import standardRepository from '_/repositories/standard';
-import { StandardInputDTO, GroupSubStandardInputDTO, SubStandardInputDTO } from '_/dtos/standard';
+import {
+	StandardInputDTO, GroupSubStandardInputDTO, SubStandardInputDTO, CreateAllStandardsRequestDTO,
+} from '_/dtos/standard';
 import { Request, Response, NextFunction } from 'express';
 import { CommonError } from '_/errors/common';
 
 import { deserialize } from 'json-typescript-mapper';
+
+/**
+ * createAllStandards
+ */
+const createAllStandards = async (req: Request, res: Response): Promise<Response> => {
+	await CreateAllStandardsRequestDTO.validate(req.body);
+	await standardRepository.createAllStandards(req.body);
+
+	sendResponse(res, { message: 'Create all standards successfully' });
+};
 
 /**
  * Create Standard
@@ -151,4 +163,5 @@ export default {
 	remove,
 	removeGroupSubStandard,
 	removeSubStandard,
+	createAllStandards,
 };

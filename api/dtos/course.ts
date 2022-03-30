@@ -1,5 +1,6 @@
+import { Type } from 'class-transformer';
 import {
-	IsNotEmpty, IsString, IsOptional, IsNumber, Length, IsArray,
+	IsNotEmpty, IsString, IsOptional, IsNumber, Length, IsArray, IsDefined, ValidateNested,
 } from 'class-validator';
 
 export class CreateCourseRequestDTO {
@@ -30,11 +31,16 @@ export class CreateCourseRequestDTO {
 	relative_standards: Number[]= [];
 }
 
-export class CreateCourseInputDTO {
+export class CreateAllCourseRequestDTO {
+  @IsDefined()
+  @ValidateNested({ each: true })
 	@IsNotEmpty()
-	@IsNumber()
-	course_id : Number =-1;
+	@IsArray()
+  @Type(() => CreateCourseRequestDTO)
+	courses: CreateCourseRequestDTO[]= [];
+}
 
+export class CreateCourseInputDTO {
 	@IsNotEmpty()
 	@IsNumber()
 	curriculum_id : number=-1;

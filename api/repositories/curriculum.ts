@@ -1,6 +1,9 @@
 import db from '_/utils/db';
 import { CreateCurriculumRequestDTO, CurriculumInputDTO } from '_/dtos/curriculum';
 import { QueryResultRow } from 'pg';
+import { plainToInstance } from 'class-transformer';
+import { CreateAllStandardsRequestDTO } from '_/dtos/standard';
+import { courseRepository, standardRepository } from '.';
 
 /**
  * Create currriculum
@@ -62,10 +65,46 @@ const deleteCurriculum = async (curriculumId: number): Promise<QueryResultRow> =
  RETURNING *
 `, [curriculumId]);
 
+/**
+ * duplicate
+ */
+const duplicate = async (
+	curriculumId: number,
+	curriculumInfo:	 CreateCurriculumRequestDTO,
+): Promise<QueryResultRow> => db.transaction(async () => {
+	const { rows: newCurrculumRows } = await createCurriculum(curriculumInfo);
+
+	const newCurriculumId: number = newCurrculumRows[0].curriculum_id;
+
+	const { rows: courseRows } = await courseRepository.findAllByCurriculum(curriculumId);
+	for (const course of courseRows) {
+		await courseRepository.createCourse({
+			curriculum_id: newCurriculumId,
+			course_number: course.course_number,
+			course_name_en: course.course_name_en,
+			course_name_th: course.course_name_th,
+		});
+	}
+
+	const { rows: standardRows } = await standardRepository.findAllByCurriculum(curriculumId);
+	const createAllStandardsInfo = plainToInstance(
+		CreateAllStandardsRequestDTO,
+		{
+			curriculum_id: newCurriculumId,
+			standards: standardRows,
+		},
+		{ excludeExtraneousValues: true },
+	);
+	await standardRepository.createAllStandards(createAllStandardsInfo);
+
+	return { newCurriculumId };
+}, async ({ newCurriculumId }) => findCurriculum(newCurriculumId));
+
 export default {
 	createCurriculum,
 	findCurriculum,
 	findAllCurriculum,
 	updateCurriculum,
 	deleteCurriculum,
+	duplicate,
 };
