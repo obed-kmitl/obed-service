@@ -12,7 +12,6 @@ import reportRouter from './report';
 import cloRouter from './clo';
 import studentRouter from './student';
 import assessmentRouter from './assessment';
-import reportRouter from './report';
 
 const router = express.Router();
 
