@@ -28,6 +28,7 @@ router.get('/generate/:sectionId', [
 	permit('TEACHER'),
 ], asyncWrapper(reportController.generate));
 
+// TODO: Should be remove
 router.get('/demo', asyncWrapper(reportController.demo));
 
 export default router;
