@@ -53,7 +53,6 @@ export function reportGenerator(data) {
           body: [
             [
               {
-                style: "universityInfo",
                 table: {
                   widths: [90, "*"],
                   body: [
@@ -188,7 +187,6 @@ export function reportGenerator(data) {
         margin: [24, 8, 0, 0],
       },
       {
-        style: ["universityInfo"],
         table: {
           widths: [120, "*", 80, "auto", "auto", "auto"],
           headerRows: 1,
@@ -251,7 +249,6 @@ export function reportGenerator(data) {
       data.improvements.map((ele) => {
         return [
           {
-            style: ["universityInfo"],
             table: {
               widths: [140, "*"],
               headerRows: 2,
@@ -313,9 +310,8 @@ export function reportGenerator(data) {
         pageBreak: "before",
       },
       {
-        style: ["universityInfo"],
         table: {
-          widths: [250, 250],
+          widths: [248, 248],
           headerRows: 1,
           body: [
             [
@@ -339,10 +335,11 @@ export function reportGenerator(data) {
         },
       },
       {
-        style: ["universityInfo"],
         table: {
           widths: ["*", "*", "*"],
-          headerRows: 1,
+          headerRows: 2,
+          // dontBreakRows: true,
+          // keepWithHeaderRows: 1,
           body: [
             [
               ["\n\n\nประธานหลักสูตร"],
