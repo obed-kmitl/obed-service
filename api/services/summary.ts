@@ -3,7 +3,7 @@ import _, {
 } from 'lodash';
 import { SCORE_CRITERIA_RATIO } from '_/constants/summary';
 import {
-	activityService, cloService, mapStandardService, scoreService,
+	activityService, cloService, mapStandardService, scoreService, semesterService,
 } from '.';
 
 export const getCLOSummaryBySection = async (sectionId: number) => {
@@ -64,10 +64,11 @@ export const getPLOSummaryBySection = async (sectionId: number) => {
         sumCLOWeightAverageScore: number,
         sumCLOWeightMaxScore: number,
       }[] = [];
-			for (const [j, clo] of plo.clo_id.entries()) {
+
+			for (const clo of plo.clo_id) {
 				const activities = await activityService.getAssignedSubActivityByClo(clo);
 				let newActivities = activities;
-				for (const [k, activity] of activities.entries()) {
+				for (const [j, activity] of activities.entries()) {
 					let weightAverageScores: number[] = [];
 					let weightMaxScores: number[] = [];
 					for (const subActivity of activity.sub_activities) {
@@ -82,7 +83,7 @@ export const getPLOSummaryBySection = async (sectionId: number) => {
 						weightMaxScores.push(weightMaxScore);
 					}
 
-					newActivities[k] = {
+					newActivities[j] = {
 						sumWeightAverageScores: sum(weightAverageScores),
 						sumWeightMaxScores: sum(weightMaxScores),
 					};
@@ -94,7 +95,6 @@ export const getPLOSummaryBySection = async (sectionId: number) => {
 				const sumCLOWeightMaxScore = sum(
 					newActivities.map((each) => each.sumWeightMaxScores),
 				);
-
 				newClos.push({
 					ratio: divide(sumCLOWeightAverageScore, sumCLOWeightMaxScore),
 					sumCLOWeightAverageScore,
@@ -121,7 +121,7 @@ export const getPLOSummaryBySection = async (sectionId: number) => {
 	}
 
 	return newPlos.map((each) => ({
-		relative_sub_std_id: each.relative_std_id,
+		relative_sub_std_id: each.relative_sub_std_id,
 		order_number: each.order_number,
 		title: each.title,
 		ratio: each.ratio,
@@ -198,7 +198,7 @@ export const getPLOSummaryByStudentAndSection = async (sectionId: number, studen
 	}
 
 	return newPlos.map((each) => ({
-		relative_sub_std_id: each.relative_std_id,
+		relative_sub_std_id: each.relative_sub_std_id,
 		order_number: each.order_number,
 		title: each.title,
 		ratio: each.ratio,
@@ -206,10 +206,41 @@ export const getPLOSummaryByStudentAndSection = async (sectionId: number, studen
 	}));
 };
 
-export const getPLOSummaryByCourse = async (
-	curriculumId: number, semesterId:number, courseId: number,
+export const getPLOSummaryByCourseAndSemester = async (
+	courseId: number, semesterId:number,
 ) => {
-	console.log('yeah');
+	const sections = await semesterService.getSectionByCourseAndSemester(courseId, semesterId);
+	let resultPlos : {
+    relative_sub_std_id: number,
+    order_number: string,
+    title: string,
+    sumRatio: number,
+    ratio: number,
+    percent: number,
+  }[] = [];
+	for (const sectionId of sections) {
+		const plos = await getPLOSummaryBySection(sectionId);
+		if (size(resultPlos) <= 0) {
+			resultPlos = plos.map((each) => ({
+				relative_sub_std_id: each.relative_sub_std_id,
+				order_number: each.order_number,
+				title: each.title,
+				sumRatio: 0,
+				ratio: 0,
+				percent: 0,
+			}));
+		}
+		for (const [i, plo] of plos.entries()) {
+			resultPlos[i].sumRatio += plo.ratio;
+		}
+	}
+	return resultPlos.map((each) => ({
+		relative_sub_std_id: each.relative_sub_std_id,
+		order_number: each.order_number,
+		title: each.title,
+		ratio: each.sumRatio / size(sections),
+		percent: round((each.sumRatio / size(sections)) * 100, 2),
+	}));
 };
 
 export const getPLOSummaryByCohort = async (curriculumId: number, cohort: string) => {
@@ -217,7 +248,14 @@ export const getPLOSummaryByCohort = async (curriculumId: number, cohort: string
 };
 
 export const getPLOSummaryByCurriculum = async (curriculumId: number) => {
-	console.log('yeah');
+	const semesterAndCourses = await semesterService.getSemesterAndCourseByCurriculum(curriculumId);
+	for (const semesterAndCourse of semesterAndCourses) {
+		const result = await getPLOSummaryByCourseAndSemester(
+			semesterAndCourse.course_id,
+			semesterAndCourse.semester_id,
+		);
+		console.log(result);
+	}
 };
 
 export const getPLOSummaryByStudent = async (studentId: number) => {
