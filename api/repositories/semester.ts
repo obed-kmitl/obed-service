@@ -651,6 +651,39 @@ const duplicateSemester = async (curriculumId: number): Promise<QueryResultRow> 
 	(res) => findByYear(res.lastestYearNumber, res.curriculumId),
 );
 
+/**
+* findSectionByCourseAndSemester
+*/
+const findSectionByCourseAndSemester = async (
+	courseId: number, semesterId:number,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+    sec.section_id
+FROM
+    group_sections gsec
+    LEFT JOIN sections sec ON sec.group_sec_id = gsec.group_sec_id
+WHERE
+    gsec.course_id = $1
+    AND gsec.semester_id = $2
+`, [courseId, semesterId]);
+
+/**
+* findSemesterAndCourseByCurriculum
+*/
+const findSemesterAndCourseByCurriculum = async (
+	curriculumId: number,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+    gsec.semester_id,
+    gsec.course_id
+FROM
+    semesters sem
+    LEFT JOIN group_sections gsec ON gsec.semester_id = sem.semester_id
+WHERE
+    sem.curriculum_id = $1
+    AND gsec.group_sec_id IS NOT NULL
+`, [curriculumId]);
+
 export default {
 	createSemester,
 	duplicateSemester,
@@ -664,4 +697,6 @@ export default {
 	updateSection,
 	deleteGroupSection,
 	deleteSection,
+	findSectionByCourseAndSemester,
+	findSemesterAndCourseByCurriculum,
 };

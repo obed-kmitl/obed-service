@@ -120,10 +120,42 @@ const save = async (
 	async (sectionId) => getAllBySection(sectionId),
 );
 
+/**
+ * findWeightBySubActivity
+ */
+const findWeightBySubActivity = async (subActivityId: number): Promise<QueryResultRow> => db.query(`
+SELECT
+    cate.weight
+FROM
+    sub_activities sa
+    LEFT JOIN activities act ON act.activity_id = sa.activity_id
+    LEFT JOIN categories cate ON cate.category_id = act.category_id
+WHERE
+    sa.sub_activity_id = $1
+   `, [subActivityId]);
+
+/**
+ * findTotalMaxScoreBySubActivity
+ */
+const findTotalMaxScoreBySubActivity = async (subActivityId: number): Promise<QueryResultRow> => db.query(`
+SELECT
+    sum(sax.max_score) as total_max_score
+FROM
+    sub_activities sa
+    LEFT JOIN activities act ON act.activity_id = sa.activity_id
+    LEFT JOIN activities actx ON actx.category_id = act.category_id
+    LEFT JOIN sub_activities sax ON sax.activity_id = actx.activity_id
+WHERE
+    sa.sub_activity_id = $1
+    AND sax.sub_activity_id IS NOT NULL
+   `, [subActivityId]);
+
 export default {
 	save,
 	create,
 	getAllBySection,
 	update,
 	remove,
+	findWeightBySubActivity,
+	findTotalMaxScoreBySubActivity,
 };

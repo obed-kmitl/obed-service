@@ -600,10 +600,8 @@ const getReportBySection = async (
   res: Response,
   next: NextFunction
 ): Promise<Response> => {
-  const { sectionId } = req.params;
-  const result = await reportRepository.getReportBySection(sectionId);
-  await summaryService.getSectionReport(sectionId);
-
+	const { sectionId } = req.params;
+	const result = await reportRepository.getReportBySection(sectionId);
   sendResponse(res, result.rows[0]);
 };
 
@@ -616,9 +614,8 @@ const getSectionReport = async (
   next: NextFunction
 ): Promise<Response> => {
   const { sectionId } = req.params;
-  const result = await summaryService.getSectionReport(sectionId);
-
-  sendResponse(res, result);
+	const result = await summaryService.getCLOSummaryBySection(sectionId);
+	sendResponse(res, result);
 };
 
 /**

@@ -307,9 +307,9 @@ WHERE
   `, [activityId]);
 
 /**
- * findฺSubActivityByClo
+ * findฺAssignedSubActivityByClo
  */
-const findฺSubActivityByClo = async (cloId: number): Promise<QueryResultRow> => db.query(`
+const findฺAssignedSubActivityByClo = async (cloId: number): Promise<QueryResultRow> => db.query(`
 SELECT
     sa.sub_activity_id,
     sa.detail,
@@ -321,9 +321,20 @@ FROM
     sub_activities_clo sac
     LEFT JOIN sub_activities sa ON sa.sub_activity_id = sac.sub_activity_id
     LEFT JOIN activities a ON a.activity_id = sa.activity_id
+    LEFT JOIN categories cate ON cate.category_id = a.category_id
 WHERE
     sac.clo_id = $1
+    AND a.category_id IS NOT NULL
    `, [cloId]);
+
+const findSingleSubActivity = async (subActivityId: number) => db.query(`
+SELECT
+    *
+FROM
+    sub_activities sa
+WHERE
+    sub_activity_id = $1
+   `, [subActivityId]);
 
 export default {
 	create,
@@ -336,5 +347,6 @@ export default {
 	findAllSubActivity,
 	removeSubActivity,
 	find,
-	findฺSubActivityByClo,
+	findฺAssignedSubActivityByClo,
+	findSingleSubActivity,
 };
