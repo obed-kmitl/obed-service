@@ -1,8 +1,8 @@
 import { activityRepository } from '_/repositories';
-import _ from 'lodash';
+import _, { sum } from 'lodash';
 
-export const getByClo = async (cloId: number) => {
-	const result = await activityRepository.findฺSubActivityByClo(cloId);
+export const getAssignedSubActivityByClo = async (cloId: number) => {
+	const result = await activityRepository.findฺAssignedSubActivityByClo(cloId);
 
 	return _.chain(result.rows)
 		.sortBy('sub_activity_id')

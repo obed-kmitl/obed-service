@@ -20,7 +20,6 @@ const getReportBySection = async (
 ): Promise<Response> => {
 	const { sectionId } = req.params;
 	const result = await reportRepository.getReportBySection(sectionId);
-	await summaryService.getSectionReport(sectionId);
 
 	sendResponse(res, result.rows[0]);
 };
@@ -32,8 +31,7 @@ const getSectionReport = async (
 	req: Request, res: Response, next: NextFunction,
 ): Promise<Response> => {
 	const { sectionId } = req.params;
-	const result = await summaryService.getSectionReport(sectionId);
-
+	const result = await summaryService.getCLOSummaryBySection(sectionId);
 	sendResponse(res, result);
 };
 

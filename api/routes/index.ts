@@ -12,6 +12,7 @@ import cloRouter from './clo';
 import studentRouter from './student';
 import assessmentRouter from './assessment';
 import reportRouter from './report';
+import summaryRouter from './summary';
 
 const router = express.Router();
 
@@ -28,5 +29,6 @@ router.use('/clo', cloRouter);
 router.use('/student', studentRouter);
 router.use('/assessment', assessmentRouter);
 router.use('/report', reportRouter);
+router.use('/summary', summaryRouter);
 
 export default router;
