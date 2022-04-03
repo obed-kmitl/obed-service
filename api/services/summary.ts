@@ -243,21 +243,57 @@ export const getPLOSummaryByCourseAndSemester = async (
 	}));
 };
 
-export const getPLOSummaryByCohort = async (curriculumId: number, cohort: string) => {
-	console.log('yeah');
-};
-
 export const getPLOSummaryByCurriculum = async (curriculumId: number) => {
 	const semesterAndCourses = await semesterService.getSemesterAndCourseByCurriculum(curriculumId);
+	let resultPlos : {
+    relative_sub_std_id: number,
+    order_number: string,
+    title: string,
+    ratio: number,
+    percent: number,
+    sumRatio: number,
+    count: number,
+  }[] = [];
 	for (const semesterAndCourse of semesterAndCourses) {
-		const result = await getPLOSummaryByCourseAndSemester(
+		const plos = await getPLOSummaryByCourseAndSemester(
 			semesterAndCourse.course_id,
 			semesterAndCourse.semester_id,
 		);
-		console.log(result);
+		for (const plo of plos) {
+			if (!resultPlos.find((each) => each.relative_sub_std_id === plo.relative_sub_std_id)) {
+				resultPlos.push({
+					...plo,
+					sumRatio: 0,
+					count: 0,
+				});
+			}
+
+			const ploIndex = resultPlos.findIndex(
+				(each) => each.relative_sub_std_id === plo.relative_sub_std_id,
+			);
+			if (ploIndex !== -1) {
+				resultPlos[ploIndex] = {
+					...resultPlos[ploIndex],
+					sumRatio: resultPlos[ploIndex].sumRatio + plo.ratio,
+					count: resultPlos[ploIndex].count + 1,
+				};
+			}
+		}
 	}
+
+	return resultPlos.map((each) => ({
+		relative_sub_std_id: each.relative_sub_std_id,
+		order_number: each.order_number,
+		title: each.title,
+		ratio: each.sumRatio / each.count,
+		percent: round((each.sumRatio / each.count) * 100, 2),
+	}));
 };
 
 export const getPLOSummaryByStudent = async (studentId: number) => {
+	console.log('yeah');
+};
+
+export const getPLOSummaryByCohort = async (curriculumId: number, cohort: string) => {
 	console.log('yeah');
 };
