@@ -684,6 +684,38 @@ WHERE
     AND gsec.group_sec_id IS NOT NULL
 `, [curriculumId]);
 
+/**
+* findSectionAndSectionByCurriculumAndStudentNumber
+*/
+const findSectionAndSectionByCurriculumAndStudentNumber = async (
+	curriculumId: number, studentNumber:number,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+    stu.student_id,
+    sec.section_id
+FROM
+    curriculums cur
+    LEFT JOIN semesters sem ON sem.curriculum_id = cur.curriculum_id
+    LEFT JOIN group_sections gsec ON gsec.semester_id = sem.semester_id
+    LEFT JOIN sections sec ON sec.group_sec_id = gsec.group_sec_id
+    LEFT JOIN students stu ON stu.section_id = sec.section_id
+WHERE
+    cur.curriculum_id = $1
+    AND stu.student_number = $2
+`, [curriculumId, studentNumber]);
+
+const findSemester = async (
+	curriculumId: number,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+    sem.semester_id as id,
+    sem.semester_number || '/' || sem.year_number as label
+FROM
+    semesters sem
+WHERE
+    sem.curriculum_id = $1
+`, [curriculumId]);
+
 export default {
 	createSemester,
 	duplicateSemester,
@@ -699,4 +731,6 @@ export default {
 	deleteSection,
 	findSectionByCourseAndSemester,
 	findSemesterAndCourseByCurriculum,
+	findSectionAndSectionByCurriculumAndStudentNumber,
+	findSemester,
 };

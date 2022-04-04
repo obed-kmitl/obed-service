@@ -236,6 +236,19 @@ const deleteCourse = async (courseId: string): Promise<QueryResultRow> => db.que
  RETURNING *
 `, [courseId]);
 
+const findCourse = async (
+	semesterId: number,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+    c.course_id as id,
+    c.course_number as label
+FROM
+    group_sections gsec
+    LEFT JOIN courses c ON c.course_id = gsec.course_id
+WHERE
+    gsec.semester_id = $1
+`, [semesterId]);
+
 export default {
 	createCourse,
 	createCourseSubStandards,
@@ -243,4 +256,5 @@ export default {
 	updateCourse,
 	deleteCourse,
 	findByCurriculumAndCourse,
+	findCourse,
 };

@@ -76,10 +76,27 @@ const update = async (studentId: number, studentInfo: UpdateStudentRequestDTO): 
 	studentInfo.lastname,
 ]);
 
+const findStudentNumber = async (
+	curriculumId: number,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+    DISTINCT ON (stu.student_number) stu.student_number as value,
+    stu.student_number as label
+FROM
+    semesters sem
+    LEFT JOIN group_sections gsec ON gsec.semester_id = sem.semester_id
+    LEFT JOIN sections sec ON sec.group_sec_id = gsec.group_sec_id
+    LEFT JOIN students stu ON stu.section_id = sec.section_id
+WHERE
+    sem.curriculum_id = $1
+    AND stu.student_id IS NOT NULL
+`, [curriculumId]);
+
 export default {
 	create,
 	getAllBySection,
 	get,
 	remove,
 	update,
+	findStudentNumber,
 };

@@ -16,3 +16,12 @@ export const getSemesterAndCourseByCurriculum = async (
 	const result = await semesterRepository.findSemesterAndCourseByCurriculum(curriculumId);
 	return result.rows;
 };
+
+export const getSectionByCurriculumAndStudentNumber = async (
+	curriculumId:number, studentNumber: number,
+) => {
+	const result = await semesterRepository.findSectionAndSectionByCurriculumAndStudentNumber(
+		curriculumId, studentNumber,
+	);
+	return result.rows;
+};
