@@ -7,3 +7,5 @@ export * as mapStandardService from './mapStandard';
 export * as semesterService from './semester';
 export * as dropdownService from './dropdown';
 export * as studentService from './student';
+export * as reportService from './report';
+export * as sectionService from './section';
