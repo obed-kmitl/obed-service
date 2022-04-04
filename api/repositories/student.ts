@@ -92,6 +92,26 @@ WHERE
     AND stu.student_id IS NOT NULL
 `, [curriculumId]);
 
+const findStudentNumberByCurriculumAndCohort = async (
+	curriculumId: number, cohort: string,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+    DISTINCT ON (stu.student_number) stu.student_number
+FROM
+    semesters sem
+    LEFT JOIN group_sections gsec ON gsec.semester_id = sem.semester_id
+    LEFT JOIN sections sec ON sec.group_sec_id = gsec.group_sec_id
+    LEFT JOIN students stu ON stu.section_id = sec.section_id
+WHERE
+    sem.curriculum_id = $1
+    AND stu.student_id IS NOT NULL
+    AND substring(
+        stu.student_number
+        from
+            1 for 2
+    ) = $2
+`, [curriculumId, cohort]);
+
 export default {
 	create,
 	getAllBySection,
@@ -99,4 +119,5 @@ export default {
 	remove,
 	update,
 	findStudentNumber,
+	findStudentNumberByCurriculumAndCohort,
 };

@@ -36,4 +36,9 @@ router.get('/getPLOSummaryByStudentNumberAndCurriculum/:curriculumId/:studentNum
 	permit('ADMIN'),
 ], asyncWrapper(summaryController.getPLOSummaryByStudentNumberAndCurriculum));
 
+router.get('/getPLOSummaryByCohortAndCurriculum/:curriculumId/:cohort', [
+	verifyToken,
+	permit('ADMIN'),
+], asyncWrapper(summaryController.getPLOSummaryByCohortAndCurriculum));
+
 export default router;

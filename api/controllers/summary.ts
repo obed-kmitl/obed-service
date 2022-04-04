@@ -75,6 +75,19 @@ const getPLOSummaryByStudentNumberAndCurriculum = async (
 	sendResponse(res, result);
 };
 
+/**
+ *  getPLOSummaryByCohortAndCurriculum
+ */
+const getPLOSummaryByCohortAndCurriculum = async (
+	req: Request, res: Response, next: NextFunction,
+): Promise<Response> => {
+	const { curriculumId, cohort } = req.params;
+	const result = await summaryService.getPLOSummaryByCohortAndCurriculum(
+		curriculumId, cohort,
+	);
+	sendResponse(res, result);
+};
+
 export default {
 	getCLOSummaryBySection,
 	getPLOSummaryBySection,
@@ -82,4 +95,5 @@ export default {
 	getPLOSummaryByCourseAndSemester,
 	getPLOSummaryByCurriculum,
 	getPLOSummaryByStudentNumberAndCurriculum,
+	getPLOSummaryByCohortAndCurriculum,
 };

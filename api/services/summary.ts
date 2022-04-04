@@ -2,8 +2,9 @@ import _, {
 	sum, size, round, divide,
 } from 'lodash';
 import { SCORE_CRITERIA_RATIO } from '_/constants/summary';
+import { studentRepository } from '_/repositories';
 import {
-	activityService, cloService, mapStandardService, scoreService, semesterService,
+	activityService, cloService, mapStandardService, scoreService, semesterService, studentService,
 } from '.';
 
 export const getCLOSummaryBySection = async (sectionId: number) => {
@@ -340,6 +341,50 @@ export const getPLOSummaryByStudentNumberAndCurriculum = async (
 	}));
 };
 
-export const getPLOSummaryByCohort = async (curriculumId: number, cohort: string) => {
-	console.log('yeah');
+export const getPLOSummaryByCohortAndCurriculum = async (curriculumId: number, cohort: string) => {
+	const studentNumbers = await studentService.getStudentNumberByCurriculumAndCohort(
+		curriculumId, cohort,
+	);
+	let resultPlos : {
+    relative_sub_std_id: number,
+    order_number: string,
+    title: string,
+    ratio: number,
+    percent: number,
+    sumRatio: number,
+    count: number,
+  }[] = [];
+	for (const studentNumber of studentNumbers) {
+		const plos = await getPLOSummaryByStudentNumberAndCurriculum(
+			curriculumId, studentNumber,
+		);
+		for (const plo of plos) {
+			if (!resultPlos.find((each) => each.relative_sub_std_id === plo.relative_sub_std_id)) {
+				resultPlos.push({
+					...plo,
+					sumRatio: 0,
+					count: 0,
+				});
+			}
+
+			const ploIndex = resultPlos.findIndex(
+				(each) => each.relative_sub_std_id === plo.relative_sub_std_id,
+			);
+			if (ploIndex !== -1) {
+				resultPlos[ploIndex] = {
+					...resultPlos[ploIndex],
+					sumRatio: resultPlos[ploIndex].sumRatio + plo.ratio,
+					count: resultPlos[ploIndex].count + 1,
+				};
+			}
+		}
+	}
+
+	return resultPlos.map((each) => ({
+		relative_sub_std_id: each.relative_sub_std_id,
+		order_number: each.order_number,
+		title: each.title,
+		ratio: each.sumRatio / each.count,
+		percent: round((each.sumRatio / each.count) * 100, 2),
+	}));
 };
