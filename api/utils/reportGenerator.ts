@@ -1,4 +1,30 @@
-export function reportGenerator(data) {
+import { getSection } from "_/services/section";
+import { getCLOSummaryBySection } from "_/services/summary";
+import { getReportBySection } from "_/services/report";
+
+export const reportGenerator = async (sectionId: number) => {
+  const data = {
+    reportDate: new Date().toLocaleDateString("th-TH", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    results: await getCLOSummaryBySection(sectionId),
+    ...(await getSection(sectionId)),
+    ...(await getReportBySection(sectionId)),
+  };
+
+  const getThPrefix = {
+    PROF_DR: "ศ.ดร. ",
+    PROF: "ศ. ",
+    ASSOC_PROF_DR: "รศ.ดร. ",
+    ASSOC_PROF: "รศ. ",
+    ASST_PROF_DR: "ผศ.ดร. ",
+    ASST_PROF: "ผศ. ",
+    DR: "ดร. ",
+    INSTRUCTOR: "อ. ",
+  };
+
   var PdfPrinter = require("pdfmake");
   var fonts = {
     THSarabun: {
@@ -58,7 +84,7 @@ export function reportGenerator(data) {
                   body: [
                     [
                       { text: "1. รหัสวิชา", style: "textBold" },
-                      data.course_id,
+                      data.course_number,
                     ],
                     [
                       {
@@ -93,7 +119,9 @@ export function reportGenerator(data) {
       },
       {
         separator: ") ",
-        ol: data.teachers,
+        ol: data.teachers.map(
+          (ele) => getThPrefix[ele.prefix] + ele.firstname + " " + ele.lastname
+        ),
         margin: [32, 0, 0, 0],
       },
       {
@@ -102,7 +130,7 @@ export function reportGenerator(data) {
         margin: [6, 8, 0, 0],
       },
       {
-        text: ["ภาคการศึกษา ", data.semester],
+        text: ["ภาคการศึกษา ", data.semester_number + "/" + data.year_number],
         margin: [32, 0, 0, 0],
       },
       {
@@ -111,7 +139,10 @@ export function reportGenerator(data) {
         margin: [6, 8, 0, 0],
       },
       {
-        text: [data.prerequisite || "ไม่มี"],
+        text: [
+          (data.pre_course.course_number && data.pre_course.course_name_th) ||
+            "ไม่มี",
+        ],
         margin: [32, 0, 0, 0],
       },
       {
@@ -120,7 +151,7 @@ export function reportGenerator(data) {
         margin: [6, 8, 0, 0],
       },
       {
-        ul: data.campus,
+        text: data.university,
         margin: [32, 0, 0, 0],
       },
       {
@@ -152,14 +183,14 @@ export function reportGenerator(data) {
               { text: "F", style: "textBold" },
             ],
             [
-              data.grades.a,
-              data.grades.bp,
-              data.grades.b,
-              data.grades.cp,
-              data.grades.c,
-              data.grades.dp,
-              data.grades.d,
-              data.grades.f,
+              data.grade[0],
+              data.grade[1],
+              data.grade[2],
+              data.grade[3],
+              data.grade[4],
+              data.grade[5],
+              data.grade[6],
+              data.grade[7],
             ],
           ],
         },
@@ -175,7 +206,7 @@ export function reportGenerator(data) {
         style: "textBold",
         margin: [24, 8, 0, 0],
       },
-      data.improveFromLast.map((ele) => {
+      data.prev_improvement.map((ele) => {
         return {
           text: "- " + ele,
           margin: [32, 0, 0, 0],
@@ -246,7 +277,7 @@ export function reportGenerator(data) {
         style: "textBold",
         margin: [24, 16, 0, 8],
       },
-      data.improvements.map((ele) => {
+      data.next_improvements.map((ele) => {
         return [
           {
             table: {
@@ -270,8 +301,8 @@ export function reportGenerator(data) {
                     style: "textCenter",
                   },
                 ],
-                ["ที่มา / เหตุผล", ele.reason.map((ele) => "- " + ele)],
-                ["การดำเนินการ", ele.solution.map((ele) => "- " + ele)],
+                ["ที่มา / เหตุผล", ele.cause.map((ele) => "- " + ele)],
+                ["การดำเนินการ", ele.work.map((ele) => "- " + ele)],
                 ["การประเมินผล", ele.evaluation.map((ele) => "- " + ele)],
               ],
             },
@@ -293,7 +324,15 @@ export function reportGenerator(data) {
               "ลงชื่อ",
               ".........................................................",
             ],
-            ["", "(" + data.teachers[0] + ")"],
+            [
+              "",
+              "(" +
+                getThPrefix[data.teachers[0].prefix] +
+                data.teachers[0].firstname +
+                " " +
+                data.teachers[0].lastname +
+                ")",
+            ],
             ["", "ผู้จัดทำ"],
             ["", data.reportDate],
           ],
@@ -322,7 +361,7 @@ export function reportGenerator(data) {
               },
             ],
             [
-              data.assesment.map((ele) => "- " + ele),
+              data.verify_method.map((ele) => "- " + ele),
               data.summary.map((ele) => "- " + ele),
             ],
           ],
@@ -338,8 +377,6 @@ export function reportGenerator(data) {
         table: {
           widths: ["*", "*", "*"],
           headerRows: 2,
-          // dontBreakRows: true,
-          // keepWithHeaderRows: 1,
           body: [
             [
               ["\n\n\nประธานหลักสูตร"],
@@ -419,4 +456,4 @@ export function reportGenerator(data) {
   var pdfDoc = printer.createPdfKitDocument(docDefinition);
 
   return pdfDoc;
-}
+};
