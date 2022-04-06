@@ -23,3 +23,5 @@ export { default as assessmentRepository } from './assessment';
 export { default as reportRepository } from './report';
 
 export { default as scoreRepository } from './score';
+
+export * as googleRepository from './google';

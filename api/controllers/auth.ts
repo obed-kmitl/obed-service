@@ -251,24 +251,6 @@ const updatePassword = async (
 	sendResponse(res, { message: 'Update password success' });
 };
 
-const googleAuthToken = async (
-	req: Request, res: Response, next: NextFunction,
-): Promise<Response> => {
-	const { userId } = req;
-	const { code } = req.body;
-
-	const oauth2Client = new google.auth.OAuth2(
-		googleConfig.clientId,
-		googleConfig.secret,
-		googleConfig.redirectUri,
-	);
-	const { tokens } = await oauth2Client.getToken(code);
-
-	console.log(userId, tokens);
-
-	sendResponse(res, { message: 'google auth success' });
-};
-
 /**
  * Force Update user password
  */
@@ -305,6 +287,5 @@ export default {
 	logout,
 	getAccessToken,
 	updatePassword,
-	googleAuthToken,
 	forceUpdatePassword,
 };

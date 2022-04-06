@@ -34,6 +34,4 @@ router.put('/forceUpdatePassword/:userId', [
 	validateRequest(ForceUpdatePasswordRequestDTO),
 ], asyncWrapper(authController.forceUpdatePassword));
 
-router.post('/googleAuthToken', [verifyToken], asyncWrapper(authController.googleAuthToken));
-
 export default router;

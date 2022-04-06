@@ -14,6 +14,7 @@ import assessmentRouter from './assessment';
 import reportRouter from './report';
 import summaryRouter from './summary';
 import dropdownRouter from './dropdown';
+import googleRouter from './google';
 
 const router = express.Router();
 
@@ -32,5 +33,6 @@ router.use('/assessment', assessmentRouter);
 router.use('/report', reportRouter);
 router.use('/summary', summaryRouter);
 router.use('/dropdown', dropdownRouter);
+router.use('/google', googleRouter);
 
 export default router;

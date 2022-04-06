@@ -27,3 +27,5 @@ export { default as assessmentController } from './assessment';
 export { default as summaryController } from './summary';
 
 export * as dropdownController from './dropdown';
+
+export * as googleController from './google';
