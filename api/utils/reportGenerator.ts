@@ -183,14 +183,14 @@ export const reportGenerator = async (sectionId: number) => {
               { text: "F", style: "textBold" },
             ],
             [
-              data.grade[0],
-              data.grade[1],
-              data.grade[2],
-              data.grade[3],
-              data.grade[4],
-              data.grade[5],
-              data.grade[6],
-              data.grade[7],
+              data.grade ? data.grade[0] : 0,
+              data.grade ? data.grade[1] : 0,
+              data.grade ? data.grade[2] : 0,
+              data.grade ? data.grade[3] : 0,
+              data.grade ? data.grade[4] : 0,
+              data.grade ? data.grade[5] : 0,
+              data.grade ? data.grade[6] : 0,
+              data.grade ? data.grade[7] : 0,
             ],
           ],
         },
@@ -206,7 +206,7 @@ export const reportGenerator = async (sectionId: number) => {
         style: "textBold",
         margin: [24, 8, 0, 0],
       },
-      data.prev_improvement.map((ele) => {
+      data.prev_improvement?.map((ele) => {
         return {
           text: "- " + ele,
           margin: [32, 0, 0, 0],
@@ -235,21 +235,21 @@ export const reportGenerator = async (sectionId: number) => {
               { text: "มคอ.2", style: "textCenter" },
               { text: "PLO", style: "textCenter" },
             ],
-            ...data.results.map((ele) => {
+            ...data.results?.map((ele) => {
               return [
                 ele.order_number + " " + ele.detail,
-                ele.activities.map((ele) => {
+                ele.activities?.map((ele) => {
                   return `${ele.title} (${ele.sub_activities.map(
                     (item) => item.detail
                   )})`;
                 }),
-                ele.activities.map((ele) => `${ele.percent}%`),
+                ele.activities?.map((ele) => `${ele.percent}%`),
                 { text: ele.isPassed ? "Y" : "N", style: "textCenter" },
-                ele.main_sub_standards.map((ele) => ({
+                ele.main_sub_standards?.map((ele) => ({
                   text: ele,
                   style: "textCenter",
                 })),
-                ele.relative_sub_standards.map((ele) => ({
+                ele.relative_sub_standards?.map((ele) => ({
                   text: ele,
                   style: "textCenter",
                 })),
@@ -277,7 +277,7 @@ export const reportGenerator = async (sectionId: number) => {
         style: "textBold",
         margin: [24, 16, 0, 8],
       },
-      data.next_improvements.map((ele) => {
+      data.next_improvements?.map((ele) => {
         return [
           {
             table: {
@@ -301,9 +301,9 @@ export const reportGenerator = async (sectionId: number) => {
                     style: "textCenter",
                   },
                 ],
-                ["ที่มา / เหตุผล", ele.cause.map((ele) => "- " + ele)],
-                ["การดำเนินการ", ele.work.map((ele) => "- " + ele)],
-                ["การประเมินผล", ele.evaluation.map((ele) => "- " + ele)],
+                ["ที่มา / เหตุผล", ele.cause?.map((ele) => "- " + ele)],
+                ["การดำเนินการ", ele.work?.map((ele) => "- " + ele)],
+                ["การประเมินผล", ele.evaluation?.map((ele) => "- " + ele)],
               ],
             },
             margin: [4, 4, 0, 8],
@@ -361,8 +361,8 @@ export const reportGenerator = async (sectionId: number) => {
               },
             ],
             [
-              data.verify_method.map((ele) => "- " + ele),
-              data.summary.map((ele) => "- " + ele),
+              data.verify_method?.map((ele) => "- " + ele) || "",
+              data.summary?.map((ele) => "- " + ele) || "",
             ],
           ],
         },
