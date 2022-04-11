@@ -7,10 +7,14 @@ import { oAuth2Client } from '_/utils/oAuth2Client';
 import { googleRepository } from '_/repositories';
 import { GoogleAuthorizationRequestDTO } from '_/dtos/google';
 
+export const listCourseWorks = async (req: Request, res: Response, next: NextFunction) => {
+	const { userId } = req;
+};
+
 export const listCourses = async (req: Request, res: Response, next: NextFunction) => {
-	const { userId } = req.params;
-	console.log(userId);
+	const { userId } = req;
 	const { rows } = await googleRepository.getCredentials(userId);
+	console.log(userId, rows);
 	if (size(rows) === 0) {
 		sendResponse(res, []);
 	}

@@ -56,7 +56,6 @@ export const getCLOSummaryBySection = async (sectionId: number) => {
 
 export const getPLOSummaryBySection = async (sectionId: number) => {
 	const plos = await mapStandardService.getBySection(sectionId);
-
 	let newPlos = plos;
 	for (const [i, plo] of plos.entries()) {
 		if (size(plo.clo_id) > 0) {

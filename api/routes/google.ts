@@ -14,9 +14,14 @@ router.post('/authorize', [
 	validateRequest(GoogleAuthorizationRequestDTO),
 ], asyncWrapper(googleController.authorize));
 
-router.get('/listCourses/:userId', [
+router.get('/listCourses', [
 	verifyToken,
 	permit('TEACHER'),
 ], asyncWrapper(googleController.listCourses));
+
+router.get('/listCourses/:courseId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(googleController.listCourseWorks));
 
 export default router;
