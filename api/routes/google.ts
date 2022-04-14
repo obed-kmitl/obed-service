@@ -19,7 +19,7 @@ router.get('/listCourses', [
 	permit('TEACHER'),
 ], asyncWrapper(googleController.listCourses));
 
-router.get('/listCourses/:courseId', [
+router.get('/listCourseWorks/:courseId', [
 	verifyToken,
 	permit('TEACHER'),
 ], asyncWrapper(googleController.listCourseWorks));

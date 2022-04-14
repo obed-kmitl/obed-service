@@ -1,9 +1,10 @@
 import { sendResponse } from '_/utils/response';
 import { activityRepository } from '_/repositories';
-import { UpdateActivityRequestDTO } from '_/dtos/activity';
+import { UpdateActivityRequestDTO, CreateActivityRequestDTO } from '_/dtos/activity';
 
 import { Request, Response, NextFunction } from 'express';
 import { CommonError } from '_/errors/common';
+import { activityService } from '_/services';
 
 /**
  * Create Activity
@@ -12,6 +13,14 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 	const result = await activityRepository.create(req.body);
 
 	sendResponse(res, result.rows[0]);
+};
+
+const createFromClassroom = async (
+	req: Request, res: Response, next: NextFunction,
+): Promise<Response> => {
+	const reqBody = req.body;
+	const result = await activityService.createFromClassroom(reqBody);
+	sendResponse(res, result);
 };
 
 /**
@@ -139,4 +148,5 @@ export default {
 	updateSubActivity,
 	get,
 	removeSubActivity,
+	createFromClassroom,
 };
