@@ -11,3 +11,12 @@ export const getStudentNumberByCurriculumAndCohort = async (
 		.map((each) => each.student_number)
 		.value();
 };
+
+export const getStudentByStudentNumberAndSection = async (
+	studentNumber: string, sectionId:number,
+) => {
+	const result = await studentRepository.getStudentByStudentNumberAndSection(
+		studentNumber, sectionId,
+	);
+	return result.rows[0];
+};

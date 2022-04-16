@@ -18,8 +18,7 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 const createFromClassroom = async (
 	req: Request, res: Response, next: NextFunction,
 ): Promise<Response> => {
-	const reqBody = req.body;
-	const result = await activityService.createFromClassroom(reqBody);
+	const result = await activityService.createFromClassroom(req, next);
 	sendResponse(res, result);
 };
 

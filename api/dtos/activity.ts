@@ -112,4 +112,12 @@ export class CreateActivityFromClassroomRequestDTO {
   @IsNotEmpty()
   @IsBoolean()
   allowImportStudentScore: boolean = false;
+
+  @IsOptional()
+	@IsString()
+	googleCourseId?: string= undefined;
+
+  @IsOptional()
+	@IsString()
+	googleCourseWorkId?: string= undefined;
 }

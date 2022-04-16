@@ -1,9 +1,15 @@
-import { activityRepository } from '_/repositories';
-import _, { sum } from 'lodash';
+import { activityRepository, assessmentRepository, studentRepository } from '_/repositories';
+import _ from 'lodash';
+import { Request, NextFunction } from 'express';
+
 import {
 	CreateActivityFromClassroomRequestDTO,
 	CreateActivityRequestDTO, CreateSubActivityForClassroomRequestDTO,
 } from '_/dtos/activity';
+import { classroomOAuth2Client } from '_/utils/oAuth2Client';
+import { IndividualAssessment, SaveIndividualAssessmentPayload, SaveIndividualAssessmentRequestDTO } from '_/dtos/assessment';
+import { listStudentSubmissions } from './google';
+import { studentService } from '.';
 
 export const getAssignedSubActivityByClo = async (cloId: number) => {
 	const result = await activityRepository.findฺAssignedSubActivityByClo(cloId);
@@ -46,7 +52,8 @@ export const createSubActivity = async (payload: CreateSubActivityForClassroomRe
 	};
 };
 
-export const createFromClassroom = async (payload: CreateActivityFromClassroomRequestDTO) => {
+export const createFromClassroom = async (req: Request, next: NextFunction) => {
+	const payload = req.body as CreateActivityFromClassroomRequestDTO;
 	const activity = await createActivity({
 		section_id: payload.section_id,
 		category_id: undefined,
@@ -62,8 +69,48 @@ export const createFromClassroom = async (payload: CreateActivityFromClassroomRe
 		clos: payload.clos,
 	});
 
+	if (payload.allowImportStudentScore) {
+		const classroomInstance = await classroomOAuth2Client(req, next);
+		const studentNumberWithScoreList = await listStudentSubmissions(
+			classroomInstance,
+      payload.googleCourseId as string,
+      payload.googleCourseWorkId as string,
+      next,
+		);
+
+		const individualAssessments :IndividualAssessment[] = [];
+
+		for (const each of studentNumberWithScoreList || []) {
+			const student = await studentService.getStudentByStudentNumberAndSection(
+				each.studentNumber, payload.section_id,
+			);
+
+			individualAssessments.push({
+				student_id: student.student_id,
+				scores: [
+					{
+						sub_activity_id: subActivity.sub_activity_id,
+						obtained_score: each.score,
+					},
+				],
+			});
+		}
+
+		const payloads: SaveIndividualAssessmentPayload[] = [];
+
+		for (const individualAssessment of individualAssessments) {
+			for (const score of individualAssessment.scores) {
+				payloads.push({
+					student_id: individualAssessment.student_id,
+					sub_activity_id: score.sub_activity_id,
+					score: score.obtained_score,
+				});
+			}
+		}
+		await assessmentRepository.saveIndividualArray(payloads);
+	}
+
 	return {
-		...activity,
-		sub_activities: [subActivity],
+		message: 'Create activity from classroom success',
 	};
 };
