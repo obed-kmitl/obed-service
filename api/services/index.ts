@@ -10,3 +10,4 @@ export * as studentService from './student';
 export * as reportService from './report';
 export * as sectionService from './section';
 export * as googleService from './google';
+export * as standardService from './standard';
