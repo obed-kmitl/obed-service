@@ -112,6 +112,18 @@ WHERE
     ) = $2
 `, [curriculumId, cohort]);
 
+const getStudentByStudentNumberAndSection = async (
+	studentNumber: string, sectionId:number,
+): Promise<QueryResultRow> => db.query(`
+SELECT
+	*
+FROM
+	students
+WHERE
+	student_number = $1
+	AND section_id = $2
+`, [studentNumber, sectionId]);
+
 export default {
 	create,
 	getAllBySection,
@@ -120,4 +132,5 @@ export default {
 	update,
 	findStudentNumber,
 	findStudentNumberByCurriculumAndCohort,
+	getStudentByStudentNumberAndSection,
 };

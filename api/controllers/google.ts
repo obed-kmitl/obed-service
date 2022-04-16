@@ -6,25 +6,40 @@ import { sendResponse } from '_/utils/response';
 import { oAuth2Client } from '_/utils/oAuth2Client';
 import { googleRepository } from '_/repositories';
 import { GoogleAuthorizationRequestDTO } from '_/dtos/google';
+import { ApplicationError } from '_/errors/applicationError';
+import { GoogleError } from '_/errors/google';
 
 export const listCourseWorks = async (req: Request, res: Response, next: NextFunction) => {
 	const { userId } = req;
+	const { courseId } = req.params;
+	const { rows } = await googleRepository.getCredentials(userId);
+	if (size(rows) === 0) {
+		return next(new ApplicationError(GoogleError.CREDENTAILS_NOT_FOUND));
+	}
+	const credentials = rows[0];
+	oAuth2Client.setCredentials(credentials);
+
+	const classroom = google.classroom({ version: 'v1', auth: oAuth2Client });
+	classroom.courses.courseWork.list({ courseId }, (err, result) => {
+		if (err) return next(new ApplicationError(GoogleError.GOOGLE_CLASSROOM_API_ERROR));
+		sendResponse(res, get(result, 'data.courseWork'));
+	});
 };
 
 export const listCourses = async (req: Request, res: Response, next: NextFunction) => {
 	const { userId } = req;
 	const { rows } = await googleRepository.getCredentials(userId);
-	console.log(userId, rows);
 	if (size(rows) === 0) {
-		sendResponse(res, []);
+		return next(new ApplicationError(GoogleError.CREDENTAILS_NOT_FOUND));
 	}
 	const credentials = rows[0];
 	oAuth2Client.setCredentials(credentials);
 
 	const classroom = google.classroom({ version: 'v1', auth: oAuth2Client });
 	classroom.courses.list({
+		teacherId: 'me',
 	}, (err, result) => {
-		if (err) return console.error(`The API returned an error: ${err}`);
+		if (err) return next(new ApplicationError(GoogleError.GOOGLE_CLASSROOM_API_ERROR));
 		sendResponse(res, get(result, 'data.courses'));
 	});
 };
@@ -42,10 +57,6 @@ export const authorize = async (
 			...result.tokens,
 		},
 	);
-
-	// oAuth2Client.setCredentials(result.tokens);
-
-	// console.log(result);
 
 	sendResponse(res, { message: 'Authorization Success' });
 };

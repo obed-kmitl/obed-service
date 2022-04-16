@@ -7,6 +7,7 @@ import { validateRequest } from '_/middleware/validationHandler';
 import {
 	CreateActivityRequestDTO, UpdateActivityRequestDTO,
 	CreateSubActivityRequestDTO, UpdateSubActivityRequestDTO,
+	CreateActivityFromClassroomRequestDTO,
 } from '_/dtos/activity';
 
 const router = express.Router();
@@ -16,6 +17,12 @@ router.post('/create', [
 	permit('TEACHER'),
 	validateRequest(CreateActivityRequestDTO),
 ], asyncWrapper(activityController.create));
+
+router.post('/createFromClassroom', [
+	verifyToken,
+	permit('TEACHER'),
+	validateRequest(CreateActivityFromClassroomRequestDTO),
+], asyncWrapper(activityController.createFromClassroom));
 
 router.put('/update/:activityId', [
 	verifyToken,
