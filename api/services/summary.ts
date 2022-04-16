@@ -1,10 +1,10 @@
 import _, {
-	sum, size, round, divide,
+	sum, size, round, divide, toNumber,
 } from 'lodash';
 import { SCORE_CRITERIA_RATIO } from '_/constants/summary';
-import { studentRepository } from '_/repositories';
 import {
-	activityService, cloService, mapStandardService, scoreService, semesterService, studentService,
+	activityService, cloService, mapStandardService, scoreService,
+	semesterService, standardService, studentService,
 } from '.';
 
 export const getCLOSummaryBySection = async (sectionId: number) => {
@@ -96,7 +96,9 @@ export const getPLOSummaryBySection = async (sectionId: number) => {
 					newActivities.map((each) => each.sumWeightMaxScores),
 				);
 				newClos.push({
-					ratio: divide(sumCLOWeightAverageScore, sumCLOWeightMaxScore),
+					ratio: sumCLOWeightMaxScore > 0 ? divide(
+						sumCLOWeightAverageScore, sumCLOWeightMaxScore,
+					) : 0,
 					sumCLOWeightAverageScore,
 					sumCLOWeightMaxScore,
 				});
@@ -107,11 +109,12 @@ export const getPLOSummaryBySection = async (sectionId: number) => {
 			const sumPLOWeightMaxScore = sum(
 				newClos.map((each) => each.sumCLOWeightMaxScore),
 			);
-			const ploRatio = sum(
+
+			const ploRatio = sumPLOWeightMaxScore > 0 ? sum(
 				newClos.map(
 					(each) => each.sumCLOWeightMaxScore * each.ratio,
 				),
-			) / sumPLOWeightMaxScore;
+			) / sumPLOWeightMaxScore : 0;
 			newPlos[i].ratio = ploRatio;
 			newPlos[i].percent = round(ploRatio * 100, 2);
 		} else {
@@ -220,6 +223,7 @@ export const getPLOSummaryByCourseAndSemester = async (
   }[] = [];
 	for (const sectionId of sections) {
 		const plos = await getPLOSummaryBySection(sectionId);
+
 		if (size(resultPlos) <= 0) {
 			resultPlos = plos.map((each) => ({
 				relative_sub_std_id: each.relative_sub_std_id,
@@ -238,8 +242,51 @@ export const getPLOSummaryByCourseAndSemester = async (
 		relative_sub_std_id: each.relative_sub_std_id,
 		order_number: each.order_number,
 		title: each.title,
-		ratio: each.sumRatio / size(sections),
-		percent: round((each.sumRatio / size(sections)) * 100, 2),
+		ratio: size(sections) > 0 ? each.sumRatio / size(sections) : 0,
+		percent: size(sections) > 0 ? round((each.sumRatio / size(sections)) * 100, 2) : 0,
+	}));
+};
+
+const groupingPLOResult = async (
+	resultPlos:{
+  relative_sub_std_id: number,
+  order_number: string,
+  title:string,
+  ratio: number,
+  percent: number
+}[],
+	curriculumId: number,
+) => {
+	const groupOrderNumbers = await standardService
+		.getAllRelativeGroupSubStandardByCurriculum(curriculumId);
+
+	let newResultPlos = groupOrderNumbers.map((each) => ({
+		order_number: each.order_number,
+		title: each.title,
+		sumRatio: 0,
+		count: 0,
+	}));
+
+	for (const each of resultPlos) {
+		const eachGroupOrderNumber = toNumber(each.order_number.split('.')[0]);
+		const groupIndex = newResultPlos.findIndex(
+			(eachResult) => eachResult.order_number === eachGroupOrderNumber,
+		);
+
+		if (groupIndex !== -1) {
+			newResultPlos[groupIndex] = {
+				...newResultPlos[groupIndex],
+				sumRatio: newResultPlos[groupIndex].sumRatio + each.ratio,
+				count: newResultPlos[groupIndex].count + 1,
+			};
+		}
+	}
+
+	return newResultPlos.map((each) => ({
+		order_number: each.order_number,
+		title: each.title,
+		ratio: each.count > 0 ? each.sumRatio / each.count : 0,
+		percent: each.count > 0 ? round((each.sumRatio / each.count) * 100, 2) : 0,
 	}));
 };
 
@@ -258,6 +305,58 @@ export const getPLOSummaryByCurriculum = async (curriculumId: number) => {
 		const plos = await getPLOSummaryByCourseAndSemester(
 			semesterAndCourse.course_id,
 			semesterAndCourse.semester_id,
+		);
+
+		for (const plo of plos) {
+			if (!resultPlos.find((each) => each.relative_sub_std_id === plo.relative_sub_std_id)) {
+				resultPlos.push({
+					...plo,
+					sumRatio: 0,
+					count: 0,
+				});
+			}
+
+			const ploIndex = resultPlos.findIndex(
+				(each) => each.relative_sub_std_id === plo.relative_sub_std_id,
+			);
+
+			if (ploIndex !== -1) {
+				resultPlos[ploIndex] = {
+					...resultPlos[ploIndex],
+					sumRatio: resultPlos[ploIndex].sumRatio + plo.ratio,
+					count: resultPlos[ploIndex].count + 1,
+				};
+			}
+		}
+	}
+
+	return groupingPLOResult(resultPlos.map((each) => ({
+		relative_sub_std_id: each.relative_sub_std_id,
+		order_number: each.order_number,
+		title: each.title,
+		ratio: each.sumRatio / each.count,
+		percent: round((each.sumRatio / each.count) * 100, 2),
+	})), curriculumId);
+};
+
+export const getPLOSummaryByStudentNumberAndCurriculum = async (
+	curriculumId: number, studentNumber: number,
+) => {
+	const sections = await semesterService.getSectionByCurriculumAndStudentNumber(
+		curriculumId, studentNumber,
+	);
+	let resultPlos : {
+    relative_sub_std_id: number,
+    order_number: string,
+    title: string,
+    ratio: number,
+    percent: number,
+    sumRatio: number,
+    count: number,
+  }[] = [];
+	for (const section of sections) {
+		const plos = await getPLOSummaryByStudentAndSection(
+			section.section_id, section.student_id,
 		);
 		for (const plo of plos) {
 			if (!resultPlos.find((each) => each.relative_sub_std_id === plo.relative_sub_std_id)) {
@@ -281,16 +380,16 @@ export const getPLOSummaryByCurriculum = async (curriculumId: number) => {
 		}
 	}
 
-	return resultPlos.map((each) => ({
+	return groupingPLOResult(resultPlos.map((each) => ({
 		relative_sub_std_id: each.relative_sub_std_id,
 		order_number: each.order_number,
 		title: each.title,
 		ratio: each.sumRatio / each.count,
 		percent: round((each.sumRatio / each.count) * 100, 2),
-	}));
+	})), curriculumId);
 };
 
-export const getPLOSummaryByStudentNumberAndCurriculum = async (
+const getSubPLOSummaryByStudentNumberAndCurriculum = async (
 	curriculumId: number, studentNumber: number,
 ) => {
 	const sections = await semesterService.getSectionByCurriculumAndStudentNumber(
@@ -354,7 +453,7 @@ export const getPLOSummaryByCohortAndCurriculum = async (curriculumId: number, c
     count: number,
   }[] = [];
 	for (const studentNumber of studentNumbers) {
-		const plos = await getPLOSummaryByStudentNumberAndCurriculum(
+		const plos = await getSubPLOSummaryByStudentNumberAndCurriculum(
 			curriculumId, studentNumber,
 		);
 		for (const plo of plos) {
@@ -379,11 +478,11 @@ export const getPLOSummaryByCohortAndCurriculum = async (curriculumId: number, c
 		}
 	}
 
-	return resultPlos.map((each) => ({
+	return groupingPLOResult(resultPlos.map((each) => ({
 		relative_sub_std_id: each.relative_sub_std_id,
 		order_number: each.order_number,
 		title: each.title,
 		ratio: each.sumRatio / each.count,
 		percent: round((each.sumRatio / each.count) * 100, 2),
-	}));
+	})), curriculumId);
 };
