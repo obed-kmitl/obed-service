@@ -10,8 +10,8 @@ const cookieConfig = {
 		secure: false,
 	},
 	production: {
-		httpOnly: true,
-		secure: true,
+		httpOnly: false,
+		secure: false,
 	},
 };
 

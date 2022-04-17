@@ -10,6 +10,10 @@ const redisConfig = {
 		host: env.REDIS_HOST,
 		port: env.REDIS_PORT,
 	},
+	production: {
+		host: env.REDIS_HOST,
+		port: env.REDIS_PORT,
+	},
 };
 
 export default redisConfig[nodeEnv];
