@@ -14,10 +14,10 @@ echo
 yarn install
 yarn build
 
-# echo
-# echo "[[ Step 3: Migrate ]]"
-# echo
-# yarn model:up
+echo
+echo "[[ Step 3: Migrate ]]"
+echo
+yarn migrate
 
 echo
 echo "[[ Step 4: Deploy ]]"
