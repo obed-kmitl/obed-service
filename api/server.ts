@@ -13,7 +13,7 @@ const server = express(); // init the application
 /**
  * Method to configure the server,
  * If we  didnt configure the port into the environment
- * variables it takes the default port 3001
+ * variables it takes the default port 3001.
  */
 server.set('port', process.env.PORT || 3001);
 server.set('view engine', 'ejs');
