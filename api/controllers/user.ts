@@ -5,7 +5,7 @@ import { sendResponse } from '_/utils/response';
 import { Request, Response, NextFunction } from 'express';
 import { CommonError } from '_/errors/common';
 
-import { deserialize } from 'json-typescript-mapper';
+import { plainToInstance } from 'class-transformer';
 
 /**
  * Get User profile
@@ -34,7 +34,7 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 	const { userId } = req.params;
 	const userProfile = req.body;
 
-	const userInfo = deserialize(UserInputDTO, {
+	const userInfo = plainToInstance(UserInputDTO, {
 		user_id: userId,
 		...userProfile,
 	});
@@ -51,7 +51,7 @@ const updateProfile = async (req: Request, res: Response): Promise<Response> => 
 	const { userId } = req;
 	const userProfile = req.body;
 
-	const userInfo = deserialize(UserInputDTO, {
+	const userInfo = plainToInstance(UserInputDTO, {
 		user_id: userId,
 		...userProfile,
 	});

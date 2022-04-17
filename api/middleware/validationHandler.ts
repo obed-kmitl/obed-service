@@ -1,10 +1,9 @@
 import { Validator } from 'class-validator';
-import { instanceToPlain } from 'class-transformer';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 import {
 	RequestHandler, Request, Response, NextFunction,
 } from 'express';
 import { CustomValidationError } from '_/utils/validationErrorFactory';
-import { deserialize } from 'json-typescript-mapper';
 
 // See more example from here https://www.worl.co/2016/12/building-an-api-backend-with-typescript-and-express---part-two-validation/
 
@@ -20,7 +19,7 @@ export function validateRequest<T extends object>(type: Constructor<T>): Request
 	const validator = new Validator();
 
 	return (req: Request, res: Response, next: NextFunction) => {
-		const input = deserialize(type, req.body);
+		const input = plainToInstance(type, req.body);
 
 		const validateErrors = validator.validateSync(input);
 

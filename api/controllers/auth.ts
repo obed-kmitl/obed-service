@@ -15,9 +15,10 @@ import cookieConfig from '_/configs/cookie';
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import { QueryResultRow, DatabaseError } from 'pg';
-import { deserialize } from 'json-typescript-mapper';
+
 import { google } from 'googleapis';
 import dayjs from 'dayjs';
+import { plainToInstance } from 'class-transformer';
 
 /**
  * Register as TEACHER role
@@ -241,7 +242,7 @@ const updatePassword = async (
 
 	const newPasswordHash = bcrypt.hashSync(newPassword, authConfig.salt);
 
-	const userInfo = deserialize(UserInputDTO, {
+	const userInfo = plainToInstance(UserInputDTO, {
 		user_id: userId,
 		password: newPasswordHash,
 	});
@@ -269,7 +270,7 @@ const forceUpdatePassword = async (
 
 	const newPasswordHash = bcrypt.hashSync(password, authConfig.salt);
 
-	const userInfo = deserialize(UserInputDTO, {
+	const userInfo = plainToInstance(UserInputDTO, {
 		user_id: userId,
 		password: newPasswordHash,
 	});

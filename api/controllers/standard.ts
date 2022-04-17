@@ -6,7 +6,7 @@ import {
 import { Request, Response, NextFunction } from 'express';
 import { CommonError } from '_/errors/common';
 
-import { deserialize } from 'json-typescript-mapper';
+import { plainToInstance } from 'class-transformer';
 
 /**
  * createAllStandards
@@ -74,7 +74,7 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 	const { standardId } = req.params;
 	const standard = req.body;
 
-	const standardInfo = deserialize(StandardInputDTO, {
+	const standardInfo = plainToInstance(StandardInputDTO, {
 		standard_id: standardId,
 		...standard,
 	});
@@ -91,7 +91,7 @@ const updateGroupSubStandard = async (req: Request, res: Response): Promise<Resp
 	const { groupSubStdId } = req.params;
 	const groupSubStandard = req.body;
 
-	const groupSubStandardInfo = deserialize(GroupSubStandardInputDTO, {
+	const groupSubStandardInfo = plainToInstance(GroupSubStandardInputDTO, {
 		group_sub_std_id: groupSubStdId,
 		...groupSubStandard,
 	});
@@ -108,7 +108,7 @@ const updateSubStandard = async (req: Request, res: Response): Promise<Response>
 	const { subStdId } = req.params;
 	const subStandard = req.body;
 
-	const SubStandardInfo = deserialize(SubStandardInputDTO, {
+	const SubStandardInfo = plainToInstance(SubStandardInputDTO, {
 		sub_std_id: subStdId,
 		...subStandard,
 	});

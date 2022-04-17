@@ -6,7 +6,8 @@ import { CreateSemesterRequestDTO } from '_/dtos/semester';
 
 import { Request, Response, NextFunction } from 'express';
 import { CommonError } from '_/errors/common';
-import { deserialize } from 'json-typescript-mapper';
+
+import { plainToInstance } from 'class-transformer';
 
 /**
  * Create Curriculum
@@ -50,7 +51,7 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 	const { curriculumId } = req.params;
 	const curriculum = req.body;
 
-	const curriculumInfo = deserialize(CurriculumInputDTO, {
+	const curriculumInfo = plainToInstance(CurriculumInputDTO, {
 		curriculum_id: curriculumId,
 		...curriculum,
 	});

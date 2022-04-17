@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import logger from '_/utils/logger';
 import routes from '_/routes';
 import { errorHandler } from '_/middleware/errorHandler';
