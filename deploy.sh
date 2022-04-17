@@ -1,11 +1,30 @@
-echo "Pulling from Master" 
+GIT_BRANCH="main"
+PM2_APP_NAME="obed-service"
 
-git pull origin main
+echo
+echo "[[ Step 1: Checkout ]]"
+echo
+git checkout $GIT_BRANCH
+git fetch
+git pull
 
-echo "Pulled successfully from master"
+echo
+echo "[[ Step 2: Build ]]"
+echo
+yarn install
+yarn build
 
-echo "Restarting server..."
+# echo
+# echo "[[ Step 3: Migrate ]]"
+# echo
+# yarn model:up
 
-pm2 restart 5
+echo
+echo "[[ Step 4: Deploy ]]"
+echo
+pm2 restart $PM2_APP_NAME
 
-echo "Server restarted Successfully"
+echo
+echo "[[ COMPLETED ]]"
+echo
+exit
