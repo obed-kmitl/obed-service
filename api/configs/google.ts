@@ -7,14 +7,14 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 
 const googleConfig = {
 	development: {
-		clientId: env.GOOGLE_CLIENT_ID || '1075818370617-olki93anh4mfpcasj4chcb9seci5leqj.apps.googleusercontent.com',
-		clientSecret: env.GOOGLE_CLIENT_SECRET || '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',
-		callbackURL: env.GOOGLE_CALLBACK_URI || 'http://localhost:3000',
+		clientId: env.GOOGLE_CLIENT_ID || '',
+		clientSecret: env.GOOGLE_CLIENT_SECRET || '',
+		callbackURL: env.GOOGLE_CALLBACK_URI || '',
 	},
 	production: {
-		clientId: env.GOOGLE_CLIENT_ID || '1075818370617-olki93anh4mfpcasj4chcb9seci5leqj.apps.googleusercontent.com',
-		clientSecret: env.GOOGLE_CLIENT_SECRET || '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',
-		callbackURL: env.GOOGLE_CALLBACK_URI || 'http://jeweler23.ce.kmitl.ac.th',
+		clientId: env.GOOGLE_CLIENT_ID || '',
+		clientSecret: env.GOOGLE_CLIENT_SECRET || '',
+		callbackURL: env.GOOGLE_CALLBACK_URI_PROD || '',
 	},
 };
 
