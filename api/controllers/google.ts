@@ -49,6 +49,8 @@ export const authorize = async (
 ): Promise<Response> => {
 	const { userId, code } = req.body as GoogleAuthorizationRequestDTO;
 
+	console.log(userId, code);
+
 	const result = await oAuth2Client.getToken(code);
 
 	await googleRepository.upsert(
