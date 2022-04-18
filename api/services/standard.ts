@@ -7,7 +7,7 @@ export const getAllRelativeGroupSubStandardByCurriculum = async (curriculumId: n
 	return chain(result.rows)
 		.map((each) => ({
 			order_number: each.order_number,
-			title: each.title,
+			title: each.group_sub_standards_title,
 		}))
 		.value();
 };

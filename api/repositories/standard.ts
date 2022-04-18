@@ -233,15 +233,16 @@ const createAllStandards = async (
 
 const getAllRelativeGroupSubStandardByCurriculum = async (curriculumId: number): Promise<QueryResultRow> => db.query(`
 SELECT
-	*
+    *,
+    gs.title as group_sub_standards_title
 FROM
-	group_sub_standards gs
-	LEFT JOIN standards s ON s.standard_id = gs.standard_id
-	LEFT JOIN map_standards ms ON ms.curriculum_id = s.curriculum_id
-	LEFT JOIN curriculums c ON c.curriculum_id = s.curriculum_id
+    group_sub_standards gs
+    LEFT JOIN standards s ON s.standard_id = gs.standard_id
+    LEFT JOIN map_standards ms ON ms.curriculum_id = s.curriculum_id
+    LEFT JOIN curriculums c ON c.curriculum_id = s.curriculum_id
 WHERE
-	s.curriculum_id = $1
-	AND ms.relative_std_id = s.standard_id
+    s.curriculum_id = $1
+    AND ms.relative_std_id = s.standard_id
 `, [curriculumId]);
 
 export default {
