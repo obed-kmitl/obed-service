@@ -14,6 +14,11 @@ router.post('/authorize', [
 	validateRequest(GoogleAuthorizationRequestDTO),
 ], asyncWrapper(googleController.authorize));
 
+router.post('/logout/:userId', [
+	verifyToken,
+	permit('TEACHER'),
+], asyncWrapper(googleController.logout));
+
 router.get('/listCourses', [
 	verifyToken,
 	permit('TEACHER'),

@@ -42,3 +42,11 @@ WHERE
 		`, [
 	userId,
 ]);
+
+export const removeByUser = async (userId: number): Promise<QueryResultRow> => db.query(`
+DELETE FROM google_credentials 
+WHERE user_id = $1
+RETURNING *
+		`, [
+	userId,
+]);

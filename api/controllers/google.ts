@@ -60,3 +60,13 @@ export const authorize = async (
 
 	sendResponse(res, { message: 'Authorization Success' });
 };
+
+export const logout = async (
+	req: Request, res: Response, next: NextFunction,
+): Promise<Response> => {
+	const { userId } = req.params;
+
+	await googleRepository.removeByUser(userId);
+
+	sendResponse(res, { message: 'Authorization Success' });
+};
