@@ -8,7 +8,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { version } from '../package.json';
 
-const server = express(); // init the application
+const server = express();  // init the application
 
 /**
  * Method to configure the server,
