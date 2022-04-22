@@ -38,7 +38,7 @@ server.use('/health-check', (req, res) => {
 });
 
 /**
- * Method to configure the routes
+ * Method to configure the routes.
  */
 server.use('/obed/api', routes);
 
