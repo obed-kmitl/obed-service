@@ -38,6 +38,7 @@ export const listCourses = async (req: Request, res: Response, next: NextFunctio
 	const classroom = google.classroom({ version: 'v1', auth: oAuth2Client });
 	classroom.courses.list({
 		teacherId: 'me',
+		courseStates: ['ACTIVE'],
 	}, (err, result) => {
 		if (err) return next(new ApplicationError(GoogleError.GOOGLE_CLASSROOM_API_ERROR));
 		sendResponse(res, get(result, 'data.courses'));
