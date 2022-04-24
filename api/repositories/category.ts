@@ -68,7 +68,7 @@ const save = async (
 	async () => {
 		const { section_id, categories } = saveCategoryInfo;
 		const { rows: oldCategories } = await getAllBySection(section_id);
-
+		
 		let toRemove: number[] = [];
 		let toUpdate: UpdateCategoryRequestDTO[] = [];
 		let toAdd: any[][] = [];

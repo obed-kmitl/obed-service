@@ -10,7 +10,7 @@ export class Category {
 
   @IsNotEmpty()
 	@IsNumber()
-	category_id: number| string= -1;
+	category_id: number = -1;
 
 	@IsNotEmpty()
 	@IsString()
