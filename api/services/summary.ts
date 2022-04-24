@@ -1,5 +1,5 @@
 import _, {
-	sum, size, round, divide, toNumber,
+	sum, size, round, divide, toNumber, chain,
 } from 'lodash';
 import { SCORE_CRITERIA_RATIO } from '_/constants/summary';
 import {
@@ -272,12 +272,13 @@ const groupingPLOResult = async (
 		}
 	}
 
-	return newResultPlos.map((each) => ({
+	return chain(newResultPlos).map((each) => ({
 		order_number: each.order_number,
 		title: each.title,
 		ratio: each.count > 0 ? each.sumRatio / each.count : 0,
 		percent: each.count > 0 ? round((each.sumRatio / each.count) * 100, 2) : 0,
-	}));
+	})).sort((a, b) => a.order_number - b.order_number)
+		.value();
 };
 
 export const getPLOSummaryByCurriculum = async (curriculumId: number) => {
