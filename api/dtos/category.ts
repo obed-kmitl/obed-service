@@ -26,10 +26,10 @@ export class SaveCategoryRequestDTO {
 	@IsNumber()
 	section_id : number= -1;
 
+  // @ValidateNested()
+  // @IsDefined()
+  // @Type(() => Category)
   @IsArray()
-  @ValidateNested()
-  @IsDefined()
-  @Type(() => Category)
   categories : Category[] = [];
 }
 

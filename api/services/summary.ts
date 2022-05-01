@@ -48,7 +48,7 @@ export const getCLOSummaryBySection = async (sectionId: number) => {
 		}
 
 		const ratios = newActivities.map((each) => each.ratio);
-		const isPassed = size(ratios) > 0 ? sum(ratios) / size(ratios) : SCORE_CRITERIA_RATIO <= 0;
+		const isPassed = size(ratios) > 0 ? SCORE_CRITERIA_RATIO <= sum(ratios) / size(ratios) : false;
 		newClos[i].sumCLOWeightAverageScore = sum(
 			newActivities.map((each) => each.sumWeightAverageScores),
 		);
@@ -57,7 +57,9 @@ export const getCLOSummaryBySection = async (sectionId: number) => {
 		newClos[i].isPassed = isPassed;
 	}
 
-	return newClos;
+	const sortClos = newClos.sort((a, b) => a.order_number.localeCompare(b.order_number));
+
+	return sortClos;
 };
 
 export const getPLOSummaryBySection = async (sectionId: number) => {
