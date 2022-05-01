@@ -59,7 +59,17 @@ export const getCLOSummaryBySection = async (sectionId: number) => {
 
 	const sortClos = newClos.sort((a, b) => a.order_number.localeCompare(b.order_number));
 
-	return sortClos;
+	return chain(sortClos)
+		.map((each) => ({
+			...each,
+			main_sub_standards: each.main_sub_standards.sort(
+				(a, b) => a.localeCompare(b),
+			),
+			relative_sub_standards: each.relative_sub_standards.sort(
+				(a, b) => a.localeCompare(b),
+			),
+		}))
+		.value();
 };
 
 export const getPLOSummaryBySection = async (sectionId: number) => {
