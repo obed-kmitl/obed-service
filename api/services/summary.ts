@@ -63,10 +63,10 @@ export const getCLOSummaryBySection = async (sectionId: number) => {
 		.map((each) => ({
 			...each,
 			main_sub_standards: each.main_sub_standards.sort(
-				(a, b) => a.order_number.localeCompare(b.order_number),
+				(a, b) => a.localeCompare(b),
 			),
 			relative_sub_standards: each.relative_sub_standards.sort(
-				(a, b) => a.order_number.localeCompare(b.order_number),
+				(a, b) => a.localeCompare(b),
 			),
 		}))
 		.value();
