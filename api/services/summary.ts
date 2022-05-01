@@ -57,7 +57,9 @@ export const getCLOSummaryBySection = async (sectionId: number) => {
 		newClos[i].isPassed = isPassed;
 	}
 
-	return newClos;
+	const sortClos = newClos.sort((a, b) => a.order_number.localeCompare(b.order_number));
+
+	return sortClos;
 };
 
 export const getPLOSummaryBySection = async (sectionId: number) => {
