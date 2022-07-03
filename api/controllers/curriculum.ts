@@ -80,7 +80,7 @@ const duplicate = async (req: Request, res: Response): Promise<Response> => {
 	const result = await curriculumRepository.duplicate(curriculumId, req.body);
 
 	const createSemesterObject: CreateSemesterRequestDTO = {
-		year_number: new Date().getFullYear() + 543,
+		year_number: new Date().getFullYear() + 540,
 		curriculum_id: result.rows[0].curriculum_id,
 	};
 	await semesterRepository.createSemester(createSemesterObject);
