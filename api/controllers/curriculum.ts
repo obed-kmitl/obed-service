@@ -5,7 +5,6 @@ import { CurriculumInputDTO } from '_/dtos/curriculum';
 import { CreateSemesterRequestDTO } from '_/dtos/semester';
 
 import { Request, Response, NextFunction } from 'express';
-import { CommonError } from '_/errors/common';
 
 import { plainToInstance } from 'class-transformer';
 
@@ -16,7 +15,8 @@ const create = async (req: Request, res: Response): Promise<Response> => {
 	const result = await curriculumRepository.createCurriculum(req.body);
 
 	const createSemesterObject: CreateSemesterRequestDTO = {
-		year_number: new Date().getFullYear() + 543,
+		// 3 years back
+		year_number: new Date().getFullYear() + 540,
 		curriculum_id: result.rows[0].curriculum_id,
 	};
 	await semesterRepository.createSemester(createSemesterObject);
